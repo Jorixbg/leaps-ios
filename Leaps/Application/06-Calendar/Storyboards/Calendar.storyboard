@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DDc-6b-cX2">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Calendar-->
+        <scene sceneID="Gjh-lq-Su6">
+            <objects>
+                <viewController id="DDc-6b-cX2" customClass="CalendarViewController" customModule="Leaps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IAR-cM-apB"/>
+                        <viewControllerLayoutGuide type="bottom" id="z4A-nx-0EU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L45-KY-WLH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RR1-XP-DRt">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Head" translatesAutoresizingMaskIntoConstraints="NO" id="x1r-Yl-Msz">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                    </imageView>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="CkQ-6i-KFA">
+                                        <rect key="frame" x="11" y="27" width="353" height="28"/>
+                                        <segments>
+                                            <segment title="Hosting"/>
+                                            <segment title="Attending"/>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="DidSelectAttendingHostingSegmentedControl:" destination="DDc-6b-cX2" eventType="valueChanged" id="foN-ua-dPO"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="x1r-Yl-Msz" firstAttribute="leading" secondItem="RR1-XP-DRt" secondAttribute="leading" id="4I4-5O-wf8"/>
+                                    <constraint firstAttribute="trailing" secondItem="x1r-Yl-Msz" secondAttribute="trailing" id="KMJ-nw-F5N"/>
+                                    <constraint firstAttribute="bottom" secondItem="CkQ-6i-KFA" secondAttribute="bottom" constant="16" id="Lrx-Bz-8u1"/>
+                                    <constraint firstAttribute="bottom" secondItem="x1r-Yl-Msz" secondAttribute="bottom" id="U2Y-Ld-p3A"/>
+                                    <constraint firstItem="CkQ-6i-KFA" firstAttribute="top" secondItem="RR1-XP-DRt" secondAttribute="top" constant="27" id="e28-AE-vtz"/>
+                                    <constraint firstAttribute="trailing" secondItem="CkQ-6i-KFA" secondAttribute="trailing" constant="11" id="lVP-9t-TkG"/>
+                                    <constraint firstItem="CkQ-6i-KFA" firstAttribute="leading" secondItem="RR1-XP-DRt" secondAttribute="leading" constant="11" id="lkb-Wv-0Ih"/>
+                                    <constraint firstAttribute="height" constant="70" id="n2x-su-7oL"/>
+                                    <constraint firstItem="x1r-Yl-Msz" firstAttribute="top" secondItem="RR1-XP-DRt" secondAttribute="top" id="quf-q1-f5v"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ydI-7q-Eb7">
+                                <rect key="frame" x="0.0" y="70" width="375" height="42"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xz0-nm-UtQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+                                        <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Xmd-yz-Up1">
+                                                <rect key="frame" x="11" y="0.0" width="353" height="43"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <segments>
+                                                    <segment title="UPCOMING">
+                                                        <size key="contentOffset" width="0.0" height="4"/>
+                                                    </segment>
+                                                    <segment title="PAST">
+                                                        <size key="contentOffset" width="0.0" height="4"/>
+                                                    </segment>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="changedSegmentValue:" destination="DDc-6b-cX2" eventType="valueChanged" id="job-6J-Ie9"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Xmd-yz-Up1" firstAttribute="top" secondItem="Xz0-nm-UtQ" secondAttribute="top" id="2ix-jT-9XS"/>
+                                            <constraint firstItem="Xmd-yz-Up1" firstAttribute="leading" secondItem="Xz0-nm-UtQ" secondAttribute="leading" constant="11" id="4gu-on-Gfs"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xmd-yz-Up1" secondAttribute="bottom" id="Gkm-4e-VAM"/>
+                                            <constraint firstAttribute="trailing" secondItem="Xmd-yz-Up1" secondAttribute="trailing" constant="11" id="TUI-oV-Aq2"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="QPE-fZ-Oga"/>
+                                </constraints>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Jde-jr-okr">
+                                <rect key="frame" x="0.0" y="112" width="375" height="506"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="DDc-6b-cX2" id="dU3-3f-V7K"/>
+                                    <outlet property="delegate" destination="DDc-6b-cX2" id="h0y-fm-mQx"/>
+                                </connections>
+                            </tableView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Wt-Z7-L4J">
+                                <rect key="frame" x="285" y="542" width="68" height="68"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4Wt-Z7-L4J" secondAttribute="height" multiplier="1:1" id="Qdo-hi-AsC"/>
+                                    <constraint firstAttribute="height" constant="68" id="R25-ZY-d7m"/>
+                                </constraints>
+                                <state key="normal" image="CTA-create-event"/>
+                                <connections>
+                                    <action selector="didPressCreateEvent:" destination="DDc-6b-cX2" eventType="touchUpInside" id="ucd-nZ-0bg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jde-jr-okr" firstAttribute="leading" secondItem="L45-KY-WLH" secondAttribute="leading" id="051-SS-HTv"/>
+                            <constraint firstItem="RR1-XP-DRt" firstAttribute="top" secondItem="L45-KY-WLH" secondAttribute="top" id="4PI-qp-lGi"/>
+                            <constraint firstItem="ydI-7q-Eb7" firstAttribute="top" secondItem="RR1-XP-DRt" secondAttribute="bottom" id="5e6-4d-Wxj"/>
+                            <constraint firstAttribute="trailing" secondItem="RR1-XP-DRt" secondAttribute="trailing" id="9fd-er-hKS"/>
+                            <constraint firstItem="z4A-nx-0EU" firstAttribute="top" secondItem="Jde-jr-okr" secondAttribute="bottom" id="Gnr-IC-wNA"/>
+                            <constraint firstItem="Jde-jr-okr" firstAttribute="top" secondItem="ydI-7q-Eb7" secondAttribute="bottom" id="do4-AR-kAJ"/>
+                            <constraint firstItem="z4A-nx-0EU" firstAttribute="top" secondItem="4Wt-Z7-L4J" secondAttribute="bottom" constant="8" id="dtT-7j-3Ng"/>
+                            <constraint firstItem="ydI-7q-Eb7" firstAttribute="leading" secondItem="L45-KY-WLH" secondAttribute="leading" id="sE3-pK-fJV"/>
+                            <constraint firstItem="RR1-XP-DRt" firstAttribute="leading" secondItem="L45-KY-WLH" secondAttribute="leading" id="sZL-Z3-Fdh"/>
+                            <constraint firstAttribute="trailing" secondItem="4Wt-Z7-L4J" secondAttribute="trailing" constant="22" id="tKb-3B-8Yx"/>
+                            <constraint firstAttribute="trailing" secondItem="ydI-7q-Eb7" secondAttribute="trailing" id="w0c-uN-O0U"/>
+                            <constraint firstAttribute="trailing" secondItem="Jde-jr-okr" secondAttribute="trailing" id="ycL-KX-8Rh"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="nav-cal" selectedImage="nav-cal-s" id="0a0-Fc-aEv">
+                        <inset key="imageInsets" minX="0.0" minY="-3" maxX="0.0" maxY="3"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="createEventButton" destination="4Wt-Z7-L4J" id="w5D-e7-Uzd"/>
+                        <outlet property="segmentedControl" destination="Xmd-yz-Up1" id="dhe-j6-wfk"/>
+                        <outlet property="tableView" destination="Jde-jr-okr" id="fdB-xh-PWo"/>
+                        <outlet property="topView" destination="RR1-XP-DRt" id="Cnh-ZV-NMD"/>
+                        <outlet property="topViewHeightConstraint" destination="n2x-su-7oL" id="Otj-1r-qmx"/>
+                        <outlet property="trainerAdditionalSegmentedControl" destination="CkQ-6i-KFA" id="YpI-q7-Qn4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zge-wv-MSp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="-413"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="CTA-create-event" width="78" height="78"/>
+        <image name="Head" width="375" height="69"/>
+        <image name="nav-cal" width="25" height="25"/>
+        <image name="nav-cal-s" width="25" height="25"/>
+    </resources>
+</document>

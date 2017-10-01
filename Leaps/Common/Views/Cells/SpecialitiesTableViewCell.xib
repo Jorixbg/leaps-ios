@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SanFranciscoText-Heavy.otf">
+            <string>SanFranciscoText-Heavy</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="116" id="KGk-i7-Jjw" customClass="SpecialitiesTableViewCell" customModule="Leaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="in-specialities" translatesAutoresizingMaskIntoConstraints="NO" id="FjW-ok-uRr">
+                        <rect key="frame" x="11" y="15" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="ZHD-Tz-6XY"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specialities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFL-tO-Ia5">
+                        <rect key="frame" x="46" y="-12.5" width="263" height="75"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Heavy" family="San Francisco Text" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="WgI-Vf-ru4">
+                        <rect key="frame" x="46" y="70.5" width="263" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="999" constant="30" id="9dv-88-DM0"/>
+                        </constraints>
+                        <collectionViewLayout key="collectionViewLayout" id="IXd-vM-c2e" customClass="LeftAlignedCollectionViewFlowLayout" customModule="Leaps" customModuleProvider="target"/>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="FjW-ok-uRr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="E0N-sg-EUe"/>
+                    <constraint firstItem="FjW-ok-uRr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="EH5-e5-Zc0"/>
+                    <constraint firstItem="gFL-tO-Ia5" firstAttribute="leading" secondItem="FjW-ok-uRr" secondAttribute="trailing" constant="15" id="F5f-rf-VGb"/>
+                    <constraint firstAttribute="trailing" secondItem="gFL-tO-Ia5" secondAttribute="trailing" constant="11" id="Lp8-Ch-8ZL"/>
+                    <constraint firstAttribute="bottom" secondItem="WgI-Vf-ru4" secondAttribute="bottom" constant="15" id="SuV-Yt-Fgd"/>
+                    <constraint firstItem="gFL-tO-Ia5" firstAttribute="centerY" secondItem="FjW-ok-uRr" secondAttribute="centerY" id="f2P-tZ-PpA"/>
+                    <constraint firstItem="FjW-ok-uRr" firstAttribute="width" secondItem="FjW-ok-uRr" secondAttribute="height" multiplier="1:1" id="fl7-Ph-Vu5"/>
+                    <constraint firstItem="WgI-Vf-ru4" firstAttribute="top" secondItem="gFL-tO-Ia5" secondAttribute="bottom" constant="8" id="gBo-6F-jEo"/>
+                    <constraint firstAttribute="trailing" secondItem="WgI-Vf-ru4" secondAttribute="trailing" constant="11" id="i4M-o2-LsM"/>
+                    <constraint firstItem="WgI-Vf-ru4" firstAttribute="leading" secondItem="gFL-tO-Ia5" secondAttribute="leading" id="m9B-ht-607"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionView" destination="WgI-Vf-ru4" id="tRN-VS-m7C"/>
+                <outlet property="collectionViewHeightConstraint" destination="9dv-88-DM0" id="v8K-hV-y9B"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="88"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="in-specialities" width="17" height="17"/>
+    </resources>
+</document>

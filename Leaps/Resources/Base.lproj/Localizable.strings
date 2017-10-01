@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  Leaps
+
+  Created by Chavdar Nedialkov on 5/16/17.
+  Copyright © 2017 Chavdar Nedialkov. All rights reserved.
+*/
+"onboarding.skip" = "SKIP";
+"onboarding.next" = "NEXT";
+"onboarding.back" = "Back";
+"onboarding.apssion" = "PASSION";
+"oboarding.passion.subtitle" = "We’ve all heard how crucial it is to set intentions, goals and targets. Powerful goals electrify us…";
+"onboarding.drive" = "DRIVE";
+"onboarding.drive.subtitle" = "Have you been prospecting for months on end, only to end up with no one? Or have you been trying to sell a product or service that has not been selling...";
+"onboarding.power" = "POWER";
+"onboarding.power.subtitle" = "We have a chance to learn and grow every day, no matter what we did not do yesterday or neglected to do last week.";
+"login.welcome" = "WELCOME TO LEAPS";
+"login.terms" = "By creating your Account, you agree to Leaps’s Terms of Service, Payments Terms of Service, Privacy Policy and Nondiscrimination Policy.";
+"login.sign.in.facebook" = "Sign in with Facebook";
+"login.sign.in.google" = "Sign in with Google";
+"login.create.account" = "Create account";
+"login.username.or.email" = "Username or Email address";
+"login.password" = "Password";
+"login.forgot.password" = "Forgot password?";
+"login.login" = "Sign in";
+"login.title" = "LOGIN";
+"forgotten.password.title" = "FORGOT YOUR PASSWORD?";
+"forgotten.password.subtitle" = "Enter your email and we will help you reset your password.";
+"registration.yourname.title" = "YOUR NAME?";
+"registration.first.name.placeholder" = "First name";
+"registration.last.name.placeholder" = "Last name";
+"registration.email.placeholder" = "Email";
+"registration.email.title" = "YOUR EMAIL ADDRESS?";
+"registration.password.title" = "YOUR PASSWORD?";
+"registration.password.subtitle" = "Your password should be 6 or more characters long and must include at least one special symbol. ";
+"registration.password.placeholder" = "Password";
+"registration.birthday.title" = "YOUR BIRTHDAY?";
+"registration.birthday.subtitle" = "You must be at least 18 years old to access or use Leaps.";
+"registration.birthday.placeholder" = "Date";
+"registration.cancel" = "Cancel";
+"become.trainer.years.of.training.title" = "NUMBER OF YEARS TRAINING?";
+"become.trainer.price.per.session.title" = "PRICE PER SESSION?";
+"become.trainer.phone.number.title" = "YOUR PHONE NUMBER?";
+"become.trainer.phone.number.subtitle" = "Your phone number will not be shared without your permission. This is only if LEAPS team needs to contact you.";
+"become.trainer.years.of.training.placeholder" = "Years";
+"become.trainer.price.per.session.placeholder" = "BGN 0";
+"become.trainer.phone.number.placeholder" = "Phone number";
+

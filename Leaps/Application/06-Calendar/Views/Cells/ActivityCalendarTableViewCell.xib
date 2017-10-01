@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SanFranciscoText-Regular.otf">
+            <string>SanFranciscoText-Regular</string>
+        </array>
+        <array key="Typoforge Studio - Cervo-Medium.otf">
+            <string>Cervo-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="99" id="KGk-i7-Jjw" customClass="ActivityCalendarTableViewCell" customModule="Leaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="98.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="event-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-ii-xME">
+                        <rect key="frame" x="0.0" y="0.0" width="140" height="98.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="140" id="KDt-k6-QbX"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXN-2G-HPk">
+                        <rect key="frame" x="155" y="15" width="150" height="23.5"/>
+                        <fontDescription key="fontDescription" name="Cervo-Medium" family="Cervo" pointSize="30"/>
+                        <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nav-cal-s" translatesAutoresizingMaskIntoConstraints="NO" id="P4Z-xH-hp7">
+                        <rect key="frame" x="155" y="70.5" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="P4Z-xH-hp7" secondAttribute="height" multiplier="1:1" id="P9C-r1-Nxg"/>
+                            <constraint firstAttribute="height" constant="15" id="ShD-2v-YfG"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZy-eP-keM">
+                        <rect key="frame" x="175" y="71.5" width="29.5" height="14"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ord-qQ-WX3">
+                        <rect key="frame" x="155" y="38.5" width="29.5" height="14"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="wZy-eP-keM" firstAttribute="centerY" secondItem="P4Z-xH-hp7" secondAttribute="centerY" id="7wG-OT-YbB"/>
+                    <constraint firstAttribute="bottom" secondItem="P4Z-xH-hp7" secondAttribute="bottom" constant="13" id="Ftl-XY-XvR"/>
+                    <constraint firstAttribute="bottom" secondItem="u2T-ii-xME" secondAttribute="bottom" id="GoB-iY-V83"/>
+                    <constraint firstItem="Ord-qQ-WX3" firstAttribute="leading" secondItem="bXN-2G-HPk" secondAttribute="leading" id="IhS-fq-NcQ"/>
+                    <constraint firstItem="bXN-2G-HPk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="KLW-Xc-Yi0"/>
+                    <constraint firstAttribute="trailing" secondItem="bXN-2G-HPk" secondAttribute="trailing" constant="15" id="KtF-gM-ID3"/>
+                    <constraint firstItem="wZy-eP-keM" firstAttribute="leading" secondItem="P4Z-xH-hp7" secondAttribute="trailing" constant="5" id="T4P-Kh-cwL"/>
+                    <constraint firstItem="bXN-2G-HPk" firstAttribute="leading" secondItem="u2T-ii-xME" secondAttribute="trailing" constant="15" id="UT9-AW-9yx"/>
+                    <constraint firstItem="P4Z-xH-hp7" firstAttribute="leading" secondItem="Ord-qQ-WX3" secondAttribute="leading" id="V70-ms-N5J"/>
+                    <constraint firstItem="P4Z-xH-hp7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ord-qQ-WX3" secondAttribute="bottom" constant="18" id="Wzi-Fr-uX4"/>
+                    <constraint firstItem="u2T-ii-xME" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Z95-7h-aED"/>
+                    <constraint firstItem="Ord-qQ-WX3" firstAttribute="top" secondItem="bXN-2G-HPk" secondAttribute="bottom" id="hG1-IQ-1Ot"/>
+                    <constraint firstItem="u2T-ii-xME" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lCH-fJ-7Rb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="additionalImageView" destination="P4Z-xH-hp7" id="ivV-cP-dau"/>
+                <outlet property="bottomLabel" destination="wZy-eP-keM" id="hzZ-gu-pSO"/>
+                <outlet property="leftImageView" destination="u2T-ii-xME" id="X58-kn-kmf"/>
+                <outlet property="subtitleLabel" destination="Ord-qQ-WX3" id="DOd-Vu-yFv"/>
+                <outlet property="titleLabel" destination="bXN-2G-HPk" id="XrN-kk-IMP"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="81.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="event-placeholder" width="353" height="145"/>
+        <image name="nav-cal-s" width="25" height="25"/>
+    </resources>
+</document>

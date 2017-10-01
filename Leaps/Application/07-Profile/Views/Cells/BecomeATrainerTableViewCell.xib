@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SanFranciscoText-Bold.otf">
+            <string>SanFranciscoText-Bold</string>
+        </array>
+        <array key="Typoforge Studio - Cervo-Medium.otf">
+            <string>Cervo-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="174" id="KGk-i7-Jjw" customClass="BecomeATrainerTableViewCell" customModule="Leaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="173.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="event_cta_blue_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="BvD-jC-oYq">
+                        <rect key="frame" x="11" y="20" width="298" height="133"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="133" id="pib-L4-lA8"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r14-xq-t27">
+                        <rect key="frame" x="80" y="50" width="160" height="35"/>
+                        <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="Idu-PT-j5N"/>
+                            <constraint firstAttribute="height" constant="35" id="vX1-U0-gtb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Cervo-Medium" family="Cervo" pointSize="22"/>
+                        <color key="tintColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="Sign up">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="didPressButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XkJ-Xi-pYs"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhs-7f-euh" userLabel="Info label">
+                        <rect key="frame" x="32" y="107" width="256" height="29"/>
+                        <string key="text">Switch to professional profile and gain
+access to trainer features.</string>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Bold" family="San Francisco Text" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fhs-7f-euh" firstAttribute="width" secondItem="r14-xq-t27" secondAttribute="width" multiplier="1.6" id="2kO-YF-htN"/>
+                    <constraint firstItem="r14-xq-t27" firstAttribute="top" secondItem="BvD-jC-oYq" secondAttribute="top" constant="30" id="D8o-iE-yOs"/>
+                    <constraint firstAttribute="trailing" secondItem="BvD-jC-oYq" secondAttribute="trailing" constant="11" id="LKc-pu-8BR"/>
+                    <constraint firstItem="BvD-jC-oYq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="O6E-TN-F0d"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BvD-jC-oYq" secondAttribute="bottom" constant="20" id="PbE-7s-fbf"/>
+                    <constraint firstItem="fhs-7f-euh" firstAttribute="centerX" secondItem="BvD-jC-oYq" secondAttribute="centerX" id="Rsv-OL-HML"/>
+                    <constraint firstItem="BvD-jC-oYq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="UT7-B7-1wX"/>
+                    <constraint firstItem="fhs-7f-euh" firstAttribute="top" secondItem="r14-xq-t27" secondAttribute="bottom" constant="22" id="tfb-BD-q8o"/>
+                    <constraint firstItem="r14-xq-t27" firstAttribute="centerX" secondItem="BvD-jC-oYq" secondAttribute="centerX" id="zDr-P7-fzL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="11" minY="0.0" maxX="11" maxY="0.0"/>
+            <connections>
+                <outlet property="button" destination="r14-xq-t27" id="IkM-q3-Hze"/>
+                <outlet property="infoLabel" destination="fhs-7f-euh" id="zke-or-9rf"/>
+            </connections>
+            <point key="canvasLocation" x="11" y="139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="event_cta_blue_gradient" width="353" height="61"/>
+    </resources>
+</document>

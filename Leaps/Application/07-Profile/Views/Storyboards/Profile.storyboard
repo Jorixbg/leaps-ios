@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HsM-0E-CAs">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SanFranciscoText-Heavy.otf">
+            <string>SanFranciscoText-Heavy</string>
+        </array>
+        <array key="SanFranciscoText-Light.otf">
+            <string>SanFranciscoText-Light</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Profile-->
+        <scene sceneID="foo-Bi-JNB">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="HsM-0E-CAs" customClass="ProfileViewController" customModule="Leaps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fle-bq-Yed"/>
+                        <viewControllerLayoutGuide type="bottom" id="sM8-By-TFx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IgZ-Bg-uKO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="bmH-R9-UwW">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="HsM-0E-CAs" id="BzH-Pb-EHo"/>
+                                    <outlet property="delegate" destination="HsM-0E-CAs" id="l9L-5g-KJ6"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sM8-By-TFx" firstAttribute="top" secondItem="bmH-R9-UwW" secondAttribute="bottom" id="1lm-8r-3Nh"/>
+                            <constraint firstItem="bmH-R9-UwW" firstAttribute="top" secondItem="fle-bq-Yed" secondAttribute="bottom" id="FCC-Fv-9NK"/>
+                            <constraint firstAttribute="trailing" secondItem="bmH-R9-UwW" secondAttribute="trailing" id="J2w-Ju-gFh"/>
+                            <constraint firstItem="bmH-R9-UwW" firstAttribute="leading" secondItem="IgZ-Bg-uKO" secondAttribute="leading" id="tL4-7w-bQz"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="nav-profile" selectedImage="nav-profile-active" id="pCX-rh-BLd">
+                        <inset key="imageInsets" minX="0.0" minY="-3" maxX="0.0" maxY="3"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="bmH-R9-UwW" id="G24-db-7oh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r94-5U-tGq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="126" y="-251"/>
+        </scene>
+        <!--Edit Profile View Controller-->
+        <scene sceneID="TWb-6S-fEt">
+            <objects>
+                <viewController storyboardIdentifier="EditProfileViewController" automaticallyAdjustsScrollViewInsets="NO" id="Rqu-pX-Gxj" customClass="EditProfileViewController" customModule="Leaps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ykh-RB-uy7"/>
+                        <viewControllerLayoutGuide type="bottom" id="UjH-zP-jKJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="t4H-0s-LrM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sNK-Db-BZR">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Rqu-pX-Gxj" id="JBG-ED-1qY"/>
+                                    <outlet property="delegate" destination="Rqu-pX-Gxj" id="KiO-EA-6bo"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sNK-Db-BZR" firstAttribute="leading" secondItem="t4H-0s-LrM" secondAttribute="leading" id="6lM-rM-FOm"/>
+                            <constraint firstAttribute="trailing" secondItem="sNK-Db-BZR" secondAttribute="trailing" id="GpR-S4-AAq"/>
+                            <constraint firstItem="sNK-Db-BZR" firstAttribute="top" secondItem="Ykh-RB-uy7" secondAttribute="bottom" id="VbS-fH-MOr"/>
+                            <constraint firstItem="UjH-zP-jKJ" firstAttribute="top" secondItem="sNK-Db-BZR" secondAttribute="bottom" id="fSa-KQ-f3U"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="sNK-Db-BZR" id="rfS-cy-iJQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FFR-eH-z7b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1006" y="-251"/>
+        </scene>
+        <!--Max Distanse Setting View Controller-->
+        <scene sceneID="vp9-bR-Nu0">
+            <objects>
+                <viewController storyboardIdentifier="MaxDistanseSettingViewController" id="qlg-Wz-cpK" customClass="MaxDistanseSettingViewController" customModule="Leaps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZcZ-Jl-uJE"/>
+                        <viewControllerLayoutGuide type="bottom" id="N8m-MI-6CT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="288-Be-0iT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="1" maxValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="6VS-mm-fId" customClass="TrackHeightEditableSlider" customModule="Leaps" customModuleProvider="target">
+                                <rect key="frame" x="9" y="89" width="357" height="31"/>
+                                <color key="minimumTrackTintColor" red="0.047058823530000002" green="0.6588235294" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="maximumTrackTintColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="trackHeight">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didChangeSliderValue:" destination="qlg-Wz-cpK" eventType="valueChanged" id="fhc-os-biY"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="St5-hD-kNk">
+                                <rect key="frame" x="15" y="60" width="111.5" height="14"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Heavy" family="San Francisco Text" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S4h-aL-ash">
+                                <rect key="frame" x="332" y="60" width="32" height="14"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XnH-7L-gLb">
+                                <rect key="frame" x="46.5" y="149" width="282" height="29"/>
+                                <string key="text">Please select the desired distance radius
+of the activities you are seeking.</string>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XnH-7L-gLb" firstAttribute="centerX" secondItem="288-Be-0iT" secondAttribute="centerX" id="1ll-KT-p8h"/>
+                            <constraint firstItem="St5-hD-kNk" firstAttribute="top" secondItem="ZcZ-Jl-uJE" secondAttribute="bottom" constant="40" id="5m2-h5-mls"/>
+                            <constraint firstItem="XnH-7L-gLb" firstAttribute="width" secondItem="6VS-mm-fId" secondAttribute="width" multiplier="0.8" id="7Ij-80-qys"/>
+                            <constraint firstItem="XnH-7L-gLb" firstAttribute="top" secondItem="6VS-mm-fId" secondAttribute="bottom" constant="30" id="J23-WF-2bj"/>
+                            <constraint firstAttribute="trailing" secondItem="S4h-aL-ash" secondAttribute="trailing" constant="11" id="KfB-qN-nPL"/>
+                            <constraint firstItem="6VS-mm-fId" firstAttribute="top" secondItem="St5-hD-kNk" secondAttribute="bottom" constant="15" id="UAu-Ud-Vxb"/>
+                            <constraint firstItem="S4h-aL-ash" firstAttribute="centerY" secondItem="St5-hD-kNk" secondAttribute="centerY" id="YvS-0x-6yO"/>
+                            <constraint firstItem="St5-hD-kNk" firstAttribute="leading" secondItem="288-Be-0iT" secondAttribute="leading" constant="15" id="i1f-i9-COC"/>
+                            <constraint firstItem="6VS-mm-fId" firstAttribute="leading" secondItem="288-Be-0iT" secondAttribute="leading" constant="11" id="rbg-yq-UnM"/>
+                            <constraint firstAttribute="trailing" secondItem="6VS-mm-fId" secondAttribute="trailing" constant="11" id="xmJ-Hs-n4H"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="distanceLabel" destination="S4h-aL-ash" id="69s-GW-SyD"/>
+                        <outlet property="slider" destination="6VS-mm-fId" id="weq-ul-Bvq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ay0-to-rDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1853.5999999999999" y="-251.42428785607197"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="nav-profile" width="25" height="25"/>
+        <image name="nav-profile-active" width="25" height="25"/>
+    </resources>
+</document>
