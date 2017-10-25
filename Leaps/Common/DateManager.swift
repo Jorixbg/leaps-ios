@@ -59,5 +59,17 @@ class DateManager {
         return DateManager.createFormatter(format: "dd-MM-yyyy")
     }()
     
+    let thanksPopupFormatter: DateFormatter = {
+        return DateManager.createFormatter(format: "EEE dd MMMM")
+    }()
+    
+    let timeFormatter: DateFormatter = {
+        return DateManager.createFormatter(format: "HH:mm")
+    }()
+    
+    let previewFormatter: DateFormatter = {
+        return DateManager.createFormatter(format: "dd MMM yyyy, HH:mm")
+    }()
+    
     private init() {}
 }

@@ -12,6 +12,15 @@ struct Attendee {
     let userID: Int
     let userName: String
     let userImageURL: String?
+    var followed: Bool
+    
+    func change(followed:Bool) -> Attendee {
+        return Attendee(userID: self.userID, userName: self.userName, userImageURL: self.userImageURL, followed: followed)
+    }
+    
+    static func ==(lhv:Attendee, rhv:Attendee) -> Bool {
+        return lhv.userID == rhv.userID
+    }
 }
 
 extension Attendee: Deserializable {
@@ -22,6 +31,6 @@ extension Attendee: Deserializable {
         }
         
         let userImageURL = dictionary["user_image_url"] as? String
-        return Attendee(userID: id, userName: username, userImageURL: userImageURL)
+        return Attendee(userID: id, userName: username, userImageURL: userImageURL, followed: false)
     }
 }

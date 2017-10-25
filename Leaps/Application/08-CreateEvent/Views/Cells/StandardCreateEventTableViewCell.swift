@@ -8,10 +8,27 @@
 
 import UIKit
 
-class StandardCreateEventTableViewCell: UITableViewCell {
+class ErrorCreateEventTableViewCell:UITableViewCell {
+    @IBOutlet weak var errorLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.errorLabel.isHidden = true
+    }
+    
+    func showErrorLabel(with error:String?) {
+        if let error = error {
+            errorLabel.text = error
+        }
+        errorLabel.isHidden = false
+    }
+}
+
+class StandardCreateEventTableViewCell: ErrorCreateEventTableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
+    
     fileprivate let datePickerView: UIDatePicker = UIDatePicker()
     
     var onTextEnter: ((String) -> Void)?
@@ -23,6 +40,18 @@ class StandardCreateEventTableViewCell: UITableViewCell {
         switch type {
         case .priceFrom, .freeSlots:
             textField.keyboardType = .numberPad
+            break
+        default:
+            break
+        }
+        
+        switch type {
+        case .title, .description:
+            textField.autocapitalizationType = .sentences
+            break
+        case .eventLocationMap:
+            textField.autocapitalizationType = .words
+            break
         default:
             break
         }
@@ -52,6 +81,7 @@ extension StandardCreateEventTableViewCell: UITextFieldDelegate {
         
         let fullText = "\(text)\(string)"
         onTextEnter?(fullText)
+        errorLabel.isHidden = true
         
         return true
     }
@@ -107,5 +137,10 @@ extension StandardCreateEventTableViewCell: UITextFieldDelegate {
         default:
             break
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

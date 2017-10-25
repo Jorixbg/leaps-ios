@@ -16,4 +16,8 @@ extension UIFont {
     static func leapsSFFont(size: CGFloat) -> UIFont? {
         return UIFont(name: .leapsSFText, size: size)
     }
+    
+    static func leapsSFFontBold(size: CGFloat) -> UIFont? {
+        return UIFont(name: .leapsSFBoldText, size: size)
+    }
 }

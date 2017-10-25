@@ -56,7 +56,7 @@ class LoginViewController: UIViewController {
                         self?.createRegistrationFlow(prefilledData: prefilledData, isSocialNetworkRegistration: true, onLogin: self?.onLogin)
                     default:
                         self?.onLogin?(false)
-                        print("facebook lgoin leaps error = \(error)")
+                        print("facebook lgoin leaps error = \(String(describing: error))")
                     }
                 } else if error == nil {
                     NotificationCenter.default.post(name: .refreshData, object: nil)
@@ -65,7 +65,7 @@ class LoginViewController: UIViewController {
                     }
                 } else {
                     self?.onLogin?(false)
-                    print("facebook lgoin error = \(error)")
+                    print("facebook lgoin error = \(String(describing: error))")
                 }
             }
             

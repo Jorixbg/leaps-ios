@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SanFranciscoText-Regular.otf">
+            <string>SanFranciscoText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LocationIconView" customModule="Leaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="99" height="61"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="from 5$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kay-9i-Dyj" customClass="InsetLabel" customModule="Leaps" customModuleProvider="target">
+                    <rect key="frame" x="29.5" y="0.0" width="41.5" height="25.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25.5" id="Sem-mb-udY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="leftInset">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin-map" translatesAutoresizingMaskIntoConstraints="NO" id="4L4-bR-Bb1">
+                    <rect key="frame" x="27" y="16" width="45" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="1yR-cV-mbJ"/>
+                        <constraint firstAttribute="height" constant="45" id="RVn-fG-n8Y"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="4L4-bR-Bb1" firstAttribute="top" secondItem="kay-9i-Dyj" secondAttribute="bottom" constant="-10" id="9gw-wU-yuT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="4L4-bR-Bb1" secondAttribute="bottom" id="E2s-hL-Egu"/>
+                <constraint firstItem="kay-9i-Dyj" firstAttribute="centerX" secondItem="4L4-bR-Bb1" secondAttribute="centerX" id="hzP-vR-TEa"/>
+                <constraint firstItem="4L4-bR-Bb1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uJU-Gi-oxn"/>
+                <constraint firstItem="kay-9i-Dyj" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="yyR-qy-JDk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="locationIconImageView" destination="4L4-bR-Bb1" id="FLc-X8-Cl6"/>
+                <outlet property="priceLabel" destination="kay-9i-Dyj" id="thj-Pz-deI"/>
+            </connections>
+            <point key="canvasLocation" x="36.5" y="187.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="pin-map" width="25" height="32"/>
+    </resources>
+</document>

@@ -136,11 +136,11 @@ class NetworkManager {
             .validate(statusCode: 200..<300)
             .responseJSON { [weak self] (response) in
                 //handle sign in from here
-                print("======== RESULT =\(response.result)")
-                print("======== request URL = \(response.request?.url)=======\n")
-                print("======== headers = \(headers)=======\n")
-                print("======== params =\(params)=======\n")
-                print("======== status code =\(response.response?.statusCode)")
+                print("======== RESULT = \(response.result)")
+                print("======== request URL = \(String(describing: response.request?.url))=======\n")
+                print("======== headers = \(String(describing: headers))=======\n")
+                print("======== params =\(String(describing: params))=======\n")
+                print("======== status code =\(String(describing: response.response?.statusCode))")
 //                print("response result = \(response.result.debugDescription)")
                 if let token = response.response?.allHeaderFields["Authorization"] as? String {
                     UserManager.shared.setToken(authToken: token)
@@ -169,6 +169,7 @@ class NetworkManager {
                 errorToReport = LeapsError.badRequest
             case 401:
                 errorToReport = LeapsError.unauthorized
+                UserManager.shared.logout()
             case 500..<600:
                 errorToReport = LeapsError.serverError
             case -1009:

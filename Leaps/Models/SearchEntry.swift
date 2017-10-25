@@ -12,9 +12,12 @@ enum SelectionPeriod {
     case today
     case inThreeDays
     case inFiveDays
+    case all
     
     func titleForPeriod() -> String {
         switch self {
+        case .all:
+            return "All"
         case .today:
             return "Today"
         case .inThreeDays:
@@ -34,6 +37,8 @@ enum SelectionPeriod {
             timestamp = Date().timeIntervalSince1970Miliseconds + 3*dayInSeconds
         case .inFiveDays:
             timestamp = Date().timeIntervalSince1970Miliseconds + 5*dayInSeconds
+        case .all:
+            timestamp = Date().timeIntervalSince1970Miliseconds + 1000*dayInSeconds
         }
         
         //1000 for miliseconds
@@ -44,9 +49,9 @@ enum SelectionPeriod {
 struct SearchEntry {
     
     static let `default` =  SearchEntry(searchTerm: "",
-                                        searchDistance: 20,
+                                        searchDistance: 100,
                                         tags: [],
-                                        selectionPeriod: .today,
+                                        selectionPeriod: .all,
                                         page: 1)
     
     var searchTerm: String

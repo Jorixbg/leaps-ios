@@ -24,7 +24,7 @@ class TrainerTableViewCell: UITableViewCell {
             guard let viewModel = viewModel else {
                 return
             }
-            nameLabel.text = viewModel.trainerFullName
+            nameLabel.text = viewModel.fullname
             specialitiesLabel.text = viewModel.tags
             openEventsCountLabel.text = String(viewModel.hostingUpcoming.value.count)
             finishedEventsCountLabel.text = "• \(String(viewModel.hostingPast.value.count))"

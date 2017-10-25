@@ -8,13 +8,13 @@
 
 import UIKit
 
-class StandradEditProfileTableViewCell: UITableViewCell {
+class StandradEditProfileTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var editProfilePropertyLabel: UILabel!
     @IBOutlet weak var editProfilePropertyEntryTextField: UITextField!
     //just realised that because the data is dynamic it will always reset to the initially set value. However the function will always update
     fileprivate var hasSetInitialProfilePicture = false
-    fileprivate let genderPickerData = ["m", "f", "other"]
+    fileprivate let genderPickerData = ["Male", "Female"]
     
     var onTextEntered: ((String) -> Void)?
     
@@ -39,7 +39,22 @@ class StandradEditProfileTableViewCell: UITableViewCell {
             }
             
             switch type {
-            case .firstName, .lastName, .username, .location, .aboutMe:
+            case .aboutMe:
+                editProfilePropertyEntryTextField.returnKeyType = .done
+                break
+            default:
+                editProfilePropertyEntryTextField.returnKeyType = .next
+                break
+            }
+         
+            switch type {
+            case .firstName, .lastName:
+                editProfilePropertyEntryTextField.autocapitalizationType = .words
+                break
+            case .username, .location:
+                break
+            case .aboutMe:
+                editProfilePropertyEntryTextField.autocapitalizationType = .sentences
                 break
             case .gender:
                 let pickerView = UIPickerView()
@@ -74,8 +89,12 @@ class StandradEditProfileTableViewCell: UITableViewCell {
         guard let text = textField.text else {
             return
         }
-        print("text field did change")
+        
         onTextEntered?(text)
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        //editProfilePropertyEntryTextField.becomeFirstResponder()
     }
 }
 

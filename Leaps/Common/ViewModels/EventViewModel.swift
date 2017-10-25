@@ -43,13 +43,16 @@ class EventViewModel: BaseViewModel {
     
     let event: Dynamic<Event>
     var items: Dynamic<[EventDetailsRowType]> = Dynamic([])
+    var rateImage:UplodableImage?
     private let service: EventsService
     private let userManager: UserManager
+    private let eventManager: EventManager
     
     init(event: Event, service: EventsService, userManager: UserManager = UserManager.shared) {
         self.event = Dynamic(event)
         self.service = service
         self.userManager = userManager
+        self.eventManager = EventManager.shared
         prepareRows(for: event)
     }
     
@@ -133,6 +136,14 @@ class EventViewModel: BaseViewModel {
         }
     }
     
+    var isUserFollow: Bool {
+        return eventManager.isUserFollow(event: event.value)
+    }
+    
+    var isInPast: Bool {
+        return event.value.date < Date()
+    }
+    
     //MARK: - API calls
     func attendEvent(completion: ((Error?) -> Void)? = nil) {
         service.attendEvent(eventID: event.value.id, completion: completion)
@@ -154,5 +165,35 @@ class EventViewModel: BaseViewModel {
                 completion?(error)
             }
         }
+    }
+    
+    func followEvent(completion: ((Error?) -> Void)? = nil) {
+        let id = event.value.id
+        if isUserFollow {
+            service.unfollowEvent(id: id, completion: { [weak self] (error) in
+                if let error = error {
+                    completion?(error)
+                    return
+                }
+                _ = self?.eventManager.remove(id: id)
+                completion?(nil)
+            })
+        }
+        else {
+            service.followEvent(id: id, completion: { [weak self] (result) in
+                switch result {
+                case .success(let event):
+                    _ = self?.eventManager.add(event: event)
+                    completion?(nil)
+                case .error(let error):
+                    completion?(error)
+                }
+            })
+        }
+    }
+    
+    func rateEvent(rating:Int, comment:String, completion: ((Result<Int>) -> Void)? = nil) {
+        let id = event.value.id
+        service.rateEvent(id: id, rating: rating, comment: comment, image: rateImage, completion: completion)
     }
 }

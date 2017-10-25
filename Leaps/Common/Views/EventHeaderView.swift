@@ -16,6 +16,8 @@ class EventHeaderView: UIView {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var maskImageView: UIImageView!
+    @IBOutlet weak var ratingView: RatingView!
+    @IBOutlet weak var followButton: UIButton!
     
     var viewModel: EventViewModel? {
         didSet {
@@ -32,6 +34,8 @@ class EventHeaderView: UIView {
                 scrollView.backgroundColor = .leapsOnboardingBlue
             }
             
+            followButton.isSelected = viewModel?.isUserFollow ?? false
+
             pageControl.isHidden = images.count <= 1
             pageControl.numberOfPages = images.count
             pageControl.currentPage = 0
@@ -59,6 +63,19 @@ class EventHeaderView: UIView {
                 }
                 scrollView.addSubview(imageView)
             }
+            
+            ratingView.isHidden = !(viewModel?.isInPast ?? false)
+            if  let rating = viewModel?.event.value.rating,
+                let reviews = viewModel?.event.value.reviews {
+                //ratingView.isHidden = false
+                ratingView.setup(rating: rating, reviews: reviews, colors: .blue)
+            }
+            else {
+                ratingView.setup(rating: 3.8, reviews: 111, colors: .blue)
+                //ratingView.isHidden = true
+            }
+            //ratingView.onTouchBlock = showRateViewController
+            ratingView.onTouchBlock = showReviewsViewController
             
             let scrollViewWidth = scrollView.frame.width * CGFloat(images.count)
             //Workaround as the height is equal to the view's height and otherwise I need to use viewDidAppear in the superclass
@@ -114,5 +131,48 @@ class EventHeaderView: UIView {
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         
         pageControl.currentPage = Int(pageNumber)
+    }
+    
+    func showRateViewController() {
+        guard let event = self.viewModel?.event.value else {
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: .common, bundle: nil)
+        let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+        guard let vc = factory.createEventDetailsRateViewController(event: event) else {
+            return
+        }
+        
+        self.parentViewController?.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func didSelectShare() {
+        guard let event = viewModel?.event.value else {
+            return
+        }
+        let image = (scrollView.subviews.first as? UIImageView)?.image ?? nil
+        let share = StoryboardViewControllerFactory.createShareViewController(event: event, image: image)
+        self.parentViewController?.present(share, animated: true, completion: nil)
+        
+    }
+    @IBAction func didSelectFollow() {
+        viewModel?.followEvent(completion: { [weak self] (error) in
+            self?.followButton.isSelected = self?.viewModel?.isUserFollow ?? false
+        })
+    }
+    
+    func showReviewsViewController() {
+        guard let event = self.viewModel?.event.value else {
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: .eventDetails, bundle: nil)
+        let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+        guard let vc = factory.createEventDetailsReviewsViewController(event: event) else {
+            return
+        }
+        
+        self.parentViewController?.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 import FBSDKCoreKit
 import GoogleSignIn
 import HockeySDK
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,11 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //MARK: Hockey
-        BITHockeyManager.shared().configure(withIdentifier: "3a9c05746c734c178656509ae304632c")
+        BITHockeyManager.shared().configure(withIdentifier: "AIzaSyDscXTHheBQsBdupg0dGZrGzpkNB3OnGPk")
         // Do some additional configuration if needed here
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
 
+        //MARK: GoogleMaps
+        GMSServices.provideAPIKey("AIzaSyBf_yEUTy71CwVTy7AtIuE4MO8eQZR1qJk")
+        //GMSPlacesClient.provideAPIKey("AIzaSyBf_yEUTy71CwVTy7AtIuE4MO8eQZR1qJk")
         
         // Override point for customization after application launch.
         StyleManager.applyDefaultStyle()

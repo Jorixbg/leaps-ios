@@ -41,6 +41,9 @@ class StepsFlowViewController: UIViewController {
         layoutConstraintsForKeyboard.append(pageControlBottomConstraint)
         initialLayoutConstraintsConstantsForKeyboard.append(pageControlBottomConstraint.constant)
         
+        scrollView.bounces = false
+        scrollView.isScrollEnabled = false
+        
         cancelButton.setTitle(.back, for: .normal)
         pageControl.numberOfPages = pageableViewControllers.count
         pageControl.currentPage = 0
@@ -166,6 +169,7 @@ class StepsFlowViewController: UIViewController {
 
     @IBAction func didPressNextButton(_ sender: Any) {
         let nextPage = pageControl.currentPage + 1
+        
         if nextPage >= pageableViewControllers.count {
             guard let viewModel = viewModel else {
                 return
@@ -202,8 +206,21 @@ class StepsFlowViewController: UIViewController {
                 break
             }
         } else {
-            pageControl.currentPage = nextPage
-            didSelectPageControl(pageControl)
+            guard let viewModel = viewModel else {
+                return
+            }
+            switch viewModel.validate(step: pageControl.currentPage){
+            case .success():
+                pageControl.currentPage = nextPage
+                didSelectPageControl(pageControl)
+                break
+            case .error(let error):
+                switch error {
+                case .createEvent(let type):
+                    validateCreateEventViewController(type: type)
+                }
+                break
+            }
         }
     }
     
@@ -258,6 +275,13 @@ class StepsFlowViewController: UIViewController {
                 dismiss(animated: true, completion: nil)
             }
         }
+    }
+    
+    func validateCreateEventViewController(type:CreateEventRowType) {
+        guard let vc = pageableViewControllers[pageControl.currentPage] as? CreateEventStepViewController else {
+            return
+        }
+        vc.validate(by: type)
     }
 }
 

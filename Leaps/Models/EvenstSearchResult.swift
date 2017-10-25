@@ -40,8 +40,8 @@ enum EventType: String {
     
     func actionLabelText() -> String {
         switch self {
-        case .search:
-            return "CLEAR FILTER"
+//        case .search:
+//            return "CLEAR FILTER"
         default:
             return "SEE ALL"
         }

@@ -9,7 +9,8 @@
 import Foundation
 
 enum ProfileRowType {
-    case profileNameWithPic(String, String, String)
+    case aboutMe(String)
+    case edit
     case settings
     case inviteFriends
     case giveFeedback
@@ -19,8 +20,10 @@ enum ProfileRowType {
     
     var titleForType: String {
         switch self {
-        case .profileNameWithPic:
+        case .aboutMe:
             return ""
+        case .edit:
+            return "Edit Profile"
         case .settings:
             return "Settings"
         case .inviteFriends:
@@ -192,9 +195,12 @@ class ProfileViewModel: BaseViewModel {
     
     func setupSettingsRequiredData(with user: User) {
         var rows: [ProfileRowType] = []
-        let fullName = "\(user.firstName) \(user.lastName)"
-        let userImageAndNamesRow = ProfileRowType.profileNameWithPic(user.imageURL ?? "", fullName, user.username)
-        rows.append(userImageAndNamesRow)
+        
+        let aboutMe = ProfileRowType.aboutMe(user.description ?? "Edit your profile to show here information about you.")
+        rows.append(aboutMe)
+        
+        let editProfile = ProfileRowType.edit
+        rows.append(editProfile)
         
         let settingsRows = ProfileRowType.settings
         rows.append(settingsRows)
@@ -366,6 +372,22 @@ class ProfileViewModel: BaseViewModel {
                     self?.service.delete(imageID: id)
                 }
                 
+            case .error(let error):
+                completion?(error)
+            }
+        }
+    }
+    
+    func followUser(userID:Int, completion: ((Error?) -> Void)? = nil) {
+        service.follow(userID: userID) { [weak self] (result) in
+            switch result {
+            case .success(let user):
+                self?.user.value = user
+                self?.userUpdateData = UserUpdateData(user: user)
+                self?.setupSettingsRequiredData(with: user)
+                self?.setupEditProfileData(with: user)
+                self?.userManager.set(isTrainer: user.isTrainer)
+                completion?(nil)
             case .error(let error):
                 completion?(error)
             }

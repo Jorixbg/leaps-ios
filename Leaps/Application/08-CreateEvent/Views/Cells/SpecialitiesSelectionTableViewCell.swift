@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpecialitiesSelectionTableViewCell: UITableViewCell {
+class SpecialitiesSelectionTableViewCell: ErrorCreateEventTableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tOx-j3-WhV">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Favorites-->
+        <scene sceneID="0pu-z4-LuO">
+            <objects>
+                <viewController id="tOx-j3-WhV" userLabel="Favorites" customClass="FavoritesViewController" customModule="Leaps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bIM-ZT-VKA"/>
+                        <viewControllerLayoutGuide type="bottom" id="d51-u1-hww"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="92n-tY-B1t">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="22g-mH-u6m">
+                                <rect key="frame" x="0.0" y="20" width="375" height="42"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hH8-if-Tu8">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+                                        <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yZI-lP-cVv">
+                                                <rect key="frame" x="11" y="0.0" width="353" height="43"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <segments>
+                                                    <segment title="UPCOMING">
+                                                        <size key="contentOffset" width="0.0" height="4"/>
+                                                    </segment>
+                                                    <segment title="PAST">
+                                                        <size key="contentOffset" width="0.0" height="4"/>
+                                                    </segment>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="changedSegmentValue:" destination="tOx-j3-WhV" eventType="valueChanged" id="kKj-h3-8nx"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="yZI-lP-cVv" firstAttribute="leading" secondItem="hH8-if-Tu8" secondAttribute="leading" constant="11" id="IZV-qe-4uB"/>
+                                            <constraint firstAttribute="trailing" secondItem="yZI-lP-cVv" secondAttribute="trailing" constant="11" id="Pgg-ww-zon"/>
+                                            <constraint firstItem="yZI-lP-cVv" firstAttribute="top" secondItem="hH8-if-Tu8" secondAttribute="top" id="v2E-TM-GmF"/>
+                                            <constraint firstAttribute="bottom" secondItem="yZI-lP-cVv" secondAttribute="bottom" id="yiv-ID-eH2"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="1Bo-5N-4UP"/>
+                                </constraints>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ru0-eW-vJf">
+                                <rect key="frame" x="0.0" y="62" width="375" height="556"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="tOx-j3-WhV" id="aMp-38-AMB"/>
+                                    <outlet property="delegate" destination="tOx-j3-WhV" id="mpJ-vq-WUn"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ru0-eW-vJf" firstAttribute="leading" secondItem="92n-tY-B1t" secondAttribute="leading" id="0UX-Gm-z94"/>
+                            <constraint firstItem="ru0-eW-vJf" firstAttribute="top" secondItem="22g-mH-u6m" secondAttribute="bottom" id="1GT-m0-W3T"/>
+                            <constraint firstItem="d51-u1-hww" firstAttribute="top" secondItem="ru0-eW-vJf" secondAttribute="bottom" id="JWr-YM-N64"/>
+                            <constraint firstItem="22g-mH-u6m" firstAttribute="leading" secondItem="92n-tY-B1t" secondAttribute="leading" id="K66-De-eEs"/>
+                            <constraint firstAttribute="trailing" secondItem="22g-mH-u6m" secondAttribute="trailing" id="Ltm-vQ-J63"/>
+                            <constraint firstAttribute="trailing" secondItem="ru0-eW-vJf" secondAttribute="trailing" id="oNW-re-3GT"/>
+                            <constraint firstItem="22g-mH-u6m" firstAttribute="top" secondItem="bIM-ZT-VKA" secondAttribute="bottom" id="p5J-KC-xmR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8Af-mE-kAX"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="FOLLOWING" image="nav-favorites" selectedImage="nav-favorites-s" id="utw-oJ-4Hd">
+                        <inset key="imageInsets" minX="0.0" minY="-3" maxX="0.0" maxY="3"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="yZI-lP-cVv" id="ds2-qV-SQq"/>
+                        <outlet property="tableView" destination="ru0-eW-vJf" id="zfi-so-idE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UBx-Es-5as" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="-413"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="nav-favorites" width="25" height="25"/>
+        <image name="nav-favorites-s" width="25" height="25"/>
+    </resources>
+</document>

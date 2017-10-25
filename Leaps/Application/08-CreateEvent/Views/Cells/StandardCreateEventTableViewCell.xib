@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="SanFranciscoText-Heavy.otf">
             <string>SanFranciscoText-Heavy</string>
+        </array>
+        <array key="SanFranciscoText-Medium.otf">
+            <string>SanFranciscoText-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -39,18 +42,28 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                     </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This field is required." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfC-Nf-vZY">
+                        <rect key="frame" x="11" y="73.5" width="108" height="16"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Medium" family="San Francisco Text" pointSize="11"/>
+                        <color key="textColor" red="0.81568627449999997" green="0.08235294118" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="xfC-Nf-vZY" firstAttribute="leading" secondItem="zWc-S1-dy3" secondAttribute="leading" id="GVF-dr-rbE"/>
                     <constraint firstAttribute="trailing" secondItem="zWc-S1-dy3" secondAttribute="trailing" constant="11" id="I6k-ui-eCx"/>
                     <constraint firstItem="zWc-S1-dy3" firstAttribute="top" secondItem="FuP-0v-qRy" secondAttribute="bottom" constant="11" id="KFX-bv-MIs"/>
                     <constraint firstItem="FuP-0v-qRy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Lbl-fy-zew"/>
+                    <constraint firstItem="xfC-Nf-vZY" firstAttribute="top" secondItem="zWc-S1-dy3" secondAttribute="bottom" constant="2" id="MUe-wi-9Hh"/>
                     <constraint firstItem="zWc-S1-dy3" firstAttribute="leading" secondItem="FuP-0v-qRy" secondAttribute="leading" id="YkS-AW-pKm"/>
                     <constraint firstItem="FuP-0v-qRy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="anP-Ht-z6t"/>
                     <constraint firstAttribute="bottom" secondItem="zWc-S1-dy3" secondAttribute="bottom" constant="20" id="vHh-yx-LTF"/>
+                    <constraint firstAttribute="bottom" secondItem="xfC-Nf-vZY" secondAttribute="bottom" constant="2" id="wp9-bN-QOy"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="11" minY="0.0" maxX="11" maxY="0.0"/>
             <connections>
+                <outlet property="errorLabel" destination="xfC-Nf-vZY" id="pIu-vu-KVa"/>
                 <outlet property="textField" destination="zWc-S1-dy3" id="ZW1-fk-Czb"/>
                 <outlet property="titleLabel" destination="FuP-0v-qRy" id="Mwa-f3-ZIp"/>
             </connections>

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="SanFranciscoText-Heavy.otf">
             <string>SanFranciscoText-Heavy</string>
+        </array>
+        <array key="SanFranciscoText-Medium.otf">
+            <string>SanFranciscoText-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -34,10 +37,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewLayout key="collectionViewLayout" id="tba-ov-ajR" customClass="LeftAlignedCollectionViewFlowLayout" customModule="Leaps" customModuleProvider="target"/>
                     </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select specialities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zyf-wc-dIt">
+                        <rect key="frame" x="11" y="105.5" width="128" height="16"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Medium" family="San Francisco Text" pointSize="11"/>
+                        <color key="textColor" red="0.81568627449999997" green="0.08235294118" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Zyf-wc-dIt" firstAttribute="leading" secondItem="mYD-7x-Npp" secondAttribute="leading" id="026-4i-4Yp"/>
                     <constraint firstAttribute="trailing" secondItem="weo-4n-scd" secondAttribute="trailing" constant="11" id="DPm-KU-cqA"/>
                     <constraint firstItem="mYD-7x-Npp" firstAttribute="leading" secondItem="weo-4n-scd" secondAttribute="leading" id="Eji-wL-s4P"/>
+                    <constraint firstItem="Zyf-wc-dIt" firstAttribute="top" secondItem="mYD-7x-Npp" secondAttribute="bottom" constant="2" id="GPK-Xl-3ec"/>
+                    <constraint firstAttribute="bottom" secondItem="Zyf-wc-dIt" secondAttribute="bottom" constant="2" id="JRJ-NI-gIF"/>
                     <constraint firstItem="weo-4n-scd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="JnS-oJ-rej"/>
                     <constraint firstItem="weo-4n-scd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="dSl-go-pul"/>
                     <constraint firstAttribute="bottom" secondItem="mYD-7x-Npp" secondAttribute="bottom" constant="20" id="fu8-sX-iTH"/>
@@ -48,6 +60,7 @@
             <inset key="separatorInset" minX="11" minY="0.0" maxX="11" maxY="0.0"/>
             <connections>
                 <outlet property="collectionView" destination="mYD-7x-Npp" id="tZ7-na-vEj"/>
+                <outlet property="errorLabel" destination="Zyf-wc-dIt" id="59Y-OG-hA0"/>
             </connections>
             <point key="canvasLocation" x="50.5" y="58"/>
         </tableViewCell>

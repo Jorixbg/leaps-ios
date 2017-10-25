@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextViewTableViewCell: UITableViewCell {
+class TextViewTableViewCell: ErrorCreateEventTableViewCell {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -31,6 +31,7 @@ extension TextViewTableViewCell: UITextViewDelegate {
         
         let fullText = "\(existingText)\(text)"
         onTextEnter?(fullText)
+        errorLabel.isHidden = true
         
         return true
     }

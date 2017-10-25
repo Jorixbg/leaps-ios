@@ -24,6 +24,8 @@ struct Event {
     let priceFrom: Int
     let address: String
     let freeSlots: Int
+    let rating:Double?
+    let reviews:Int?
     let dateCreated: Date
     let eventImageURL: String?
     let images: [Image]
@@ -51,17 +53,26 @@ extension Event: Deserializable {
             let freeSlots = dictionary["free_slots"] as? Int,
             let dateCreatedTimestamp = dictionary["date_created"] as? Int64,
             let imagesArray = dictionary["images"] as? [[String: Any]],
-            let attendingArray = dictionary["attending"] as? [[String: Any]]
+            let attendingArray = dictionary["attending"] as? [String: [[String:Any]]]
             //this one is null
             else {
             print("event deserializing failed")
             return nil
         }
         
+        let rating = dictionary["rating"] as? Double
+        let reviews = dictionary["reviews"] as? Int
         let eventImageURL = dictionary["event_image_url"] as? String
         let ownerImageURL = dictionary["owner_image_url"] as? String
         let images = Image.buildArray(imagesArray)
-        let attendees = Attendee.buildArray(attendingArray)
+        
+        var attendees = [Attendee]()
+        if attendingArray.contains(where: {$0.key == "followed"}),
+           attendingArray.contains(where: {$0.key == "others"}) {
+            let following = Attendee.buildArray(attendingArray["followed"]).map({$0.change(followed: true)})
+            let notFollowing = Attendee.buildArray(attendingArray["others"])
+            attendees = following + notFollowing
+        }
         
         return Event(id: id,
                      title: title,
@@ -78,9 +89,17 @@ extension Event: Deserializable {
                      priceFrom: priceFrom,
                      address: address,
                      freeSlots: freeSlots,
+                     rating: rating,
+                     reviews: reviews,
                      dateCreated: Date(timeIntervalSince1970inMiliseconds: dateCreatedTimestamp),
                      eventImageURL: eventImageURL,
                      images: images,
                      attending: attendees)
+    }
+}
+
+extension Event:Equatable {
+    static func ==(lhs:Event, rhs:Event) -> Bool {
+        return lhs.id == rhs.id
     }
 }

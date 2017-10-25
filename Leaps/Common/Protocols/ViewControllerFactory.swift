@@ -73,7 +73,7 @@ protocol ViewControllerFactory {
     func createMaxDistanceSettingsViewController(viewModel: ProfileViewModel) -> MaxDistanseSettingViewController?
     
     //MARK: - USER PROFILE 
-    func createUserProfileViewController(user: User) -> UserDetailsViewController?
+    func createUserProfileViewController(user: Attendee) -> UserDetailsViewController?
     
     //MARK: - ATTENDED EVENTS
     func createPastAttendingEventsViewController(events: [Event]) -> EventsListWithNavViewController?

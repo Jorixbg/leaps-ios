@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 struct User {
     var userID: Int?
     let username: String
@@ -24,9 +25,14 @@ struct User {
     let description: String?
     let imageURL: String?
     let isTrainer: Bool
+    let rating: Double?
+    let reviews: Int?
+    let followingCount: Int
+    let followersCount: Int
     
     //trainer specific
     let hostingEvents: [Event]?
+    let followedBy: [Attendee]?
     let images: [Image]?
     let specialties: [String]?
     let longDescription: String?
@@ -37,7 +43,6 @@ struct User {
 
 extension User {
     func imageByUrl(url:String?) -> Image? {
-        print(images?.count)
         if let image = images?.first(where: {$0.url == url}) {
             return image
         }
@@ -59,7 +64,6 @@ extension User: Deserializable {
             let lastName = dictionary["last_name"] as? String,
             let birthdayString = dictionary["birthday"] as? Int,
             let isTrainer = dictionary["is_trainer"] as? Bool
-        
         else {
             return nil
         }
@@ -71,6 +75,12 @@ extension User: Deserializable {
         let longDescription = dictionary["long_description"] as? String
         
         let attendingEvents = Event.buildArray(eventsDict)
+        
+        let rating = dictionary["rating"] as? Double
+        let reviews = dictionary["reviews"] as? Int
+        
+        let followersCount = dictionary["followers_count"] as? Int ?? 0
+        let followingCount = dictionary["following_count"] as? Int ?? 0
         
         var images: [Image]? = nil
         if let imageArray = dictionary["images"] as? [[String: Any]] {
@@ -85,6 +95,15 @@ extension User: Deserializable {
             hostingEvents = Event.buildArray(hostingEventsDictArray)
         } else {
             hostingEvents = nil
+        }
+        
+        var followedBy: [Attendee] = []
+        if let followersDictArray = dictionary["followed_by"] as? [String: [[String:Any]]],
+           let followedArray = followersDictArray["following"],
+           let otherArray = followersDictArray["others"] {
+                let userFollow = Attendee.buildArray(followedArray).map({$0.change(followed: true)})
+                let userNotFollow = Attendee.buildArray(otherArray)
+                followedBy = userFollow + userNotFollow
         }
         
         let yearsOfTraining = dictionary["years_of_training"] as? Int
@@ -107,7 +126,12 @@ extension User: Deserializable {
                     description: description,
                     imageURL: imageURL,
                     isTrainer: isTrainer,
+                    rating: rating,
+                    reviews: reviews,
+                    followingCount: followingCount,
+                    followersCount: followersCount,
                     hostingEvents: hostingEvents,
+                    followedBy: followedBy,
                     images: images,
                     specialties: specialties,
                     longDescription: longDescription,

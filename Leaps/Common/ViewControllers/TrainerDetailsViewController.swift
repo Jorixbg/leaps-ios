@@ -17,7 +17,7 @@ class TrainerDetailsViewController: UIViewController {
     private var hasLayoutScrollView = false
     
     //this could be done in a better way on view did appear get the frame height and it will make it dynamic
-    fileprivate let tableViewHeaderHeight: CGFloat = 250
+    fileprivate let tableViewHeaderHeight: CGFloat = 350
     
     var viewModel: TrainerViewModel?
     
@@ -27,9 +27,15 @@ class TrainerDetailsViewController: UIViewController {
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(SpecialitiesTableViewCell.self)
+        tableView.register(FollowersTableViewCell.self)
         tableView.register(TitleAndDescriptionTableViewCell.self)
         tableView.register(TableViewTableViewCell.self)
         UIApplication.shared.statusBarStyle = .default
+        
+        viewModel?.user.bind({ [weak self] (user) in
+            self?.tableView.reloadData()
+            self?.headerView.viewModel = self?.viewModel
+        })
     }
     
     override func viewDidLayoutSubviews() {
@@ -112,6 +118,11 @@ extension TrainerDetailsViewController: UITableViewDataSource {
             })
             
             return cell
+        case .followers(let followers):
+            cell = tableView.dequeueReusableCell(of: FollowersTableViewCell.self, for: indexPath, configure: { (cell) in
+                cell.followers = followers
+            })
+            return cell
         case .about(let age, let description):
             cell = tableView.dequeueReusableCell(of: TitleAndDescriptionTableViewCell.self, for: indexPath, configure: { (cell) in
                 cell.descriptionText = description
@@ -168,5 +179,25 @@ extension TrainerDetailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return nil
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let rowtype = viewModel?.rowType(for: indexPath) else {
+            return
+        }
+        switch rowtype {
+        case .followers(_):
+            let storyboard = UIStoryboard(name: .common, bundle: nil)
+            let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+            guard let user = viewModel?.user.value,
+                let vc = factory.createFollowersViewController(user:user) else {
+                    return
+            }
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            break
+        default:
+            break
+        }
     }
 }

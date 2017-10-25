@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -14,6 +14,9 @@
     <customFonts key="customFonts">
         <array key="SanFranciscoText-Heavy.otf">
             <string>SanFranciscoText-Heavy</string>
+        </array>
+        <array key="SanFranciscoText-Medium.otf">
+            <string>SanFranciscoText-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -59,11 +62,18 @@
                         <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-oJ-Bot">
+                        <rect key="frame" x="397" y="18.5" width="101" height="13.5"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Medium" family="San Francisco Text" pointSize="11"/>
+                        <color key="textColor" red="0.81568627449999997" green="0.08235294118" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Kbj-ub-3xh" firstAttribute="leading" secondItem="y9h-Wb-4kg" secondAttribute="trailing" constant="5" id="4I0-Sk-Gre"/>
                     <constraint firstItem="yaC-MW-MAR" firstAttribute="centerY" secondItem="Kbj-ub-3xh" secondAttribute="centerY" id="4dI-f0-9un"/>
                     <constraint firstItem="yaC-MW-MAR" firstAttribute="leading" secondItem="Kbj-ub-3xh" secondAttribute="trailing" constant="5" id="4hJ-yr-l6Y"/>
+                    <constraint firstItem="aZV-oJ-Bot" firstAttribute="centerY" secondItem="3Ks-2h-f87" secondAttribute="centerY" id="57n-dL-Ejw"/>
                     <constraint firstItem="yaC-MW-MAR" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1:7" id="61f-K3-WSN"/>
                     <constraint firstItem="y9h-Wb-4kg" firstAttribute="centerY" secondItem="AS2-Zk-xW3" secondAttribute="centerY" id="GjR-36-SIq"/>
                     <constraint firstItem="Kbj-ub-3xh" firstAttribute="width" secondItem="Kbj-ub-3xh" secondAttribute="height" multiplier="1:1" id="I3E-J5-wvk"/>
@@ -74,6 +84,7 @@
                     <constraint firstItem="sHV-rz-mPI" firstAttribute="centerY" secondItem="yaC-MW-MAR" secondAttribute="centerY" id="OI5-CR-VDp"/>
                     <constraint firstItem="AS2-Zk-xW3" firstAttribute="leading" secondItem="z55-fq-j8H" secondAttribute="trailing" constant="5" id="ONm-gF-iT8"/>
                     <constraint firstItem="3Ks-2h-f87" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="Qh5-KW-5Ky"/>
+                    <constraint firstAttribute="trailing" secondItem="aZV-oJ-Bot" secondAttribute="trailing" constant="11" id="Qn5-F6-rYF"/>
                     <constraint firstItem="AS2-Zk-xW3" firstAttribute="centerY" secondItem="z55-fq-j8H" secondAttribute="centerY" id="UPF-bd-5rf"/>
                     <constraint firstItem="z55-fq-j8H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="YIG-nz-7kR"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="sHV-rz-mPI" secondAttribute="trailing" id="Ze7-Ww-o9y"/>
@@ -92,6 +103,7 @@
             </tableViewCellContentView>
             <inset key="separatorInset" minX="11" minY="0.0" maxX="11" maxY="0.0"/>
             <connections>
+                <outlet property="errorLabel" destination="aZV-oJ-Bot" id="NlU-IL-Zob"/>
                 <outlet property="fifthChooseView" destination="yaC-MW-MAR" id="ldx-HV-NZW"/>
                 <outlet property="firstImageChooseView" destination="z55-fq-j8H" id="U6v-MB-05n"/>
                 <outlet property="fourthChooseView" destination="Kbj-ub-3xh" id="a8s-zX-aAO"/>

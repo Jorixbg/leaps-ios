@@ -20,9 +20,10 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var activitiesConatinerView: UIView!
     @IBOutlet weak var trainersContainerView: UIView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var createEventButton: UIButton!
     
     private var containedViewControllers: [UIViewController] = []
-    fileprivate var viewModel: HomeViewModel?
+    fileprivate var viewModel: HomeViewModel = HomeViewModel(type: UserManager.shared.isTrainer ? .trainer : .user)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,18 @@ class HomeViewController: UIViewController {
         segmentControl.sendActions(for: .valueChanged)
         embedActivitiesViewController(in: activitiesConatinerView)
         embedTrainersViewController(in: trainersContainerView)
+        
+        viewModel.userType.bindAndFire { [weak self] (userProfile) in
+            guard let strongSelf = self else {
+                return
+            }
+            switch userProfile {
+            case .trainer:
+                strongSelf.createEventButton.isHidden = false
+            case .user:
+                strongSelf.createEventButton.isHidden = true
+            }
+        }
     }
     
     fileprivate var searchSnapshotView: UIView?
@@ -67,6 +80,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
+        createEventButton.isHidden = !UserManager.shared.isTrainer
         segmentControl.addUnderlineForSelectedSegment()
         searchView.setTextField(image: #imageLiteral(resourceName: "find"))
         searchView.didSelectSearch = { [weak self] in
@@ -96,6 +110,27 @@ class HomeViewController: UIViewController {
             
             self?.present(viewController, animated: false, completion: nil)
         }
+        
+        searchView.didSelectMap = { [weak self] in
+            let storyboard = UIStoryboard(name: .home, bundle: nil)
+            let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+            let viewModel = (self?.containedViewControllers.first as? ActivitiesViewController)?.viewModel
+            
+            guard let vc = factory.createLocationsViewController(viewModel: viewModel) else {
+                return
+            }
+            
+            self?.present(vc, animated: true, completion: nil)
+        }
+        
+        searchView.didSelectClear = { [weak self] in
+            if let activitiesViewController = self?.containedViewControllers.first as? ActivitiesViewController {
+                activitiesViewController.resetSearch()
+            }
+            if let trainersViewController = self?.containedViewControllers[1] as? TrainersViewController {
+                trainersViewController.resetSearch()
+            }
+        }
     }
     
     @IBAction func didPressLogin(_ sender: Any) {
@@ -115,6 +150,16 @@ class HomeViewController: UIViewController {
         }
         
         segmentControl.changeUnderlinePosition()
+    }
+    
+    @IBAction func didPressCreateEvent(_ sender: Any) {
+        let storyboard = UIStoryboard(name: .onboarding, bundle: nil)
+        let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+        guard let vc = factory.createCreateEventFlow() else {
+            return
+        }
+        
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

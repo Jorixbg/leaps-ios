@@ -13,6 +13,7 @@ enum UplodableImageType {
     case userAdditionalImage
     case eventMainImage
     case eventAdditionalImage
+    case eventRateImage
 }
 
 extension UplodableImageType: Equatable {

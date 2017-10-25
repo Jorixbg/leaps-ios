@@ -11,4 +11,5 @@ import Foundation
 extension String {
     static let leapsCervoFont = "Cervo"
     static let leapsSFText = "San Francisco Text"
+    static let leapsSFBoldText = "SanFranciscoText-Bold"
 }

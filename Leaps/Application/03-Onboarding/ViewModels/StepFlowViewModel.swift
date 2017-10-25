@@ -8,6 +8,15 @@
 
 import Foundation
 
+enum ValidationType {
+    case createEvent(CreateEventRowType)
+}
+
+enum Validation<T> {
+    case success()
+    case error(T)
+}
+
 enum StepFlowType {
     case onboarding
     case registration(UserSignUpStepsData?)
@@ -123,6 +132,21 @@ class StepFlowViewModel: BaseViewModel {
 //        self.userDetails = userDetails
     }
     
+    func validate(step:Int) -> Validation<ValidationType> {
+        switch type.value {
+        case .createEvent:
+            guard let eventData = createEventData else {
+                return .success()
+            }
+            return eventData.validate(step: step)
+        case .registration(let data):
+            
+            return .success()
+        default:
+            return .success()
+        }
+    }
+    
     func finishAllsteps(completion: ((Error?) -> Void)?) {
         //here make the registraion request
         switch type.value {
@@ -169,7 +193,7 @@ class StepFlowViewModel: BaseViewModel {
                     userData.isTrainer = true
                     self?.service.update(userUpdateData: userData) { result in
                         switch result {
-                        case .success(let _):
+                        case .success( _):
                             completion?(nil)
                         case .error(let error):
                             completion?(error)
@@ -187,7 +211,7 @@ class StepFlowViewModel: BaseViewModel {
             
             service.login(username: username, password: password, completion: { (result) in
                 switch result {
-                case .success(let user):
+                case .success(_):
                     completion?(nil)
                     print("successful login")
                 case .error(let error):
@@ -198,8 +222,7 @@ class StepFlowViewModel: BaseViewModel {
         case .forgottenPassword:
             break
         case .createEvent:
-            let idString = userManager.userID ?? "1"
-            guard //let idString = userManager.userID,
+            guard   let idString = userManager.userID,
                     let id = Int(idString),
                     let createEventData = createEventData else {
                 return
@@ -336,8 +359,11 @@ extension StepFlowViewModel: EventEntryDelegate {
     func enterLocation(location: String) {
         //TODO: check what is required here
         createEventData?.address = location
-        createEventData?.coordLongitude = 0
-        createEventData?.coordLatitude = 0
+    }
+    
+    func enterCoordinates(lat:Double, lon:Double) {
+        createEventData?.coordLongitude = lon
+        createEventData?.coordLatitude = lat
     }
 
     func removeTag(tag: String) {

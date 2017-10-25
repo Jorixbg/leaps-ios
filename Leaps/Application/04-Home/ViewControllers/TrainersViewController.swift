@@ -37,6 +37,12 @@ class TrainersViewController: UIViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.isStatusBarHidden = false
     }
+    
+    func resetSearch() {
+        self.viewModel?.fetchTrainers(completion: { (error) in
+            NotificationCenter.default.post(name: .resetSearch, object: nil)
+        })
+    }
 }
 
 extension TrainersViewController: Injectable {
@@ -91,11 +97,11 @@ extension TrainersViewController: UITableViewDelegate {
         
         headerCell.numberOfTrainers = viewModel?.traienrs.value.count
         headerCell.type = viewModel?.dataType
-        headerCell.selectedHedader = { [unowned self] in
-            self.viewModel?.fetchTrainers(completion: { (error) in
-                    NotificationCenter.default.post(name: .resetSearch, object: nil)
-                })
-        }
+//        headerCell.selectedHedader = { [unowned self] in
+//            self.viewModel?.fetchTrainers(completion: { (error) in
+//                    NotificationCenter.default.post(name: .resetSearch, object: nil)
+//                })
+//        }
         
         return headerCell
     }

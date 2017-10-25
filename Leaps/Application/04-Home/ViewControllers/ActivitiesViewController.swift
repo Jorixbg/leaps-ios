@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivitiesViewController: UIViewController {
+class ActivitiesViewController: BasicViewController {
     
     typealias T = ActivitiesViewModel
     
@@ -27,8 +27,14 @@ class ActivitiesViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: Constants.Activities.bottomInset, right: 0)
         viewModel?.fetchEvents()
         viewModel?.eventSearchResults.bind({ [weak self] (eventsResult) in
-            self?.tableView.reloadData()
+            self?.viewModel?.fetchLikedEvents(completion: { (result) in
+                self?.tableView.reloadData()
+            })
         })
+        
+        addRefreshControl(tableView: tableView) { [weak self] in
+            self?.refreshEvents()
+        }
         
         viewModel?.hasCurrentLocation.bind({ [weak self] (hasCurrentLocation) in
             guard hasCurrentLocation else {
@@ -45,11 +51,30 @@ class ActivitiesViewController: UIViewController {
                 
             }
         }
+        
+        let selector = #selector(refreshEvents)
+        NotificationCenter.default.addObserver(self, selector: selector, name: .refreshData, object: nil)
+    }
+    
+    func refreshEvents() {
+        viewModel?.refreshEvents(completion: { [weak self] (error) in
+            self?.hideRefreshControll()
+            self?.tableView.reloadData()
+        })
+    }
+    
+    func resetSearch() {
+        viewModel?.fetchEvents()
+        NotificationCenter.default.post(name: .resetSearch, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isStatusBarHidden = false
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -77,6 +102,16 @@ extension ActivitiesViewController: UITableViewDataSource {
             let distanceFromEvent = viewModel?.distance(from: event)
             let eventViewModel = ActivityViewModel(event: event, distanceFromCurrentLocation: distanceFromEvent)
             cell.viewModel = eventViewModel
+            cell.followAction = { [weak self] event in
+                self?.viewModel?.followEvent(event: event, completion: { (error) in
+                    self?.tableView.reloadData()
+                    NotificationCenter.default.post(name: .refreshData, object: nil)
+                })
+            }
+            cell.shareAction = { [weak self] event, image in
+                let share = StoryboardViewControllerFactory.createShareViewController(event: event, image: image)
+                self?.present(share, animated: true, completion: nil)
+            }
         }
         
         viewModel?.loadMore(currentActivity: indexPath, completion: nil)
@@ -111,9 +146,9 @@ extension ActivitiesViewController: UITableViewDelegate {
     
     fileprivate func handleHeaderWithResults(of type: EventType) {
         switch type {
-        case .search:
-            viewModel?.fetchEvents()
-            NotificationCenter.default.post(name: .resetSearch, object: nil)
+//        case .search:
+//            viewModel?.fetchEvents()
+//            NotificationCenter.default.post(name: .resetSearch, object: nil)
         default:
             let storyboard = UIStoryboard(name: .home, bundle: nil)
             let factory = StoryboardViewControllerFactory(storyboard: storyboard)

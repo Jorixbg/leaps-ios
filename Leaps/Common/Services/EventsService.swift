@@ -14,6 +14,8 @@ typealias EventsSearchResult = Result<[EventResult]>
 typealias EventsSearchResultHandler = (EventsSearchResult) -> Void
 typealias TagsFetchResult = Result<[String]>
 typealias TagsFetchResultHandler = (TagsFetchResult) -> Void
+typealias FetchEventReviewsResult = Result<[Review]>
+typealias FetchEventReviewsResultHandler = (FetchEventReviewsResult) -> Void
 
 class EventsService {
     let networkManager: NetworkManager
@@ -26,6 +28,8 @@ class EventsService {
     
     //MARK: - FEED
     func fetchFeedEvents(latitude: Double?, longitude: Double?, completion: EventsSearchResultHandler?) {
+        let token = userManager.authToken ?? ""
+        
         let latitudeAsString: String
         let longitudeAsString: String
         
@@ -42,9 +46,8 @@ class EventsService {
         }
         
         let endPoint = "event/feed/\(latitudeAsString)/\(longitudeAsString)"
-//        let endPoint = "event/feed/dummy"
-        let headers = ["Content-Type": "application/json"]
-//            ,"Authorization": "1111177777"]
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
         
         networkManager.get(path: endPoint, headers: headers) { (result) in
             var searchResults: [EventResult] = []
@@ -84,6 +87,9 @@ class EventsService {
     //MARK: - BY TYPE
     func fetchAllEvents(of type: EventType, page: Int, latitude: Double?, longitude: Double?, completion: EventsSearchResultHandler?) {
         let endPoint: String
+        guard let token = userManager.authToken else {
+            return
+        }
         
         switch type {
         case .popular, .suited:
@@ -108,8 +114,8 @@ class EventsService {
             return
         }
         
-//        let endPoint = "/event/\(type.rawValue)/\(page)/dummy"
-        let headers = ["Content-Type": "application/json"]
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
         
         networkManager.get(path: endPoint, params: nil, headers: headers) { (result) in
             switch result {
@@ -139,14 +145,13 @@ class EventsService {
         }
         let endPoint = "event/attend"
         let headers = ["Content-Type": "application/json",
-//                       "Authorization": "1111177777"]
                         "Authorization": token]
         let params = ["user_id" : userID,
                       "event_id" : eventID]
         
         networkManager.post(path: endPoint, params: params, headers: headers) { (result) in
             switch result {
-            case .success(let data):
+            case .success(_):
                 completion?(nil)
                 print("successfully signed up for an event")
             case .error(let error):
@@ -164,13 +169,12 @@ class EventsService {
                 return
         }
         let headers = ["Content-Type": "application/json",
-//                       "Authorization": "1111177777"]
                         "Authorization": token]
         let params = ["user_id" : userID,
                       "event_id" : eventID]
         networkManager.post(path: endPoint, params: params, headers: headers) { (result) in
             switch result {
-            case .success(let data):
+            case .success(_):
                 completion?(nil)
                 print("successfully signed up for an event")
             case .error(let error):
@@ -182,7 +186,6 @@ class EventsService {
     
     func filterEvents(eventSearch: SearchEntry, completion: EventsSearchResultHandler?) {
         let endPoint = "event/filter"
-//        let endPoint = "event/filter/dummy"
         let headers = ["Content-Type": "application/json"]
         let params = eventSearch.toJSON()
         
@@ -224,8 +227,10 @@ class EventsService {
     }
     
     func fetchEvent(id: Int, completion: FetchEventResultHandler?) {
+        let token = userManager.authToken ?? ""
         let endPoint = "event/\(id)"
-        let headers = ["Content-Type": "application/json"]
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
         networkManager.get(path: endPoint, headers: headers) { (result) in
             switch result {
             case .success(let eventDataArray):
@@ -241,5 +246,165 @@ class EventsService {
                 completion?(Result.error(error))
             }
         }
+    }
+    
+    func followEvent(id: Int, completion: FetchEventResultHandler?) {
+        guard let token = userManager.authToken else {
+            completion?(Result.error(LeapsError.missingToken))
+            return
+        }
+        
+        let endPoint = "event/follow"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
+        let params = ["event_id" : id]
+        
+        networkManager.post(path: endPoint, params: params, headers: headers) { (result) in
+            switch result {
+            case .success(let eventDataArray):
+                guard let eventData = eventDataArray as? [String: Any],
+                      let event = Event.fromJSON(from: eventData) else {
+                        completion?(Result.error(LeapsError.deserializing))
+                        return
+                }
+                
+                completion?(Result.success(event))
+            case .error(let error):
+                completion?(Result.error(error))
+            }
+        }
+    }
+    
+    func unfollowEvent(id: Int, completion: ((Error?)->Void)?) {
+        guard let token = userManager.authToken else {
+            completion?(LeapsError.missingToken)
+            return
+        }
+        
+        let endPoint = "event/unfollow"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
+        let params = ["event_id" : id]
+        
+        networkManager.post(path: endPoint, params: params, headers: headers) { (result) in
+            switch result {
+            case .success( _):
+                completion?(nil)
+            case .error(let error):
+                completion?(error)
+            }
+        }
+    }
+    
+    //MARK: - FETCH LIKED EVENTS
+    func fetchedLikedEvents(periodType: CalendarPeriodType, completion: UserEventsResultHandler?){
+        
+        let endPoint = "event/following/\(periodType == .past ? "past" : "future")"
+        
+        //TODO: uncomment for live
+        guard let token = userManager.authToken else {
+            completion?(Result.error(LeapsError.missingToken))
+            return
+        }
+        
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
+        
+        
+        networkManager.get(path: endPoint, headers: headers) { (result) in
+            switch result {
+            case .success(let data):
+                guard let eventsData = data as? [[String: Any]] else {
+                    completion?(Result.error(LeapsError.deserializing))
+                    return
+                }
+                
+                let events = Event.buildArray(eventsData)
+                EventManager.shared.setLikedEvents(periodType: periodType, events: events)
+                
+                completion?(Result.success(events))
+            case .error(let error):
+                completion?(Result.error(error))
+            }
+        }
+    }
+    
+    //MARK: - FETCH COMMENTS EVENT
+    func fetchedEventReviews(id:Int, page:Int, completion: FetchEventReviewsResultHandler?){
+        
+        let endPoint = "/event/comments/\(id)/\(page)/10"
+        
+        //TODO: uncomment for live
+        guard let token = userManager.authToken else {
+            completion?(Result.error(LeapsError.missingToken))
+            return
+        }
+        
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
+        
+        
+        networkManager.get(path: endPoint, headers: headers) { (result) in
+            switch result {
+            case .success(let data):
+                guard let reviewsData = data as? [[String: Any]] else {
+                    completion?(Result.error(LeapsError.deserializing))
+                    return
+                }
+                
+                let reviews = Review.buildArray(reviewsData)
+                
+                completion?(Result.success(reviews))
+            case .error(let error):
+                completion?(Result.error(error))
+            }
+        }
+    }
+    
+    func rateEvent(id: Int, rating:Int, comment:String, image:UplodableImage?, completion: ((Result<Int>) -> Void)?) {
+        guard let token = userManager.authToken else {
+            completion?(Result.error(LeapsError.missingToken))
+            return
+        }
+        
+        let endPoint = "event/rate"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
+        let dateCreated = Date().timeIntervalSince1970
+        let params = ["event_id" : id, "rating" : rating, "comment" : comment, "date_created" : dateCreated] as [String : Any]
+        
+        networkManager.post(path: endPoint, params: params, headers: headers) { (result) in
+            switch result {
+                case .success(let rateResult):
+                    if  let dictionary = rateResult as? [String: Int],
+                        let rateID = dictionary["rate_id"],
+                        let image = image {
+                        completion?(Result.success(rateID))
+                        self.upload(imageData: image, rateID: rateID)
+                        return
+                    }
+                    completion?(Result.success(-1))
+                case .error(let error):
+                    completion?(Result.error(error))
+            }
+        }
+    }
+    
+    //MARK: - UPLOAD RATE PICTURE
+    func upload(imageData: UplodableImage, rateID: Int) {
+        guard let token = userManager.authToken else {
+            return
+        }
+        
+        let endPoint: String = "pic/rate"
+        let params: [String: String] = ["rate_id": "\(rateID)"]
+        
+        let headers = ["Authorization": token]
+        
+        networkManager.upload(imageData: imageData.imageData,
+                              toUrl: endPoint,
+                              usingMethod: .post,
+                              withParams: params,
+                              withHeaders: headers)
     }
 }

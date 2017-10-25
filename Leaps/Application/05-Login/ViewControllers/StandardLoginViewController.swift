@@ -39,7 +39,7 @@ class StandardLoginViewController: UIViewController {
  
     @IBAction func didPressSignIn(_ sender: Any) {
         viewModel?.login(username: topTextField.text, password: bottomTextField.text, completion: { (error) in
-            if let error = error {
+            if error != nil {
                 //handle error
             } else {
                 //whatever

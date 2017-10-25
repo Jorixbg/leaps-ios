@@ -11,6 +11,7 @@ import CoreLocation
 
 enum TrainerDetailsRowType {
     case specialities([String])
+    case followers([Attendee])
     case about(String, String?)
     case events(TrainerViewModel)
     
@@ -22,6 +23,8 @@ enum TrainerDetailsRowType {
             return "About"
         case .events:
             return "Events"
+        case .followers(_):
+            return "Followed by"
         }
     }
 }
@@ -30,10 +33,8 @@ struct TrainerDetailsSection {
     var items: [TrainerDetailsRowType]
 }
 
-class TrainerViewModel: BaseViewModel {
+class TrainerViewModel: UserBasicViewModel {
     
-    var traienr: Dynamic<User>
-    private var userManager: UserManager
     private let maxTags = 3
     private var items: Dynamic<[TrainerDetailsRowType]> = Dynamic([])
     var upcomingAttendingPerDate: Dynamic<[Date: [Event]]> = Dynamic([:])
@@ -44,16 +45,22 @@ class TrainerViewModel: BaseViewModel {
     var hostingUpcoming: Dynamic<[Event]> = Dynamic([])
     
     init(trainer: User, userManger: UserManager = UserManager.shared) {
-        self.userManager = userManger
-        self.traienr = Dynamic(trainer)
+        super.init(user: trainer, userManager: userManger, service: UserService())
         var rows: [TrainerDetailsRowType] = []
         
-        traienr.value.specialties.flatMap {
+        trainer.specialties.flatMap {
             let specialtiesRow = TrainerDetailsRowType.specialities($0)
             rows.append(specialtiesRow)
         }
         
-        let aboutRow = TrainerDetailsRowType.about(String(traienr.value.age), traienr.value.description)
+        if trainer.followedBy?.count ?? 0 > 0 {
+            trainer.followedBy.flatMap {
+                let followerRow = TrainerDetailsRowType.followers($0)
+                rows.append(followerRow)
+            }
+        }
+        
+        let aboutRow = TrainerDetailsRowType.about(String(trainer.age), trainer.description)
         rows.append(aboutRow)
         
         let eventsRow = TrainerDetailsRowType.events(self)
@@ -99,16 +106,8 @@ class TrainerViewModel: BaseViewModel {
         self.attendingPerDate.value = attending
     }
     
-    var trainerFullName: String {
-        return "\(traienr.value.firstName) \(traienr.value.lastName)"
-    }
-    
-    var trainerUsername: String? {
-        return traienr.value.username
-    }
-    
     var tags: String? {
-        guard let tags = traienr.value.specialties else {
+        guard let tags = user.value?.specialties else {
             return nil
         }
         var allTags: String = ""
@@ -127,11 +126,11 @@ class TrainerViewModel: BaseViewModel {
     }
     
     var trainerImageURLString: String {
-        return traienr.value.imageURL ?? ""
+        return user.value!.imageURL ?? ""
     }
     
     var numberOfEventsHosting: String {
-        let numberOfEvents = traienr.value.hostingEvents?.count ?? 0
+        let numberOfEvents = user.value?.hostingEvents?.count ?? 0
         
         return String(numberOfEvents)
     }

@@ -41,10 +41,12 @@ class EventAttendanceView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         fromNib()
+        backgroundColor = .clear
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fromNib()
+        backgroundColor = .clear
     }
 }

@@ -54,7 +54,7 @@ class LoginViewModel: BaseViewModel {
         switch response {
         case .error(let error):
             completion?(error)
-        case .success(let userID):
+        case .success( _):
             completion?(nil)
         }
     }

@@ -33,38 +33,11 @@ class EventsListWithNavViewController: UIViewController {
     
     private func setup(navigationController: UINavigationController?) {
         
-        //back button
-        let buttonSelector = #selector(self.didPressCancel)
-        let cancelNavButton = UIButton(type: .custom)
-        cancelNavButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
-        cancelNavButton.addTarget(self, action: buttonSelector, for: .touchUpInside)
-        cancelNavButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        cancelNavButton.imageEdgeInsets = UIEdgeInsetsMake(0, -11, 0, 0)
-        cancelNavButton.tintColor = .leapsOnboardingBlue
-        cancelNavButton.contentHorizontalAlignment = .left
-        cancelNavButton.contentVerticalAlignment = .center
-        let barButton = UIBarButtonItem(customView: cancelNavButton)
-        navigationItem.leftBarButtonItem  = barButton
-        
-        //remove bottom line
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        //Set navigation controller to default look
+        setupDefaultNavigationController()
         
         //set attributed title
         title = viewModel?.navigationTitle()
-        guard let font = UIFont.leapsSFFont(size: 12) else {
-            return
-        }
-        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: font,
-                                                                   NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue]
-        
-        //remove bottom line
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-    }
-
-    func didPressCancel() {
-        self.navigationController?.popViewController(animated: true)
     }
 }
 

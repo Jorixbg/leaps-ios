@@ -32,12 +32,21 @@ class CreateEventStepViewController: UIViewController {
         
         tableView.register(ImageSelectionTableViewCell.self)
         tableView.register(StandardCreateEventTableViewCell.self)
+        tableView.register(CreateEventMapTableViewCell.self)
         tableView.register(TextViewTableViewCell.self)
         tableView.register(SpecialitiesSelectionTableViewCell.self)
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.contentInset = UIEdgeInsetsMake(0, 0, tableViewHardcodedBottomInset, 0)
         UIApplication.shared.statusBarStyle = .default
+    }
+    
+    func validate(by type: CreateEventRowType) {
+        guard let index = viewModel?.rowIndex(for: type),
+              let cell = tableView.cellForRow(at: index) as? ErrorCreateEventTableViewCell else {
+            return
+        }
+        cell.showErrorLabel(with: nil)
     }
 }
 
@@ -95,7 +104,12 @@ extension CreateEventStepViewController: UITableViewDataSource {
                 
                 cell.setTags(tags: tags)
             })
-        case .title, .eventLocation, .priceFrom, .freeSlots, .date, .time:
+        case .eventLocationMap:
+           return tableView.dequeueReusableCell(of: CreateEventMapTableViewCell.self, for: indexPath, configure: { (cell) in
+                cell.setup(type: .eventLocationMap)
+                cell.viewModel = self.viewModel
+            })
+        case .title, .priceFrom, .freeSlots, .date, .time:
             return getStandardCell(tableView: tableView, indexPath: indexPath, type: type)
         }
     }
@@ -105,12 +119,8 @@ extension CreateEventStepViewController: UITableViewDataSource {
         
         switch type {
         case .title:
-        onTextEnter = { [unowned self] text in
-            self.viewModel?.delegate?.enterTitle(title: text)
-            }
-        case .eventLocation:
             onTextEnter = { [unowned self] text in
-                self.viewModel?.delegate?.enterLocation(location: text)
+                self.viewModel?.delegate?.enterTitle(title: text)
             }
         case .priceFrom:
             onTextEnter = { [unowned self] text in

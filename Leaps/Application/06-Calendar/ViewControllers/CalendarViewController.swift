@@ -18,7 +18,7 @@ enum CalendarPeriodType {
     case past
 }
 
-class CalendarViewController: UIViewController {
+class CalendarViewController: BasicViewController {
     typealias T = CalendarActivitiesViewModel
 
     @IBOutlet weak var topViewHeightConstraint: NSLayoutConstraint!
@@ -53,14 +53,19 @@ class CalendarViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: Constants.Activities.bottomInset, right: 0)
         let selector = #selector(fetchEvents)
         NotificationCenter.default.addObserver(self, selector: selector, name: .refreshData, object: nil)
+        
+        addRefreshControl(tableView: tableView) {
+            self.fetchEvents()
+        }
     }
     
     func fetchEvents() {
         viewModel.fetchUserEvetns(page: 1,
                                   userCalndarType: type,
                                   periodType: periodType,
-                                  completion: { [weak self] (error) in
+                                  completion: { (error) in
                                     print("error fetchEvents = \(String(describing: error))")
+                                    self.hideRefreshControll()
         })
     }
     
@@ -88,7 +93,7 @@ class CalendarViewController: UIViewController {
         }
         
         segmentedControl.addUnderlineForSelectedSegment()
-        createEventButton.isHidden = type == .attending
+        //createEventButton.isHidden = type == .attending
     }
     
     deinit {
@@ -132,10 +137,10 @@ class CalendarViewController: UIViewController {
         switch sender.selectedSegmentIndex {
         case 0:
             type = .hosting
-            createEventButton.isHidden = false
+            //createEventButton.isHidden = false
         case 1:
             type = .attending
-            createEventButton.isHidden = true
+            //createEventButton.isHidden = true
         default:
             break
         }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -58,6 +58,7 @@
                     <constraint firstItem="WgI-Vf-ru4" firstAttribute="leading" secondItem="gFL-tO-Ia5" secondAttribute="leading" id="m9B-ht-607"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="11" minY="0.0" maxX="11" maxY="0.0"/>
             <connections>
                 <outlet property="collectionView" destination="WgI-Vf-ru4" id="tRN-VS-m7C"/>
                 <outlet property="collectionViewHeightConstraint" destination="9dv-88-DM0" id="v8K-hV-y9B"/>

@@ -23,10 +23,15 @@ class UserDetailsViewController: UIViewController {
         asserDependencies(viewModel: viewModel)
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableViewAutomaticDimension
-        UIApplication.shared.statusBarStyle = .default
-        headerView.viewModel = viewModel
         tableView.register(StandardSettingsTableViewCell.self)
-        tableView.register(UserProfileTableViewTableViewCell.self)   
+        tableView.register(UserProfileTableViewTableViewCell.self)
+        tableView.register(FollowersTableViewCell.self)
+        UIApplication.shared.statusBarStyle = .default
+        
+        viewModel?.user.bindAndFire({ [weak self] (user) in
+            self?.tableView.reloadData()
+            self?.headerView.viewModel = self?.viewModel
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,6 +110,32 @@ extension UserDetailsViewController: UITableViewDataSource {
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
             })
+        case .followers(let followers):
+            return tableView.dequeueReusableCell(of: FollowersTableViewCell.self, for: indexPath, configure: { (cell) in
+                cell.followers = followers
+            })
+        }
+    }
+}
+
+extension UserDetailsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let rowtype = viewModel?.rowType(for: indexPath) else {
+            return
+        }
+        switch rowtype {
+        case .followers(_):
+            let storyboard = UIStoryboard(name: .common, bundle: nil)
+            let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+            guard let user = viewModel?.user.value,
+                let vc = factory.createFollowersViewController(user:user) else {
+                    return
+            }
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            break
+        default:
+            break
         }
     }
 }

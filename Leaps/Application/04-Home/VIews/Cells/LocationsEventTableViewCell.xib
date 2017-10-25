@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SanFranciscoText-Regular.otf">
+            <string>SanFranciscoText-Regular</string>
+        </array>
+        <array key="Typoforge Studio - Cervo-Medium.otf">
+            <string>Cervo-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="164" id="KGk-i7-Jjw" customClass="LocationsEventTableViewCell" customModule="Leaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="163.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0HF-ua-5bN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="85" id="tDs-Lg-FjA"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8q-gO-gRH">
+                        <rect key="frame" x="11" y="96" width="298" height="23.5"/>
+                        <fontDescription key="fontDescription" name="Cervo-Medium" family="Cervo" pointSize="20"/>
+                        <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Fw-cJ-cpa">
+                        <rect key="frame" x="33" y="123.5" width="29.5" height="14"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal-in" translatesAutoresizingMaskIntoConstraints="NO" id="0Pv-wF-1PW">
+                        <rect key="frame" x="11" y="121.5" width="17" height="17"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Got-F3-Sst">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="4"/>
+                        <color key="backgroundColor" red="1" green="0.23529411764705882" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="4" id="xex-Tb-XUh"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="from 5$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Qxt-tI-HKl" customClass="InsetLabel" customModule="Leaps" customModuleProvider="target">
+                        <rect key="frame" x="270.5" y="12" width="41.5" height="25.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25.5" id="wxB-dU-v9y"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="leftInset">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="rightInset">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="0HF-ua-5bN" secondAttribute="trailing" id="038-VW-E2m"/>
+                    <constraint firstAttribute="trailing" secondItem="Qxt-tI-HKl" secondAttribute="trailing" constant="8" id="A5j-bg-6AQ"/>
+                    <constraint firstItem="Got-F3-Sst" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="J8n-Ya-ejb"/>
+                    <constraint firstItem="R8q-gO-gRH" firstAttribute="top" secondItem="0HF-ua-5bN" secondAttribute="bottom" constant="11" id="Pmz-0i-c8P"/>
+                    <constraint firstItem="0Pv-wF-1PW" firstAttribute="top" secondItem="R8q-gO-gRH" secondAttribute="bottom" constant="2" id="SFS-We-WUA"/>
+                    <constraint firstItem="4Fw-cJ-cpa" firstAttribute="centerY" secondItem="0Pv-wF-1PW" secondAttribute="centerY" id="V05-PM-5nR"/>
+                    <constraint firstItem="R8q-gO-gRH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="bWX-ux-sSE"/>
+                    <constraint firstItem="Got-F3-Sst" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="eFA-ib-k2c"/>
+                    <constraint firstAttribute="trailing" secondItem="R8q-gO-gRH" secondAttribute="trailing" constant="11" id="ikM-LI-KnW"/>
+                    <constraint firstItem="0HF-ua-5bN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lMK-nW-Qrw"/>
+                    <constraint firstItem="Qxt-tI-HKl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="oMt-pU-Cm1"/>
+                    <constraint firstItem="4Fw-cJ-cpa" firstAttribute="leading" secondItem="0Pv-wF-1PW" secondAttribute="trailing" constant="5" id="uTv-rE-NX2"/>
+                    <constraint firstItem="0HF-ua-5bN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ubu-ra-MNo"/>
+                    <constraint firstAttribute="trailing" secondItem="Got-F3-Sst" secondAttribute="trailing" id="xko-2j-kdJ"/>
+                    <constraint firstItem="0Pv-wF-1PW" firstAttribute="leading" secondItem="R8q-gO-gRH" secondAttribute="leading" id="z7N-hT-0EN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="activeView" destination="Got-F3-Sst" id="ETs-V5-Tsm"/>
+                <outlet property="dateLabel" destination="4Fw-cJ-cpa" id="0pg-K3-UNh"/>
+                <outlet property="eventImageView" destination="0HF-ua-5bN" id="PIv-mQ-pZe"/>
+                <outlet property="fromLabel" destination="Qxt-tI-HKl" id="Sud-ez-zL5"/>
+                <outlet property="titleLabel" destination="R8q-gO-gRH" id="FTT-92-v4E"/>
+            </connections>
+            <point key="canvasLocation" x="-71" y="-15"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cal-in" width="17" height="17"/>
+    </resources>
+</document>

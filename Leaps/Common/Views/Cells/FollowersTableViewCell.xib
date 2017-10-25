@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SanFranciscoText-Light.otf">
+            <string>SanFranciscoText-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" focusStyle="custom" rowHeight="80" id="KGk-i7-Jjw" customClass="FollowersTableViewCell" customModule="Leaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUa-5v-rfG">
+                        <rect key="frame" x="8" y="25" width="80" height="29"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="Bz8-Gv-Log"/>
+                            <constraint firstAttribute="height" constant="29" id="SPV-gL-zMx"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTE-dT-0Qk">
+                        <rect key="frame" x="104" y="39.5" width="208" height="0.0"/>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GUa-5v-rfG" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5Sx-W0-d4c"/>
+                    <constraint firstItem="dTE-dT-0Qk" firstAttribute="leading" secondItem="GUa-5v-rfG" secondAttribute="trailing" constant="16" id="D9Y-D2-Mpe"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dTE-dT-0Qk" secondAttribute="trailing" id="fqI-F3-AM1"/>
+                    <constraint firstItem="GUa-5v-rfG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="nEA-So-Z3s"/>
+                    <constraint firstItem="dTE-dT-0Qk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yZ0-OW-FPU"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="followersLabel" destination="dTE-dT-0Qk" id="m58-NZ-p6Y"/>
+                <outlet property="imageContainerView" destination="GUa-5v-rfG" id="RbJ-bS-PSa"/>
+            </connections>
+            <point key="canvasLocation" x="78" y="72"/>
+        </tableViewCell>
+    </objects>
+</document>

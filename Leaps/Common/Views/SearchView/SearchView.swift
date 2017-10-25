@@ -8,18 +8,21 @@
 
 import UIKit
 
-class SearchView: UIView {
+class SearchView: UIView, UITextFieldDelegate {
 
     @IBOutlet weak var textView: TextFieldWithImage!
     @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var searchIconWidthConstraint: NSLayoutConstraint!
     var didSelectSearch: (() -> Void)?
+    var didSelectMap: (() -> Void)?
     var didSelectBack: (() -> Void)?
+    var didSelectClear: (() -> Void)?
     
     var searchEntry: SearchEntry? {
         didSet {
             guard let searcEntry = searchEntry else {
+                textView.text = ""
                 return
             }
             let distance = "Up to \(String(searcEntry.searchDistance))km"
@@ -55,9 +58,10 @@ class SearchView: UIView {
     
     func initialSetup() {
         fromNib()
+        textView.delegate = self
         let selector = #selector(didTapSearchView)
         let tap = UITapGestureRecognizer(target: self, action: selector)
-        self.addGestureRecognizer(tap)
+        self.textView.addGestureRecognizer(tap)
         let resetSelector = #selector(resetSearchTextfield)
         NotificationCenter.default.addObserver(self, selector: resetSelector, name: .resetSearch, object: nil)
         self.textView.layer.cornerRadius = Constants.General.standradCornerRadius
@@ -69,7 +73,7 @@ class SearchView: UIView {
     
     //needs to be called explicitly after viewDidLoad as sit is not layout appropriately when loading from nib
     func setTextField(image: UIImage?) {
-        textView.set(image: image, enabled: false)
+        textView.set(leftImage: image, enabled: true)
     }
     
     func didTapSearchView() {
@@ -78,6 +82,17 @@ class SearchView: UIView {
     
     @IBAction func onBackPressed(_ sender: Any) {
         didSelectBack?()
+    }
+    
+    @IBAction func onMapPressed(_ sender: Any) {
+        didSelectMap?()
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textView.resignFirstResponder()
+        didSelectClear?()
+        
+        return false
     }
     
     deinit {

@@ -18,6 +18,10 @@ class ActivityViewModel: BaseViewModel {
         self.distanceFromCurrentLocation = distanceFromCurrentLocation
     }
     
+    var isUserFollow: Bool {
+        return EventManager.shared.isUserFollow(event: event)
+    }
+    
     var eventTime: String {
         let formatter = DateManager.shared.calendarEventCellFormatter
         let dateAsString = formatter.string(from: event.timeFrom)

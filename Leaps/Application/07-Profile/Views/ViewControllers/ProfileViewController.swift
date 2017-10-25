@@ -11,6 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     typealias T = ProfileViewModel
     
+    @IBOutlet weak var headerView: UserHeaderView!
     @IBOutlet weak var tableView: UITableView!
     //should be extracted when init of maintabbar is moved to appdelegate/splash vc
     fileprivate var viewModel: ProfileViewModel = ProfileViewModel()
@@ -20,11 +21,13 @@ class ProfileViewController: UIViewController {
         asserDependencies(viewModel: viewModel)
         viewModel.seetingsSections.bind { [weak self] (sections) in
             self?.tableView.reloadData()
+            if let user = self?.viewModel.user.value {
+                self?.headerView.viewModel = UserViewModel(user: user)
+            }
         }
         let reloadDataSelector = #selector(reloadData)
         NotificationCenter.default.addObserver(self, selector: reloadDataSelector, name: .refreshOnImageUpload, object: nil)
-
-        tableView.register(ImageAndNameTableViewCell.self)
+        
         tableView.register(BecomeATrainerTableViewCell.self)
         tableView.register(StandardSettingsTableViewCell.self)
         tableView.estimatedRowHeight = 60
@@ -79,26 +82,20 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let type = viewModel.type(forIndexPath: indexPath)
         switch type {
-        case .profileNameWithPic(let imageURLString, let userNames, let username):
-            return tableView.dequeueReusableCell(of: ImageAndNameTableViewCell.self, for: indexPath) {
-                $0.configure(imageURLString: imageURLString, userNames: userNames, username: username) { [unowned self] in
-                    let storyboard = UIStoryboard(name: .profile, bundle: nil)
-                    let factory = StoryboardViewControllerFactory(storyboard: storyboard)
-                    guard let viewController = factory.createEditProvfileViewController(viewModel: self.viewModel) else {
-                        return
-                    }
-                    
-                    self.navigationController?.pushViewController(viewController, animated: true)
-                }
-            }
         case .becomeTrainer(let buttonTitle, let infoLabelText):
             return tableView.dequeueReusableCell(of: BecomeATrainerTableViewCell.self, for: indexPath) {
                 $0.configure(buttonTitle: buttonTitle, infoLabelText: infoLabelText) { [weak self] in
                     self?.presentBecomeTrainer()
                 }
             }
+        case .aboutMe(let description):
+            return tableView.dequeueReusableCell(of: StandardSettingsTableViewCell.self, for: indexPath) {
+                $0.type = type
+                $0.titleLabel.text = description
+            }
         default:
             return tableView.dequeueReusableCell(of: StandardSettingsTableViewCell.self, for: indexPath) {
+                print(type)
                 $0.type = type
             }
         }
@@ -119,17 +116,18 @@ extension ProfileViewController: UITableViewDelegate {
         let type = viewModel.type(forIndexPath: indexPath)
         
         switch type {
-        case .profileNameWithPic:
+        case .edit:
             guard let user = viewModel.user.value else {
                 return
             }
-            let storyboard = UIStoryboard(name: .common, bundle: nil)
+            let storyboard = UIStoryboard(name: .profile, bundle: nil)
             let factory = StoryboardViewControllerFactory(storyboard: storyboard)
-            guard  let vc = factory.createUserProfileViewController(user: user) else {
+            let profileViewModel = ProfileViewModel(user: user)
+            guard let viewController = factory.createEditProvfileViewController(viewModel: profileViewModel) else {
                 return
             }
             
-            navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.pushViewController(viewController, animated: true)
         case .settings:
             let storyboard = UIStoryboard(name: .profile, bundle: nil)
             let factory = StoryboardViewControllerFactory(storyboard: storyboard)

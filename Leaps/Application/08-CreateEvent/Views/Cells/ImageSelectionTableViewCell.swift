@@ -14,8 +14,8 @@ enum ImageSelectionCellType {
 }
 
 //TODO: Needs to be extracted to common as it is used in the edit profile
-class ImageSelectionTableViewCell: UITableViewCell {
-
+class ImageSelectionTableViewCell: ErrorCreateEventTableViewCell {
+    
     @IBOutlet weak var firstImageChooseView: ImageChooseView!
     @IBOutlet weak var secondChooseView: ImageChooseView!
     @IBOutlet weak var thirdChooseView: ImageChooseView!
@@ -138,6 +138,7 @@ extension ImageSelectionTableViewCell: ImageSettable {
             return
         }
         
+        errorLabel.isHidden = true
         allImageViews[index].setImage(image: image)
         
         guard let imageAsData = UIImageJPEGRepresentation(image, Constants.CreateEvent.uploadedPictureCompression) else {

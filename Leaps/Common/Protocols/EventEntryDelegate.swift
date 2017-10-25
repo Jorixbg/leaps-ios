@@ -14,6 +14,7 @@ protocol EventEntryDelegate: class {
     func addTag(tag: String)
     func removeTag(tag: String)
     func enterLocation(location: String)
+    func enterCoordinates(lat:Double, lon:Double)
     func enterPrice(price: String)
     func enterFreeSlots(slots: String)
     func enterDate(date: String)

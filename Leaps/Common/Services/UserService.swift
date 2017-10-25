@@ -28,8 +28,6 @@ class UserService {
     private let networkManager: NetworkManager
     private let userManager: UserManager
     
-    private var dummyToken = "1111177777"
-    
     init(networkManager: NetworkManager = NetworkManager(), userManager: UserManager = UserManager.shared) {
         self.networkManager = networkManager
         self.userManager = userManager
@@ -38,9 +36,11 @@ class UserService {
     //TODO: extract to trainers service
     //MARK: - TRAINERS FETCH
     func fetchTrainers(completion: TrainersFetchHandler?) {
-//        let endPoint = "/user/trainer/feed/dummy"
-        let endPoint = "/user/trainer/feed/"
-        let headers = ["Content-Type": "application/json"]
+        let token = userManager.authToken ?? ""
+        
+        let endPoint = "user/trainer/feed/"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
         
         networkManager.get(path: endPoint, headers: headers) { (result) in
             switch result {
@@ -60,7 +60,6 @@ class UserService {
 
     //MARK: - TRAINERS SEARRCH
     func serachTrainers(searchEntry: SearchEntry, completion: TrainersFetchHandler?) {
-//        let endPoint = "user/trainer/filter"
         let endPoint = "user/trainer/filter/"
         let params = searchEntry.toJSON()
         let headers = ["Content-Type": "application/json"]
@@ -69,7 +68,7 @@ class UserService {
             switch result {
             case .success(let data):
                 guard let data = data as? [String: Any],
-                        let totalResults = data["total_results"] as? Int,
+                        //let totalResults = data["total_results"] as? Int,
                         let trainersArray = data["trainers"] as? [[String: Any]] else {
                     completion?(Result.error(LeapsError.deserializing))
                     return
@@ -182,7 +181,6 @@ class UserService {
     
     //MARK: - FETCH USER
     func fetchUser(forUserWith id: String, completion: UserFetchResultHandler?) {
-//        let endPoint = "user/\(id)/dummy"
         guard let token = userManager.authToken else {
             completion?(Result.error(LeapsError.missingToken))
             return
@@ -190,7 +188,6 @@ class UserService {
         
         let endPoint = "user/\(id)"
         let headers = ["Content-Type": "application/json",
-//                       "Authorization": dummyToken]
                         "Authorization": token]
         
         networkManager.get(path: endPoint, params: nil, headers: headers) { (result) in
@@ -248,7 +245,7 @@ class UserService {
             switch result {
             case .success(let code):
                 print("delete code = \(code)")
-            case .error(let error):
+            case .error(_):
                 break
             }
         }
@@ -262,10 +259,64 @@ class UserService {
         
         networkManager.post(path: endpoint, params: params, headers: headers) { (result) in
             switch result {
-            case .success(let statusCode):
+            case .success(_):
                 completion?(nil)
             case .error(let error):
                 completion?(error)
+            }
+        }
+    }
+    
+    //MARK: - FOLLOW USER WITH ID
+    func follow(userID: Int, completion: UserFetchResultHandler?) {
+        guard let token = userManager.authToken else {
+            return
+        }
+        let endpoint = "user/follow"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
+        let params = ["user_id": userID]
+        
+        print("try to follow user: \(userID)")
+        networkManager.post(path: endpoint, params: params, headers: headers) { (result) in
+            switch result {
+            case .error(let error):
+                completion?(Result.error(error))
+            case .success(let data):
+                guard let result = data as? [String: Any],
+                    let user = User.fromJSON(from: result) else {
+                        completion?(Result.error(LeapsError.deserializing))
+                        return
+                }
+                
+                completion?(Result.success(user))
+            }
+        }
+    }
+    
+    //MARK: - UNFOLLOW USER WITH ID
+    func unfollow(userID: Int, completion: UserFetchResultHandler?) {
+        guard let token = userManager.authToken else {
+                return
+        }
+        let endpoint = "user/unfollow"
+        let headers = ["Content-Type": "application/json",
+                       "Authorization": token]
+        let params = ["user_id": userID]
+        
+        print("try to unfollow user: \(userID)")
+        networkManager.post(path: endpoint, params: params, headers: headers) { (result) in
+            switch result {
+            case .error(let error):
+                completion?(Result.error(error))
+            case .success(let data):
+                guard let result = data as? [String: Any],
+                    let user = User.fromJSON(from: result) else {
+                        completion?(Result.error(LeapsError.deserializing))
+                        return
+                }
+                
+                completion?(Result.success(user))
             }
         }
     }
@@ -299,28 +350,24 @@ class UserService {
     func fetchUserAttendingEentsPast(userID: Int, page: Int, completion: UserEventsResultHandler?) {
         //TODO: uncomment for live
         let endpoint = "user/events/attending/past"
-//        let endpoint = "user/events/attending/past/dummy"
         fetchUserEvents(endPoint: endpoint, userID: userID, page: page, completion: completion)
     }
     
     func fetchUserAttendingEentsFuture(userID: Int, page: Int, completion: UserEventsResultHandler?) {
         //TODO: uncomment for live
         let endpoint = "user/events/attending/future"
-//        let endpoint = "user/events/attending/future/dummy"
         fetchUserEvents(endPoint: endpoint, userID: userID, page: page, completion: completion)
     }
     
     func fetchUserHostingEentsPast(userID: Int, page: Int, completion: UserEventsResultHandler?) {
         //TODO: uncomment for live
         let endpoint = "user/events/hosting/past"
-//        let endpoint = "user/events/hosting/past/dummy"
         fetchUserEvents(endPoint: endpoint, userID: userID, page: page, completion: completion)
     }
     
     func fetchUserHostingEentsFuture(userID: Int, page: Int, completion: UserEventsResultHandler?) {
         //TODO: uncomment for live
         let endpoint = "user/events/hosting/future"
-//        let endpoint = "user/events/hosting/future/dummy"
         fetchUserEvents(endPoint: endpoint, userID: userID, page: page, completion: completion)
     }
     
@@ -333,8 +380,7 @@ class UserService {
         }
         
         let headers = ["Content-Type": "application/json",
-//                       "Authorization": "1111177777"]
-                                "Authorization": token]
+                       "Authorization": token]
         
         let params = ["user_id": userID,
                       "limit": Constants.Requests.pageSize,
@@ -360,14 +406,12 @@ class UserService {
     //MARK: - CREATE EVENT
     func createEvent(eventCreateData: EventCreateData, completion: EventCreateResultHandler?) {
         let endPoint = "event/create"
-//        let endPoint = "event/create/dummy"
         guard let token = userManager.authToken else {
             completion?(Result.error(LeapsError.missingToken))
             return
         }
         
         let headers = ["Content-Type": "application/json",
-//                       "Authorization": "1111177777"]
                         "Authorization": token]
         
         let params = eventCreateData.toJSON()
@@ -419,6 +463,13 @@ class UserService {
             }
             params = ["event_id": "\(eventID)"]
             endPoint = "pic/event"
+        case .eventRateImage:
+            guard let eventID = eventID else {
+                return
+            }
+            endPoint = "pic/rate"
+            params = ["rate_id": "\(eventID)"]
+            break
         }
         
         let headers = ["Authorization": token]

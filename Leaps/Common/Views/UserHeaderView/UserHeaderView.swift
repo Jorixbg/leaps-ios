@@ -15,22 +15,45 @@ class UserHeaderView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var numberEventsLabel: UILabel!
+    @IBOutlet weak var numberEventsView: UIView!
+    @IBOutlet weak var numberFollowersLabel: UILabel!
+    @IBOutlet weak var numberFollowersView: UIView!
+    @IBOutlet weak var numberFollowingLabel: UILabel!
+    @IBOutlet weak var numberFollowingView: UIView!
+    @IBOutlet weak var followButtonView: UIView!
+    @IBOutlet weak var followButton: UIButton!
     
     var viewModel: UserViewModel? {
         didSet {
-            nameLabel.text = viewModel?.userFullName
-            usernameLabel.text = viewModel?.user.value.username
-            guard let viewModel = viewModel else {
+            guard let viewModel = viewModel,
+                  let user = viewModel.user.value else {
                 return
             }
-            numberEventsLabel.text = String(viewModel.user.value.attendedEvents)
-            let imageURLString = viewModel.user.value.imageURL ?? ""
-            guard let url = URL(string: imageURLString) else {
+            
+            nameLabel.text = viewModel.userFullName
+            usernameLabel.text = "@\(viewModel.username)"
+            
+            numberEventsLabel.text = String(user.attendedEvents)
+            numberEventsView.alpha = user.attendedEvents > 0 ? 1: 0.5
+            numberFollowersLabel.text = String(user.followersCount)
+            numberFollowersView.alpha = user.followersCount > 0 ? 1 : 0.5
+            numberFollowingLabel.text = String(user.followingCount)
+            numberFollowingView.alpha = user.followingCount > 0 ? 1 : 0.5
+            
+            followButton.isSelected = viewModel.isUserFollowed()
+            followButtonView.isHidden = viewModel.isLoggedUser()
+            
+            guard let imageURLString = user.imageURL,
+                  let url = URL(string: "\(Constants.baseURL)\(imageURLString)") else {
                 return
             }
             
             profileImageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "profile-placeholder"))
         }
+    }
+    
+    @IBAction func followAction() {
+        viewModel?.followAction()
     }
 
     override init(frame: CGRect) {

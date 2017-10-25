@@ -8,6 +8,17 @@
 
 import Foundation
 
+enum EventCreateStep: Int {
+    case info = 0
+    case map = 1
+    case priceAndSlots = 2
+    case timeAndDate = 3
+}
+
+enum EventCreateError: String {
+    case title = "Please enter title"
+}
+
 final class EventCreateData {
     var title: String?
     var description: String?
@@ -35,6 +46,29 @@ final class EventCreateData {
             if let property_name = attr.label as String! {
                 print("\(mirror.description) \(index): \(property_name) = \(attr.value)")
             }
+        }
+    }
+    
+    func validate(step:Int) -> Validation<ValidationType> {
+        switch step {
+        case EventCreateStep.info.rawValue:
+            if imagesToUpload.count == 0 { return .error(.createEvent(.imageSelection)) }
+            if title == nil || title == ""{ return .error(.createEvent(.title)) }
+            if description == nil || description == "" { return .error(.createEvent(.description)) }
+            if tags.count == 0 { return .error(.createEvent(.workoutType([]))) }
+            return Validation.success()
+        case EventCreateStep.map.rawValue:
+            if address == nil || address == ""{ return .error(.createEvent(.eventLocationMap)) }
+            return Validation.success()
+        case EventCreateStep.priceAndSlots.rawValue:
+            if freeSlots == nil || freeSlots == 0 { return .error(.createEvent(.freeSlots)) }
+            return Validation.success()
+        case EventCreateStep.timeAndDate.rawValue:
+            if date == nil { return .error(.createEvent(.date)) }
+            if timeFrom == nil { return .error(.createEvent(.time)) }
+            return Validation.success()
+        default:
+            return Validation.success()
         }
     }
 }

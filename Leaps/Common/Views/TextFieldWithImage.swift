@@ -26,6 +26,12 @@ class TextFieldWithImage: UITextField {
         }
     }
     
+    var rightImage: UIImage? {
+        didSet {
+            updateView()
+        }
+    }
+    
     @IBInspectable var placehodlerColor: UIColor = .black {
         didSet {
             updateView()
@@ -45,6 +51,12 @@ class TextFieldWithImage: UITextField {
         } else {
             leftViewMode = .never
             leftView = nil
+        }
+        
+        self.clearButtonMode = .always
+        if let clearButton = self.value(forKey: "_clearButton") as? UIButton {
+            clearButton.setImage(#imageLiteral(resourceName: "clear-btn"), for: .normal)
+            clearButton.setImage(#imageLiteral(resourceName: "clear-btn"), for: .highlighted)
         }
         
         let placeHolderText = placeholder ?? ""
@@ -67,9 +79,14 @@ class TextFieldWithImage: UITextField {
         }
     }
     
-    func set(leftPadding: CGFloat = 5, image: UIImage?, enabled: Bool) {
-        leftImage = image
+    func set(leftPadding: CGFloat = 5, leftImage: UIImage?, enabled: Bool) {
+        self.leftImage = leftImage
         self.leftPadding = leftPadding
+        isEnabled = enabled
+    }
+    
+    func set(rightImage: UIImage?, enabled: Bool) {
+        self.rightImage = rightImage
         isEnabled = enabled
     }
 }

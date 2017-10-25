@@ -39,10 +39,16 @@ class RegistrationStepOneViewController: UIViewController {
             switch type {
             case .firstLastName:
                 self.topTextField.keyboardType = .default
+                self.topTextField.returnKeyType = .next
+                self.topTextField.tag = 1
+                self.bottomTextField.returnKeyType = .next
+                self.bottomTextField.tag = 2
             case .emailAddress:
                 self.topTextField.keyboardType = .emailAddress
+                self.topTextField.returnKeyType = .next
             case .password:
                 self.topTextField.isSecureTextEntry = true
+                self.topTextField.returnKeyType = .next
             case .birthday:
                 self.topTextField.inputView = self.datePicker
             case .yearsOfTraining, .sessionPrice, .phoneNumber:
@@ -103,7 +109,7 @@ class RegistrationStepOneViewController: UIViewController {
     }
     
     @IBAction func didPressMidButton(_ sender: Any) {
-        viewModel?.onMidButtonPressed { [weak self] error in
+        viewModel?.onMidButtonPressed { error in
             if let error = error {
                 print("didPressMidButton error = \(error)")
             } else {

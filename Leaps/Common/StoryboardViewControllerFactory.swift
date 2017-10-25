@@ -18,6 +18,19 @@ struct StoryboardViewControllerFactory {
     }
 }
 
+extension StoryboardViewControllerFactory {
+    static func createShareViewController(event: Event, image:UIImage? = nil) -> UIActivityViewController {
+        let  text = "Check out this event at Leaps!\n\n\(event.title)\n\nDownload Leaps app now and get first training FREE."
+        
+        var shareThis: [Any] = [ text ]
+        if let image = image {
+            shareThis.append(image)
+        }
+        let activityViewController = UIActivityViewController(activityItems: shareThis, applicationActivities: nil)
+        return activityViewController
+    }
+}
+
 extension StoryboardViewControllerFactory: ViewControllerFactory {
     func createPastHostingEventsViewController(events: [Event]) -> EventsListWithNavViewController? {
         return createEventListViewController(type: .hostingPast, events: events)
@@ -29,7 +42,7 @@ extension StoryboardViewControllerFactory: ViewControllerFactory {
     
     private func createEventListViewController(type: EventType, events: [Event]) -> EventsListWithNavViewController? {
         let eventResult = EventResult(type: type, events: events)
-        let viewModel = ActivitiesViewModel(service: EventsService(), prefetchedEvents: eventResult)
+        let viewModel = ActivitiesViewModel(service: EventsService(), userService: UserService(), prefetchedEvents: eventResult)
         
         guard let vc = createViewController(viewControllerClass: EventsListWithNavViewController.self) else {
             return nil
@@ -40,12 +53,12 @@ extension StoryboardViewControllerFactory: ViewControllerFactory {
         return vc
     }
     //MARK: - USER PROFILE-
-    func createUserProfileViewController(user: User) -> UserDetailsViewController? {
+    func createUserProfileViewController(user: Attendee) -> UserDetailsViewController? {
         guard let vc = createViewController(viewControllerClass: UserDetailsViewController.self) else {
             return nil
         }
         
-        let viewModel = UserViewModel(user: user)
+        let viewModel = UserViewModel(simpleUser: user)
         vc.inject(viewModel)
         
         return vc
@@ -125,6 +138,30 @@ extension StoryboardViewControllerFactory: ViewControllerFactory {
         }
         
         let viewModel = TrainerViewModel(trainer: trainer)
+        vc.inject(viewModel)
+        
+        return vc
+    }
+    
+    //MARK: - FOLLOWERS-
+    func createFollowersViewController(event:Event) -> FollowersViewController? {
+        let service = EventsService()
+        let userService = UserService()
+        let viewModel = FollowingViewModel(event: event, userService: userService, service: service)
+        return createFollowersViewController(viewModel: viewModel)
+    }
+    
+    func createFollowersViewController(user:User) -> FollowersViewController? {
+        let service = EventsService()
+        let userService = UserService()
+        let viewModel = FollowingViewModel(user: user, userService: userService, service: service)
+        return createFollowersViewController(viewModel: viewModel)
+    }
+    
+    func createFollowersViewController(viewModel:FollowingViewModel) -> FollowersViewController? {
+        guard let vc = createViewController(viewControllerClass: FollowersViewController.self) else {
+            return nil
+        }
         vc.inject(viewModel)
         
         return vc
@@ -221,7 +258,8 @@ extension StoryboardViewControllerFactory: ViewControllerFactory {
     //MARK: - ACTIVITIES-
     func createActivitiesViewController() -> ActivitiesViewController? {
         let service = EventsService()
-        let viewModel = ActivitiesViewModel(service: service, eventSearchType: .all)
+        let userService = UserService()
+        let viewModel = ActivitiesViewModel(service: service, userService: userService, eventSearchType: .all)
         let vc = createViewController(viewControllerClass: ActivitiesViewController.self)
         vc?.inject(viewModel)
         
@@ -390,14 +428,62 @@ extension StoryboardViewControllerFactory: ViewControllerFactory {
         return vc
     }
     
+    //MARK: - EVENT DETAILS RATE-
+    func createEventDetailsRateViewController(event: Event) -> EventDetailsRateViewController? {
+        let vc = createViewController(viewControllerClass: EventDetailsRateViewController.self)
+        let service = EventsService()
+        let viewModel = EventViewModel(event: event, service: service)
+        vc?.inject(viewModel)
+        
+        return vc
+    }
+    
+    //MARK: - EVENT THANKS-
+    func createEventDetailsThanksViewController(event: Event) -> EventDetailsThanksViewController? {
+        let vc = createViewController(viewControllerClass: EventDetailsThanksViewController.self)
+        let service = EventsService()
+        let viewModel = EventViewModel(event: event, service: service)
+        vc?.inject(viewModel)
+        
+        return vc
+    }
+    
+    //MARK: - EVENT REVIEWS-
+    func createEventDetailsReviewsViewController(event: Event) -> EventDetailsReviewsViewController? {
+        let vc = createViewController(viewControllerClass: EventDetailsReviewsViewController.self)
+        let service = EventsService()
+        let viewModel = ReviewViewModel(event: event, service: service)
+        vc?.inject(viewModel)
+        
+        return vc
+    }
+    
     //MARK: - HOME-ALL ACTIVITIES-
     func createAllActivitiesViewController(type: EventType) -> AllActivitiesViewController? {
         let vc = createViewController(viewControllerClass: AllActivitiesViewController.self)
         let service = EventsService()
-        let viewModel = ActivitiesViewModel(service: service, eventSearchType: type)
+        let userService = UserService()
+        let viewModel = ActivitiesViewModel(service: service, userService: userService, eventSearchType: type)
         vc?.inject(viewModel)
         
         return vc
+    }
+    
+    //MARK: - HOME-LOCATIONS-
+    func createLocationsViewController(viewModel:ActivitiesViewModel?) -> UINavigationController? {
+        let vc = createViewController(viewControllerClass: LocationsViewController.self)
+        if let viewModel = viewModel {
+            vc?.inject(viewModel)
+        }
+        else {
+            let service = EventsService()
+            let userService = UserService()
+            let viewModel = ActivitiesViewModel(service: service, userService: userService, eventSearchType: .all)
+            vc?.inject(viewModel)
+        }
+        let nvc = UINavigationController(rootViewController: vc!)
+        
+        return nvc
     }
 }
 

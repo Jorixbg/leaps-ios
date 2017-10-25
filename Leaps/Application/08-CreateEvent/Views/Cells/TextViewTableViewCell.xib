@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="SanFranciscoText-Heavy.otf">
             <string>SanFranciscoText-Heavy</string>
+        </array>
+        <array key="SanFranciscoText-Medium.otf">
+            <string>SanFranciscoText-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -42,12 +45,22 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                     </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This field is required." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eva-Aj-tyO">
+                        <rect key="frame" x="11" y="151.5" width="83.5" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="11" id="S5u-zf-GKX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SanFranciscoText-Medium" family="San Francisco Text" pointSize="9"/>
+                        <color key="textColor" red="0.81568627449999997" green="0.08235294118" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="d2O-dS-dSQ" secondAttribute="bottom" constant="20" id="4rh-BL-ifi"/>
                     <constraint firstItem="ptU-Xf-JRg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="HrE-z8-Xkw"/>
                     <constraint firstItem="ptU-Xf-JRg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="HrW-p6-9vT"/>
                     <constraint firstItem="122-Le-A8P" firstAttribute="bottom" secondItem="d2O-dS-dSQ" secondAttribute="bottom" id="JLa-8f-bjD"/>
+                    <constraint firstItem="eva-Aj-tyO" firstAttribute="leading" secondItem="d2O-dS-dSQ" secondAttribute="leading" id="LMt-Dh-NpL"/>
                     <constraint firstItem="d2O-dS-dSQ" firstAttribute="leading" secondItem="ptU-Xf-JRg" secondAttribute="leading" id="NMB-zf-Nne"/>
                     <constraint firstItem="122-Le-A8P" firstAttribute="leading" secondItem="d2O-dS-dSQ" secondAttribute="leading" id="Nw8-LO-w4x"/>
                     <constraint firstAttribute="trailing" secondItem="ptU-Xf-JRg" secondAttribute="trailing" constant="11" id="PzG-N8-biP"/>
@@ -55,11 +68,13 @@
                     <constraint firstItem="d2O-dS-dSQ" firstAttribute="top" secondItem="ptU-Xf-JRg" secondAttribute="bottom" constant="8" id="bVS-gI-6H6"/>
                     <constraint firstItem="122-Le-A8P" firstAttribute="top" secondItem="d2O-dS-dSQ" secondAttribute="top" id="eQn-u6-xJp"/>
                     <constraint firstItem="d2O-dS-dSQ" firstAttribute="trailing" secondItem="ptU-Xf-JRg" secondAttribute="trailing" id="itP-yd-fYR"/>
+                    <constraint firstItem="eva-Aj-tyO" firstAttribute="top" secondItem="122-Le-A8P" secondAttribute="bottom" constant="5" id="n4i-mW-lV9"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="11" minY="0.0" maxX="11" maxY="0.0"/>
             <connections>
                 <outlet property="backgroundImageView" destination="122-Le-A8P" id="ZLe-xG-wzD"/>
+                <outlet property="errorLabel" destination="eva-Aj-tyO" id="LQL-gH-vJE"/>
                 <outlet property="textView" destination="d2O-dS-dSQ" id="r2w-ni-pVM"/>
             </connections>
             <point key="canvasLocation" x="39" y="-85.5"/>

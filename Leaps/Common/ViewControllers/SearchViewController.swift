@@ -14,9 +14,11 @@ class SearchViewController: UIViewController {
 
     @IBOutlet weak var searchTextField: TextFieldWithImage!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var locationsButton: UIButton!
     @IBOutlet weak var horizontalSlider: UISlider!
     @IBOutlet weak var maxDistanceLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var allButton: UIButton!
     @IBOutlet weak var todayButton: UIButton!
     @IBOutlet weak var nextThreeDaysButton: UIButton!
     @IBOutlet weak var nextFiveDaysButton: UIButton!
@@ -24,13 +26,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var searchTextFieldTrailingConstraint: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var cancelButtonWidthConstraint: NSLayoutConstraint!
     fileprivate var viewModel: SearchViewModel?
-    private let searchFieldFinalConstraintValue: CGFloat = 11
-    private let cancelButtonWidth: CGFloat = 45
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +34,13 @@ class SearchViewController: UIViewController {
         asserDependencies(viewModel: viewModel)
         collectionView.register(TagCollectionViewCell.self)
         configureToDismissKeyboard()
-        searchTextField.set(image: #imageLiteral(resourceName: "find"), enabled: true)
+        searchTextField.set(leftImage: #imageLiteral(resourceName: "find"), enabled: true)
+        searchTextField.set(rightImage: #imageLiteral(resourceName: "find"), enabled: true)
         _ = timePeriodButtons.map {
             $0.setTitleColor(.white, for: .selected)
         }
         searchTextField.delegate = self
+        cancelButton.isHidden = true
         let selector = #selector(changeSearchTerm(sender:))
         searchTextField.addTarget(self, action: selector, for: .editingChanged)
         bindViewModel(viewModel: viewModel)
@@ -70,6 +68,8 @@ class SearchViewController: UIViewController {
                 selectedButton = self.nextThreeDaysButton
             case .inFiveDays:
                 selectedButton = self.nextFiveDaysButton
+            case .all:
+                selectedButton = self.allButton
             }
             
             self.setSelected(isSelected: true, button: selectedButton)
@@ -121,8 +121,8 @@ class SearchViewController: UIViewController {
                                 return
                             }
                             UIView.animate(withDuration: 0.2, delay: 0.1, options: [], animations: {
-                                strongSelf.searchTextFieldTrailingConstraint.constant = strongSelf.searchFieldFinalConstraintValue
-                                strongSelf.cancelButtonWidthConstraint.constant = strongSelf.cancelButtonWidth
+                                strongSelf.locationsButton.isHidden = true
+                                strongSelf.cancelButton.isHidden = false
                                 strongSelf.view.layoutIfNeeded()
                             }, completion: { (completed) in
                                 strongSelf.searchTextField.becomeFirstResponder()
@@ -135,8 +135,8 @@ class SearchViewController: UIViewController {
     @IBAction func didPressCancel(_ sender: Any) {
         UIView.animate(withDuration: 0.2, animations: { [unowned self] in
             self.view.isUserInteractionEnabled = false
-            self.searchTextFieldTrailingConstraint.constant = 0
-            self.cancelButtonWidthConstraint.constant = 0
+            self.locationsButton.isHidden = false
+            self.cancelButton.isHidden = true
             self.view.layoutIfNeeded()
         }) { [unowned self] (completed) in
             guard completed else {
@@ -160,7 +160,7 @@ class SearchViewController: UIViewController {
         viewModel?.searchEntry.value.searchDistance = Int(sender.value)
     }
     
-    @IBAction func didPressResetAll(_ sender: Any) {
+    @IBAction func didPressResetAll() {
         viewModel?.resetSearch()
     }
     
@@ -172,6 +172,8 @@ class SearchViewController: UIViewController {
             viewModel?.selectPeriod(period: .inThreeDays)
         case nextFiveDaysButton:
             viewModel?.selectPeriod(period: .inFiveDays)
+        case allButton:
+            viewModel?.selectPeriod(period: .all)
         default:
             break
         }
@@ -238,4 +240,12 @@ extension SearchViewController: UITextFieldDelegate {
         
         return true
     }
+    
+//    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//        viewModel?.didEnter(searchTerm: "")
+//        didPressResetAll()
+//        onSearchPressed()
+//
+//        return true
+//    }
 }

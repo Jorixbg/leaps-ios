@@ -22,6 +22,10 @@ class ActivityTableViewCell: UITableViewCell {
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var maskImageView: UIImageView!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var followButton: UIButton!
+    
+    var followAction:((_ event:Event)->Void)?
+    var shareAction:((_ event:Event, _ image:UIImage?)->Void)?
     
     //TODO: extract most of the below logic to the view model 
     var viewModel: ActivityViewModel? {
@@ -37,6 +41,9 @@ class ActivityTableViewCell: UITableViewCell {
                 fromLabel.backgroundColor = .leapsOnboardingRed
                 fromLabel.textColor = .white
             }
+            
+            //follow
+            followButton.isSelected = viewModel?.isUserFollow ?? false
 
             //setting first and last as easiest way
             if let viewModel = viewModel {
@@ -88,6 +95,14 @@ class ActivityTableViewCell: UITableViewCell {
     }
     
     @IBAction func didPressShareButton(_ sender: Any) {
-        print("share pressed")
+        if let event = viewModel?.event {
+            shareAction?(event, eventImageView?.image)
+        }
+    }
+    
+    @IBAction func didPressFollowButton(_ sender: Any) {
+        if let event = viewModel?.event {
+            followAction?(event)
+        }
     }
 }

@@ -1,4 +1,4 @@
-    //
+//
 //  ActivitiesViewModel.swift
 //  Leaps
 //
@@ -13,11 +13,13 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
     
     typealias Coordinates = (Double, Double)
     fileprivate let service: EventsService
+    fileprivate let userService: UserService
     fileprivate var eventsType: EventType
     fileprivate var initialEventSearchType: EventType
     fileprivate var seeAllCurrentPage: Int = 1
-    private let locationManager = CLLocationManager()
+    fileprivate let locationManager = CLLocationManager()
     fileprivate let userManager: UserManager
+    fileprivate let eventManager: EventManager
     
     var hasCurrentLocation: Dynamic<Bool> = Dynamic(false)
     var eventSearchResults: Dynamic<[EventResult]> = Dynamic([])
@@ -26,15 +28,20 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
     fileprivate var isRequestRunning: Bool = false
     fileprivate var requestingLocationForEventsFetching = false
     
+    var refreshCompletionBlock: ((Error?) -> Void)? = nil
+    
     init(service: EventsService,
+         userService: UserService,
          eventSearchType: EventType,
          userManager: UserManager = UserManager.shared) {
         self.service = service
+        self.userService = userService
         self.eventsType = eventSearchType
         
         // needed for when clear filter is pressed
         self.initialEventSearchType = eventSearchType
         self.userManager = userManager
+        self.eventManager = EventManager.shared
         super.init()
         
         userManager.hasCurrentLocation.bind { [weak self] (hasCurrentLocation) in
@@ -47,7 +54,8 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
             case .notDetermined, .restricted, .denied:
                 print("No access")
             case .authorizedAlways, .authorizedWhenInUse:
-                locationManager.requestLocation()
+                //locationManager.requestLocation()
+                locationManager.startUpdatingLocation()
                 print("Access")
             }
         } else {
@@ -57,9 +65,10 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
     
     //used for prfile preview "Show past"
     convenience init(service: EventsService,
-         prefetchedEvents: EventResult,
-         userManager: UserManager = UserManager.shared) {
-        self.init(service: service, eventSearchType: prefetchedEvents.type)
+                     userService: UserService,
+                     prefetchedEvents: EventResult,
+                     userManager: UserManager = UserManager.shared) {
+        self.init(service: service, userService: userService, eventSearchType: prefetchedEvents.type)
         
         eventSearchResults.value = [prefetchedEvents]
     }
@@ -68,19 +77,36 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
         return eventsType.navigationTitle()
     }
     
-    fileprivate func requestFeedEvents(with latitude: Double?, and longitude: Double?) {
+    fileprivate func requestFeedEvents(with latitude: Double?, and longitude: Double?, completion: ((Error?) -> Void)? = nil) {
         service.fetchFeedEvents(latitude: latitude, longitude: longitude) { [weak self] result in
             self?.isRequestRunning = false
             switch result {
             case .success(let eventResults):
                 self?.eventSearchResults.value = eventResults
+                completion?(nil)
             case .error(let error):
+                completion?(error)
                 break
             }
         }
     }
     
-    func fetchEvents() {
+    func refreshEvents(completion: ((Error?) -> Void)? = nil) {
+        switch eventsType {
+        case .search:
+            guard let searchEntry = searchEntry else {
+                completion?(nil)
+                return
+            }
+            search(searchEntry: searchEntry, isNewSearch: false, completion: completion)
+            break
+        default:
+            fetchEvents(completion: completion)
+            break
+        }
+    }
+    
+    func fetchEvents(completion: ((Error?) -> Void)? = nil) {
         //called reset filtered events
         if eventsType == .search {
             seeAllCurrentPage = 1
@@ -95,16 +121,19 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
             if CLLocationManager.locationServicesEnabled() {
                 switch(CLLocationManager.authorizationStatus()) {
                 case .notDetermined, .restricted, .denied:
-                    requestFeedEvents(with: nil, and: nil)
+                    requestFeedEvents(with: nil, and: nil, completion: completion)
                 case .authorizedAlways, .authorizedWhenInUse:
                     guard !requestingLocationForEventsFetching else {
+                        completion?(nil)
                         return
                     }
+                    refreshCompletionBlock = completion
                     requestingLocationForEventsFetching = true
-                    locationManager.requestLocation()
+                    //locationManager.requestLocation()
+                    locationManager.startUpdatingLocation()
                 }
             } else {
-                requestFeedEvents(with: nil, and: nil)
+                requestFeedEvents(with: nil, and: nil, completion: completion)
                 print("Location services are not enabled")
             }
             
@@ -114,6 +143,7 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
             let longitude = userManager.currentCoordinates?.1
             service.fetchAllEvents(of: eventsType, page: seeAllCurrentPage, latitude: latitude, longitude: longitude) { [weak self] result in
                 guard let strongSelf = self else {
+                    completion?(nil)
                     return
                 }
                 strongSelf.isRequestRunning = false
@@ -121,6 +151,7 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
                 case .success(let eventResults):
                     guard let newEvents = eventResults.first?.events, !newEvents.isEmpty
                         else {
+                            completion?(nil)
                             return
                     }
                     let eventResult = EventResult(type: strongSelf.eventsType, events: newEvents)
@@ -136,7 +167,10 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
                     }
                     
                     strongSelf.seeAllCurrentPage += 1
+                    completion?(nil)
                 case .error(let error):
+                    print(error)
+                    completion?(error)
                     break
                 }
             }
@@ -148,6 +182,10 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
         case .attendingPast, .hostingPast:
             isRequestRunning = false
         }
+    }
+    
+    func fetchLikedEvents(completion:UserEventsResultHandler?) {
+        service.fetchedLikedEvents(periodType: .upcoming, completion: completion)
     }
     
     var numberOfSections: Int {
@@ -170,13 +208,21 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
         return eventSearchResults.value[section]
     }
     
-    func eventForIndexPath(indexPath: IndexPath) -> Event? {
+    func eventForIndexPath(indexPath: IndexPath, bySection section:Bool = false) -> Event? {
         guard indexPath.section < eventSearchResults.value.count
             && indexPath.row < eventSearchResults.value[indexPath.section].events.count else {
             return nil
         }
         
         return eventSearchResults.value[indexPath.section].events[indexPath.row]
+    }
+    
+    func allEvents() -> [Event] {
+        var allEvents = [Event]()
+        for eventResult in eventSearchResults.value {
+            allEvents = allEvents + eventResult.events
+        }
+        return allEvents
     }
     
     func distance(from event: Event) -> String? {
@@ -206,7 +252,10 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
             }
             fetchEvents()
         case .search:
-            let hasReachedTotalResults = eventSearchResults.value[currentActivity.section].events.count < eventSearchResults.value[currentActivity.section].totalCount
+            var hasReachedTotalResults = false
+            if currentActivity.section >= eventSearchResults.value.count {
+                hasReachedTotalResults = eventSearchResults.value[currentActivity.section].events.count < eventSearchResults.value[currentActivity.section].totalCount
+            }
             guard let searchEntry = searchEntry,
                 !isRequestRunning
                     && hasReachedTotalResults
@@ -217,23 +266,53 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
             search(searchEntry: searchEntry, isNewSearch: false, completion: completion)
         }
     }
+    
+    func followEvent(event: Event, completion: ((Error?) -> Void)? = nil) {
+        let id = event.id
+        if EventManager.shared.isUserFollow(event: event) {
+            service.unfollowEvent(id: id, completion: { [weak self] (error) in
+                if let error = error {
+                    completion?(error)
+                    return
+                }
+                _ = self?.eventManager.remove(id: id)
+                completion?(nil)
+            })
+        }
+        else {
+            service.followEvent(id: id, completion: { [weak self] (result) in
+                switch result {
+                case .success(let event):
+                    _ = self?.eventManager.add(event: event)
+                    completion?(nil)
+                case .error(let error):
+                    completion?(error)
+                }
+            })
+        }
+    }
 }
     
 extension ActivitiesViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager.stopUpdatingLocation()
         guard let location = locations.first else {
+            refreshCompletionBlock?(nil)
+            refreshCompletionBlock = nil
             return
         }
         
         userManager.currentLocation = location
         
         guard requestingLocationForEventsFetching else {
+            refreshCompletionBlock?(nil)
+            refreshCompletionBlock = nil
             return
         }
         print("got location")
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        requestFeedEvents(with: latitude, and: longitude)
+        requestFeedEvents(with: latitude, and: longitude, completion: refreshCompletionBlock)
         requestingLocationForEventsFetching = false
     }
     
@@ -247,6 +326,7 @@ extension ActivitiesViewModel {
     func search(searchEntry: SearchEntry, isNewSearch: Bool, completion: ((Error?) -> Void)?) {
         //make sure request is not Running
         guard isRequestRunning == false else {
+            completion?(nil)
             return
         }
         eventsType = .search
@@ -268,6 +348,7 @@ extension ActivitiesViewModel {
                 } else {
                     guard let newEvents = eventResults.first?.events,
                         var existing = self?.eventSearchResults.value.first else {
+                        completion?(nil)
                         return
                     }
                     //append the freshly returned events

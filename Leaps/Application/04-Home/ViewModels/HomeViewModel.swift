@@ -9,4 +9,9 @@
 import Foundation
 
 class HomeViewModel: BaseViewModel {
+    var userType: Dynamic<UserProfileType>
+    
+    init(type:UserProfileType) {
+        self.userType = Dynamic(type)
+    }
 }

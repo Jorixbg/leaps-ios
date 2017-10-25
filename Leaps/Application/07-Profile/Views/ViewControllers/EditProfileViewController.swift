@@ -25,8 +25,8 @@ class EditProfileViewController: UIViewController {
         tableView.register(ImageSelectionTableViewCell.self)
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         
         setup(navigationController: navigationController)
     }
@@ -37,22 +37,11 @@ class EditProfileViewController: UIViewController {
     
     func setup(navigationController: UINavigationController?) {
         
-        //show navbar
-        self.navigationController?.navigationBar.isTranslucent = false
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        //Set navigation controller to default look
+        setupDefaultNavigationController()
         
-        //back button
-        let buttonSelector = #selector(didPressCancel)
-        let cancelNavButton = UIButton(type: .custom)
-        cancelNavButton.setImage(#imageLiteral(resourceName: "back"), for: .normal)
-        cancelNavButton.addTarget(self, action: buttonSelector, for: .touchUpInside)
-        cancelNavButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        cancelNavButton.imageEdgeInsets = UIEdgeInsetsMake(0, -11, 0, 0)
-        cancelNavButton.tintColor = .leapsOnboardingBlue
-        cancelNavButton.contentHorizontalAlignment = .left
-        cancelNavButton.contentVerticalAlignment = .center
-        let barButton = UIBarButtonItem(customView: cancelNavButton)
-        navigationItem.leftBarButtonItem  = barButton
+        //set title
+        title = "EDIT PROFILE"
         
         guard let font = UIFont.leapsSFFont(size: 12) else {
             return
@@ -64,15 +53,6 @@ class EditProfileViewController: UIViewController {
         doneButton.setTitleTextAttributes([NSFontAttributeName: font,
                                            NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue], for: .normal)
         self.navigationItem.rightBarButtonItem = doneButton
-
-        //set attributed title
-        title = "EDIT PROFILE"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: font,
-                                                                        NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue]
-        
-        //remove bottom line
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func didPressDone() {
@@ -88,22 +68,14 @@ class EditProfileViewController: UIViewController {
         }
     }
     
-    func didPressCancel() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     func keyboardWillShow(_ notification:Notification) {
-        guard let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
+        guard let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
         
         tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + heightAboveKeyboard, 0)
     }
     func keyboardWillHide(_ notification:Notification) {
-        guard let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else {
-            return
-        }
-        
         tableView.contentInset = .zero
     }
 }
@@ -127,7 +99,7 @@ extension EditProfileViewController: UITableViewDataSource {
         case .userPicture(let image):
             return tableView.dequeueReusableCell(of: UserImageTableViewCell.self, for: indexPath, configure: { [weak self] (cell) in
                 self?.delegate = cell
-                print(image?.url)
+                
                 cell.setup(imageURLString: image?.url ?? "", onPictureChangePressed: self?.presentPictureSelectionOptions)
                 
                 cell.onDelteImage = { [weak self] (uplodableImage) in
@@ -179,7 +151,9 @@ extension EditProfileViewController: UITableViewDataSource {
             }
         case .gender:
             onTextEntered = { [weak self] text in
-                self?.viewModel?.userUpdateData?.gender = text
+                if let gender = text.lowercased().first {
+                    self?.viewModel?.userUpdateData?.gender = "\(gender)"
+                }
             }
         case .birthday:
             onTextEntered = { [weak self] text in
@@ -212,6 +186,8 @@ extension EditProfileViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(of: StandradEditProfileTableViewCell.self, for: indexPath, configure: { (cell) in
             cell.type = type
             cell.onTextEntered = onTextEntered
+            cell.editProfilePropertyEntryTextField?.tag = indexPath.row
+            cell.editProfilePropertyEntryTextField.delegate = self
         })
         
         return cell
@@ -219,12 +195,46 @@ extension EditProfileViewController: UITableViewDataSource {
 }
 
 extension EditProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let cell = tableView.cellForRow(at: indexPath) as? StandradEditProfileTableViewCell {
+            cell.editProfilePropertyEntryTextField.becomeFirstResponder()
+        }
+        return indexPath
+    }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return .leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNonzeroMagnitude
+    }
+}
+
+extension EditProfileViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let tag = textField.tag
+        guard let type = viewModel?.editProfileType(forIndexPath: IndexPath(row: tag, section: 0)) else {
+            return true
+        }
+        switch type {
+        case .aboutMe:
+            textField.resignFirstResponder()
+            didPressDone()
+            break
+        default:
+            if  tag + 1 < tableView(tableView, numberOfRowsInSection: 0),
+                let cell = tableView.cellForRow(at: IndexPath(row: tag+1, section: 0)) as? StandradEditProfileTableViewCell{
+                cell.editProfilePropertyEntryTextField.becomeFirstResponder()
+            }
+        }
+        
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let tag = textField.tag
+        tableView.scrollToRow(at: IndexPath(row: tag, section: 0), at: .bottom, animated: true)
     }
 }
 
@@ -247,9 +257,9 @@ extension EditProfileViewController: UINavigationControllerDelegate, UIImagePick
         let sharePhoto = UIAlertAction(title: "Photo Library", style: .default) { (alert : UIAlertAction!) in
             camera.getPhotoLibraryOn(self, canEdit: true)
         }
-        let removePhoto = UIAlertAction(title: "Remove image", style: .destructive) { (alert : UIAlertAction!) in
-            self.delegate?.unsetImage()
-        }
+//        let removePhoto = UIAlertAction(title: "Remove image", style: .destructive) { (alert : UIAlertAction!) in
+//            self.delegate?.unsetImage()
+//        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert : UIAlertAction!) in
         }
         optionMenu.addAction(takePhoto)

@@ -26,11 +26,8 @@ class ActivitiesHeaderTableViewCell: UITableViewCell {
             
             leftLabel.text = result?.type.sectionHeaderTitle(text: totalCountString)
             rightLabel.text = result?.type.actionLabelText()
-            guard let type = result?.type else {
-                return
-            }
             
-            nextImageView.image = type != .search ? #imageLiteral(resourceName: "next") : #imageLiteral(resourceName: "clear-filter")
+            nextImageView.image = #imageLiteral(resourceName: "next")//type != .search ? #imageLiteral(resourceName: "next") : #imageLiteral(resourceName: "clear-filter")
         }
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,6 +17,9 @@
         <array key="SanFranciscoText-Regular.otf">
             <string>SanFranciscoText-Regular</string>
         </array>
+        <array key="SanFranciscoText-Semibold.otf">
+            <string>SanFranciscoText-Semibold</string>
+        </array>
         <array key="Typoforge Studio - Cervo-Medium.otf">
             <string>Cervo-Medium</string>
         </array>
@@ -24,8 +27,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserHeaderView" customModule="Leaps" customModuleProvider="target">
             <connections>
+                <outlet property="followButton" destination="aeX-f5-23I" id="UFu-cu-jUQ"/>
+                <outlet property="followButtonView" destination="SfZ-cy-3gV" id="mIs-No-hto"/>
                 <outlet property="nameLabel" destination="Dyf-RL-RL6" id="U4f-ii-9Qw"/>
                 <outlet property="numberEventsLabel" destination="OcS-pW-laO" id="aRu-Bg-esy"/>
+                <outlet property="numberEventsView" destination="lk9-yM-vrZ" id="eRO-tR-S7g"/>
+                <outlet property="numberFollowersLabel" destination="z6x-p3-ZGr" id="tfb-gz-kXO"/>
+                <outlet property="numberFollowersView" destination="ggp-HZ-Izb" id="LWf-Qx-aWJ"/>
+                <outlet property="numberFollowingLabel" destination="5hT-m3-gN9" id="Nxd-Du-2Ha"/>
+                <outlet property="numberFollowingView" destination="geB-yk-GlN" id="qY4-DK-Izu"/>
                 <outlet property="profileImageView" destination="0Gu-CW-Sh2" id="yZ6-bp-Fug"/>
                 <outlet property="usernameLabel" destination="NWY-uX-wkw" id="k9k-yz-80v"/>
             </connections>
@@ -45,20 +55,48 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vvK-m0-sB4">
                     <rect key="frame" x="0.0" y="151.5" width="375" height="515.5"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SfZ-cy-3gV">
+                            <rect key="frame" x="0.0" y="0.0" width="94" height="515.5"/>
+                            <subviews>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeX-f5-23I" customClass="FollowButton" customModule="Leaps" customModuleProvider="target">
+                                    <rect key="frame" x="7.5" y="245.5" width="80" height="25"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="80" id="3F8-H0-dYK"/>
+                                        <constraint firstAttribute="height" constant="25" id="LTw-aC-XSs"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="SanFranciscoText-Semibold" family="San Francisco Text" pointSize="12"/>
+                                    <state key="normal" title="FOLLOW">
+                                        <color key="titleColor" red="0.16078431369999999" green="0.71764705880000002" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <state key="selected" title="FOLLOWED">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="followAction" destination="-1" eventType="touchUpInside" id="aOW-2v-ocQ"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="aeX-f5-23I" firstAttribute="centerX" secondItem="SfZ-cy-3gV" secondAttribute="centerX" id="UJx-nc-dQG"/>
+                                <constraint firstItem="aeX-f5-23I" firstAttribute="centerY" secondItem="SfZ-cy-3gV" secondAttribute="centerY" id="ZsV-yh-ZTF"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lk9-yM-vrZ">
-                            <rect key="frame" x="0.0" y="0.0" width="125" height="515.5"/>
+                            <rect key="frame" x="94" y="0.0" width="93.5" height="515.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4u-tD-gWP">
-                                    <rect key="frame" x="0.0" y="243.5" width="124.5" height="29"/>
+                                    <rect key="frame" x="0.0" y="244" width="93" height="28"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcS-pW-laO">
-                                            <rect key="frame" x="0.0" y="0.0" width="124.5" height="14.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="93" height="14"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Bold" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrR-cB-wi9">
-                                            <rect key="frame" x="0.0" y="14" width="124.5" height="14.5"/>
+                                            <rect key="frame" x="0.0" y="13.5" width="93" height="14"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -83,21 +121,21 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggp-HZ-Izb">
-                            <rect key="frame" x="125" y="0.0" width="125" height="515.5"/>
+                            <rect key="frame" x="187.5" y="0.0" width="94" height="515.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTt-FY-SXf">
-                                    <rect key="frame" x="0.0" y="244" width="125" height="28.5"/>
+                                    <rect key="frame" x="0.0" y="244.5" width="94" height="27.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6x-p3-ZGr">
-                                            <rect key="frame" x="0.0" y="0.0" width="125" height="14.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="94" height="14"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Bold" family="San Francisco Text" pointSize="12"/>
-                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSP-TJ-PQv">
-                                            <rect key="frame" x="0.0" y="14.5" width="125" height="14.5"/>
+                                            <rect key="frame" x="0.0" y="14" width="94" height="14"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
-                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -120,21 +158,21 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geB-yk-GlN">
-                            <rect key="frame" x="250" y="0.0" width="125" height="515.5"/>
+                            <rect key="frame" x="281.5" y="0.0" width="93.5" height="515.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Xn-AZ-YFh">
-                                    <rect key="frame" x="0.0" y="244" width="124.5" height="28.5"/>
+                                    <rect key="frame" x="0.0" y="244.5" width="93" height="27.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hT-m3-gN9">
-                                            <rect key="frame" x="0.0" y="0.0" width="124.5" height="14.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="93" height="14"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Bold" family="San Francisco Text" pointSize="12"/>
-                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Following" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIh-kK-vzC">
-                                            <rect key="frame" x="0.0" y="14.5" width="124.5" height="14.5"/>
+                                            <rect key="frame" x="0.0" y="14" width="93" height="14"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
-                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -158,12 +196,14 @@
                         </view>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="bottom" secondItem="SfZ-cy-3gV" secondAttribute="bottom" id="7Qi-yR-Q95"/>
                         <constraint firstItem="ggp-HZ-Izb" firstAttribute="top" secondItem="vvK-m0-sB4" secondAttribute="top" id="8PB-MT-oUi"/>
                         <constraint firstAttribute="bottom" secondItem="geB-yk-GlN" secondAttribute="bottom" id="95U-ci-f3h"/>
                         <constraint firstAttribute="bottom" secondItem="ggp-HZ-Izb" secondAttribute="bottom" id="Bng-2S-D9b"/>
                         <constraint firstItem="geB-yk-GlN" firstAttribute="top" secondItem="vvK-m0-sB4" secondAttribute="top" id="Dr2-Cz-Sy8"/>
                         <constraint firstItem="lk9-yM-vrZ" firstAttribute="top" secondItem="vvK-m0-sB4" secondAttribute="top" id="Jar-49-y60"/>
                         <constraint firstAttribute="bottom" secondItem="lk9-yM-vrZ" secondAttribute="bottom" id="Pze-Sd-yah"/>
+                        <constraint firstItem="SfZ-cy-3gV" firstAttribute="top" secondItem="vvK-m0-sB4" secondAttribute="top" id="pNC-Iw-zXz"/>
                     </constraints>
                 </stackView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="0Gu-CW-Sh2">
@@ -175,13 +215,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dyf-RL-RL6">
-                    <rect key="frame" x="30" y="114" width="315" height="20"/>
+                    <rect key="frame" x="30" y="114" width="315" height="23.5"/>
                     <fontDescription key="fontDescription" name="Cervo-Medium" family="Cervo" pointSize="20"/>
                     <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWY-uX-wkw">
-                    <rect key="frame" x="30" y="137" width="315" height="14.5"/>
+                    <rect key="frame" x="30" y="140.5" width="315" height="11"/>
                     <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
                     <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>

@@ -15,5 +15,6 @@ extension String {
     static let login = "Login"
     static let common = "Common"
     static let createEvent = "CreateEvent"
+    static let eventDetails = "EventDetails"
     static let profile = "Profile"
 }
