@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivitiesViewController: BasicViewController {
+class ActivitiesViewController: BasicViewController, LoginPresentable {
     
     typealias T = ActivitiesViewModel
     
@@ -56,7 +56,7 @@ class ActivitiesViewController: BasicViewController {
         NotificationCenter.default.addObserver(self, selector: selector, name: .refreshData, object: nil)
     }
     
-    func refreshEvents() {
+    @objc func refreshEvents() {
         viewModel?.refreshEvents(completion: { [weak self] (error) in
             self?.hideRefreshControll()
             self?.tableView.reloadData()
@@ -86,7 +86,7 @@ extension ActivitiesViewController: Injectable {
 
 extension ActivitiesViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel?.eventSearchResults.value.count ?? 0
+        return viewModel?.numberOfSections ?? 0//eventSearchResults.value.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,10 +103,15 @@ extension ActivitiesViewController: UITableViewDataSource {
             let eventViewModel = ActivityViewModel(event: event, distanceFromCurrentLocation: distanceFromEvent)
             cell.viewModel = eventViewModel
             cell.followAction = { [weak self] event in
-                self?.viewModel?.followEvent(event: event, completion: { (error) in
-                    self?.tableView.reloadData()
-                    NotificationCenter.default.post(name: .refreshData, object: nil)
-                })
+                if UserManager.shared.isLoggedIn {
+                    self?.viewModel?.followEvent(event: event, completion: { (error) in
+                        self?.tableView.reloadData()
+                        NotificationCenter.default.post(name: .refreshData, object: nil)
+                    })
+                }
+                else {
+                    self?.presentLogin()
+                }
             }
             cell.shareAction = { [weak self] event, image in
                 let share = StoryboardViewControllerFactory.createShareViewController(event: event, image: image)
@@ -168,7 +173,7 @@ extension ActivitiesViewController: UITableViewDelegate {
             return
         }
         
-        let storyboard = UIStoryboard(name: .common, bundle: nil)
+        let storyboard = UIStoryboard(name: .eventDetails, bundle: nil)
         let factory = StoryboardViewControllerFactory(storyboard: storyboard)
         guard let vc = factory.createEventDetailsViewController(event: event) else {
             return

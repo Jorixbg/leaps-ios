@@ -71,5 +71,27 @@ class DateManager {
         return DateManager.createFormatter(format: "dd MMM yyyy, HH:mm")
     }()
     
+    func relativeDateStringForDate(date: Date?) -> String? {
+        guard let date = date else {
+            return nil
+        }
+        let todayDate = Date()
+        let components = Calendar.current.dateComponents([.day, .weekday], from: date, to: todayDate)
+        let dateFormatter = DateManager.shared.createEventStandardCellDateFormatter
+        let timeFormatter = DateManager.shared.timeFormatter
+        
+        if components.day! > 7 {
+            return dateFormatter.string(from:date)
+        } else if (components.day! > 0) {
+            if components.day! > 1 {
+                return "\(components.weekday!)"
+            } else {
+                return "Yesterday";
+            }
+        } else {
+            return timeFormatter.string(from:date)
+        }
+    }
+    
     private init() {}
 }

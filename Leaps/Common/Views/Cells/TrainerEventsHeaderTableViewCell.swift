@@ -26,7 +26,7 @@ class TrainerEventsHeaderTableViewCell: UITableViewCell {
         leftLabel.text = text
     }
     
-    func didSelectHeader() {
+    @objc func didSelectHeader() {
         selectedHedader?()
     }
 }

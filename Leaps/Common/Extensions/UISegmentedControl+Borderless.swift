@@ -30,8 +30,8 @@ extension UISegmentedControl{
         guard let font = UIFont.leapsCervoFont(size: 17) else {
             return
         }
-        self.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.leapsBlueWithAlpha, NSFontAttributeName: font], for: .normal)
-        self.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue], for: .selected)
+        self.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.leapsBlueWithAlpha, NSAttributedStringKey.font: font], for: .normal)
+        self.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.leapsOnboardingBlue], for: .selected)
     }
     
     func removeExistingBorder() {

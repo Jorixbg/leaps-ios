@@ -65,8 +65,22 @@ class UserManager {
     
     //id as string as the getter returns nil if we don't have it set. For int it will return 0 if we haven't set any value which will be inaccurate as there will be a user with id 0.
     func setID(id: String) {
-        print("set id  = \(id)")
         UserDefaults.standard.set(id, forKey: .idKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func setName(name: String) {
+        UserDefaults.standard.set(name, forKey: .nameKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func setImage(image: String) {
+        UserDefaults.standard.set(image, forKey: .imageKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func setFcmToken(token: String) {
+        UserDefaults.standard.set(token, forKey: .fcmTokenKey)
         UserDefaults.standard.synchronize()
     }
     
@@ -75,8 +89,20 @@ class UserManager {
         return UserDefaults.standard.string(forKey: .idKey)
     }
     
+    var userName: String? {
+        return UserDefaults.standard.string(forKey: .nameKey)
+    }
+    
+    var userImage: String? {
+        return UserDefaults.standard.string(forKey: .imageKey)
+    }
+    
     var authToken: String? {
         return UserDefaults.standard.string(forKey: .tokenKey)
+    }
+    
+    var fcmToken: String? {
+        return UserDefaults.standard.string(forKey: .fcmTokenKey)
     }
     
     var isTrainer: Bool {

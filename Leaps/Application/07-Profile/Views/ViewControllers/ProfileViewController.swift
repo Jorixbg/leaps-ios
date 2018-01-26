@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func reloadData() {
+    @objc func reloadData() {
         viewModel.fetchUser()
     }
     
@@ -139,6 +139,15 @@ extension ProfileViewController: UITableViewDelegate {
         case .inviteFriends:
             break
         case .giveFeedback:
+            break
+        case .inbox:
+            let storyboard = UIStoryboard(name: .chat, bundle: nil)
+            let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+            guard let vc = factory.createInboxViewController() else {
+                return
+            }
+            
+            navigationController?.pushViewController(vc, animated: true)
             break
         case .viewHelpTutorial:
             presentOnboarding()

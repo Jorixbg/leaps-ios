@@ -31,7 +31,7 @@ class MainTabBarController: UITabBarController {
         }
     }
     
-    func onLoggedOut() {
+    @objc func onLoggedOut() {
         selectedIndex = 0
     }
     
@@ -43,6 +43,13 @@ class MainTabBarController: UITabBarController {
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         let index = viewControllers?.index(of: viewController)
+        
+        if index == 3 {
+            print(moreNavigationController)
+            print(navigationController?.isNavigationBarHidden)
+            navigationController?.setNavigationBarHidden(false, animated: false)
+            print(navigationController?.isNavigationBarHidden)
+        }
         
         guard let loginRequiredIndex = index, loginRequiredIndex > 0 else {
             return true

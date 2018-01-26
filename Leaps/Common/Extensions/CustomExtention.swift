@@ -40,11 +40,11 @@ extension UIViewController {
         guard let font = UIFont.leapsSFFont(size: 12) else {
             return
         }
-        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: font,
-                                                                   NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: font,
+                                                                   NSAttributedStringKey.foregroundColor: UIColor.leapsOnboardingBlue]
     }
     
-    func didPressBack() {
+    @objc func didPressBack() {
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -84,7 +84,7 @@ extension UITextField {
         rightViewMode = .always
     }
     
-    func clear(_ sender : AnyObject) {
+    @objc func clear(_ sender : AnyObject) {
         self.text = ""
         sendActions(for: .editingChanged)
     }
@@ -93,4 +93,10 @@ extension UITextField {
 func delay(_ delay:Double, closure:@escaping ()->()) {
     let when = DispatchTime.now() + delay
     DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
+}
+
+extension String {
+    func twoLengthString(lead:String="0") -> String {
+        return self.count > 1 ? self : "\(lead)\(self)"
+    }
 }

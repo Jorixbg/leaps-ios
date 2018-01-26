@@ -157,9 +157,16 @@ class EventHeaderView: UIView {
         
     }
     @IBAction func didSelectFollow() {
-        viewModel?.followEvent(completion: { [weak self] (error) in
-            self?.followButton.isSelected = self?.viewModel?.isUserFollow ?? false
-        })
+        if UserManager.shared.isLoggedIn {
+            viewModel?.followEvent(completion: { [weak self] (error) in
+                self?.followButton.isSelected = self?.viewModel?.isUserFollow ?? false
+            })
+        }
+        else {
+            if let parent = self.parentViewController as? EventDetailsViewController {
+                parent.presentLogin()
+            }
+        }
     }
     
     func showReviewsViewController() {

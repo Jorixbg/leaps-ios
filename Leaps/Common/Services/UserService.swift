@@ -112,6 +112,9 @@ class UserService {
             case .success(let user):
                 self?.userManager.set(isTrainer: user.isTrainer)
                 self?.userManager.setID(id: idAsString)
+                self?.userManager.setName(name: user.fullname)
+                self?.userManager.setImage(image: user.imageURL ?? "")
+                AppDelegate.shared.registerFCMTokenToDatabase(token: UserManager.shared.fcmToken ?? "")
                 completion?(Result.success(idAsString))
             case .error(let error):
                 completion?(Result.error(error))

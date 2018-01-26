@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,6 +29,7 @@
             <connections>
                 <outlet property="followButton" destination="viB-iI-niO" id="BPx-Ao-QbD"/>
                 <outlet property="maskImageView" destination="uGq-jo-mD9" id="X8D-vZ-6I8"/>
+                <outlet property="messageButton" destination="cMg-SV-qAs" id="nA2-IH-RVb"/>
                 <outlet property="numberOfEventsLabel" destination="oVL-0h-ILW" id="Tge-Mm-cHv"/>
                 <outlet property="numberOfFollowersLabel" destination="4hc-vO-Jzx" id="bsc-Ik-7pA"/>
                 <outlet property="numberOfFollowingLabel" destination="G9d-Of-Qer" id="UZW-dl-9EU"/>
@@ -55,13 +56,13 @@
                     <rect key="frame" x="309" y="283" width="0.0" height="0.0"/>
                 </pageControl>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBh-QX-2LC">
-                    <rect key="frame" x="105" y="257" width="49" height="23.5"/>
+                    <rect key="frame" x="105" y="258.5" width="34.5" height="20"/>
                     <fontDescription key="fontDescription" name="Cervo-Medium" family="Cervo" pointSize="20"/>
                     <color key="textColor" red="0.9371530414" green="0.93731355670000005" blue="0.93714290860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM2-rj-VzG">
-                    <rect key="frame" x="159" y="260" width="29.5" height="14"/>
+                    <rect key="frame" x="144.5" y="259.5" width="29.5" height="14.5"/>
                     <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -95,7 +96,7 @@
                                     <real key="value" value="16"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
-                                    <integer key="value" value="0"/>
+                                    <integer key="value" value="2"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
                                     <integer key="value" value="5"/>
@@ -122,7 +123,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(80 reviews)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C7e-7X-7pH">
-                            <rect key="frame" x="120" y="0.0" width="63.5" height="20"/>
+                            <rect key="frame" x="120" y="0.0" width="66.5" height="20"/>
                             <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="12"/>
                             <color key="textColor" red="0.0" green="0.19607843137254902" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -171,16 +172,16 @@
                             <rect key="frame" x="0.0" y="0.0" width="106.5" height="116"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qy9-9W-qjH">
-                                    <rect key="frame" x="0.0" y="44" width="106.5" height="28"/>
+                                    <rect key="frame" x="0.0" y="43.5" width="106.5" height="29"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVL-0h-ILW">
-                                            <rect key="frame" x="0.0" y="0.0" width="106.5" height="14"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="106.5" height="14.5"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Heavy" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.19607843137254902" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fph-Hf-sYU">
-                                            <rect key="frame" x="0.0" y="13.5" width="106.5" height="14"/>
+                                            <rect key="frame" x="0.0" y="14" width="106.5" height="14.5"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -208,16 +209,16 @@
                             <rect key="frame" x="106.5" y="0.0" width="107" height="116"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAD-1a-5sz">
-                                    <rect key="frame" x="0.0" y="44.5" width="107" height="27.5"/>
+                                    <rect key="frame" x="0.0" y="44" width="107" height="28.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hc-vO-Jzx">
-                                            <rect key="frame" x="0.0" y="0.0" width="107" height="14"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="107" height="14.5"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Heavy" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsM-yn-h01">
-                                            <rect key="frame" x="0.0" y="14" width="107" height="14"/>
+                                            <rect key="frame" x="0.0" y="14.5" width="107" height="14.5"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -245,16 +246,16 @@
                             <rect key="frame" x="213.5" y="0.0" width="106.5" height="116"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YSl-9b-drm">
-                                    <rect key="frame" x="0.0" y="44.5" width="106.5" height="27.5"/>
+                                    <rect key="frame" x="0.0" y="44" width="106.5" height="28.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9d-Of-Qer">
-                                            <rect key="frame" x="0.0" y="0.0" width="106.5" height="14"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="106.5" height="14.5"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Heavy" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Following" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vk-k7-cyc">
-                                            <rect key="frame" x="0.0" y="14" width="106.5" height="14"/>
+                                            <rect key="frame" x="0.0" y="14.5" width="106.5" height="14.5"/>
                                             <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="0.5" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -296,12 +297,26 @@
                         <constraint firstAttribute="height" constant="80" id="jng-oJ-fpd"/>
                     </constraints>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMg-SV-qAs">
+                    <rect key="frame" x="131" y="329" width="120" height="25"/>
+                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="emv-Gn-dDa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="12"/>
+                    <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                    <state key="normal" title="Write message" image="chat-icon">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="KK0-rn-OgJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0k3-60-hXq"/>
                 <constraint firstAttribute="trailing" secondItem="OEG-Q2-9sE" secondAttribute="trailing" id="3Tn-Ig-IxL"/>
                 <constraint firstItem="jM2-rj-VzG" firstAttribute="centerY" secondItem="wBh-QX-2LC" secondAttribute="centerY" constant="-1" id="3yt-le-itg"/>
+                <constraint firstItem="cMg-SV-qAs" firstAttribute="leading" secondItem="viB-iI-niO" secondAttribute="trailing" constant="40" id="5Qp-oy-DgJ"/>
                 <constraint firstItem="CTn-XM-ZDa" firstAttribute="top" secondItem="KK0-rn-OgJ" secondAttribute="bottom" constant="-60" id="6Ov-DS-7bS"/>
                 <constraint firstItem="ZeX-sq-Amb" firstAttribute="top" secondItem="KK0-rn-OgJ" secondAttribute="bottom" constant="6" id="6ZP-hr-fRE"/>
                 <constraint firstItem="uGq-jo-mD9" firstAttribute="leading" secondItem="KK0-rn-OgJ" secondAttribute="leading" id="8Fn-Ca-F58"/>
@@ -317,12 +332,14 @@
                 <constraint firstItem="uGq-jo-mD9" firstAttribute="trailing" secondItem="KK0-rn-OgJ" secondAttribute="trailing" id="SRN-XR-ilL"/>
                 <constraint firstItem="9Ga-sC-XR7" firstAttribute="bottom" secondItem="KK0-rn-OgJ" secondAttribute="bottom" constant="-5" id="Tez-74-pBT"/>
                 <constraint firstItem="jM2-rj-VzG" firstAttribute="leading" secondItem="wBh-QX-2LC" secondAttribute="trailing" constant="5" id="ZJK-aR-yLd"/>
+                <constraint firstItem="cMg-SV-qAs" firstAttribute="height" secondItem="viB-iI-niO" secondAttribute="height" id="f0w-JH-SzS"/>
                 <constraint firstItem="viB-iI-niO" firstAttribute="top" secondItem="CTn-XM-ZDa" secondAttribute="bottom" constant="21" id="fXe-og-wSX"/>
                 <constraint firstItem="KK0-rn-OgJ" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.6" id="gIf-Bg-1K8"/>
                 <constraint firstItem="OEG-Q2-9sE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="j7b-PT-GfK"/>
                 <constraint firstItem="wBh-QX-2LC" firstAttribute="leading" secondItem="CTn-XM-ZDa" secondAttribute="trailing" constant="14" id="jE5-p5-Rff"/>
                 <constraint firstItem="viB-iI-niO" firstAttribute="width" secondItem="CTn-XM-ZDa" secondAttribute="width" id="kYW-R5-Hcu"/>
                 <constraint firstItem="uGq-jo-mD9" firstAttribute="top" secondItem="KK0-rn-OgJ" secondAttribute="top" id="mWV-dM-mbI"/>
+                <constraint firstItem="cMg-SV-qAs" firstAttribute="centerY" secondItem="viB-iI-niO" secondAttribute="centerY" id="pQU-gU-yjF"/>
                 <constraint firstItem="KK0-rn-OgJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rA2-ja-TtZ"/>
                 <constraint firstAttribute="trailing" secondItem="KK0-rn-OgJ" secondAttribute="trailing" id="swH-1V-vNM"/>
                 <constraint firstItem="9Ga-sC-XR7" firstAttribute="trailing" secondItem="KK0-rn-OgJ" secondAttribute="trailing" constant="-11" id="u4T-P2-y4f"/>
@@ -334,6 +351,7 @@
         </view>
     </objects>
     <resources>
+        <image name="chat-icon" width="20" height="16"/>
         <image name="mask" width="353" height="145"/>
         <image name="profile-placeholder" width="25" height="25"/>
     </resources>

@@ -14,6 +14,7 @@ enum ProfileRowType {
     case settings
     case inviteFriends
     case giveFeedback
+    case inbox
     case viewHelpTutorial
     case logout
     case becomeTrainer(String, String)
@@ -30,6 +31,8 @@ enum ProfileRowType {
             return "Invite Friends"
         case .giveFeedback:
             return "Give Us Feedback"
+        case .inbox:
+            return "Inbox"
         case .viewHelpTutorial:
             return "View Help Tutorial Again"
         case .logout:
@@ -207,6 +210,9 @@ class ProfileViewModel: BaseViewModel {
         
         let inviteFrieindsRow = ProfileRowType.inviteFriends
         rows.append(inviteFrieindsRow)
+        
+        let inbox = ProfileRowType.inbox
+        rows.append(inbox)
         
         let giveFeedbackRow = ProfileRowType.giveFeedback
         rows.append(giveFeedbackRow)

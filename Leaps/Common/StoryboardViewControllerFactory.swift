@@ -115,6 +115,8 @@ extension StoryboardViewControllerFactory: ViewControllerFactory {
             return nil
         }
         
+        ////// SLAV, STAGE 3, CREATE EVENT -
+        //flowVC.pageableViewControllers = [stepFourVC, stepOneVC, stepTwoVC, stepThreeVC]
         flowVC.pageableViewControllers = [stepOneVC, stepTwoVC, stepThreeVC, stepFourVC]
         flowVC.inject(viewModel)
         let navigationController = UINavigationController(rootViewController: flowVC)
@@ -342,6 +344,31 @@ extension StoryboardViewControllerFactory: ViewControllerFactory {
         
         navigationController.setNavigationBarHidden(true, animated: false)
         return navigationController
+    }
+    
+    //MARK: - CHAT -
+    func createInboxViewController() -> InboxViewController? {
+        let chatViewController = createViewController(viewControllerClass: InboxViewController.self)
+        
+        return chatViewController
+    }
+    
+    func createMessangerViewController(chat: Chat) -> MessangerViewController? {
+        let messangerViewController = createViewController(viewControllerClass: MessangerViewController.self)
+        
+        let viewModel = MessangerViewModel(chat: chat)
+        messangerViewController?.inject(viewModel)
+        
+        return messangerViewController
+    }
+    
+    func createMessangerViewController(user: User) -> MessangerViewController? {
+        let messangerViewController = createViewController(viewControllerClass: MessangerViewController.self)
+        
+        let viewModel = MessangerViewModel(user: user)
+        messangerViewController?.inject(viewModel)
+        
+        return messangerViewController
     }
     
     //MARK: - ONBOARDING-

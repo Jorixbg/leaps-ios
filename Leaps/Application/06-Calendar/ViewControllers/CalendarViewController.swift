@@ -59,7 +59,7 @@ class CalendarViewController: BasicViewController {
         }
     }
     
-    func fetchEvents() {
+    @objc func fetchEvents() {
         viewModel.fetchUserEvetns(page: 1,
                                   userCalndarType: type,
                                   periodType: periodType,
@@ -206,7 +206,7 @@ extension CalendarViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let event = viewModel.event(for: indexPath, with: periodType)
         
-        let storyboard = UIStoryboard(name: .common, bundle: nil)
+        let storyboard = UIStoryboard(name: .eventDetails, bundle: nil)
         let factory = StoryboardViewControllerFactory(storyboard: storyboard)
         guard let vc = factory.createEventDetailsViewController(event: event) else {
             return

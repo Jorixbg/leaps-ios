@@ -32,7 +32,7 @@ class LocationIconView: UIView {
     
     func setup(price:Int, index i:Int) {
         index = i
-        locationIconImageView.image = #imageLiteral(resourceName: "pin-map")
+        isActieve = false
         if price != 0 {
             priceLabel.text = "from BGN \(price)"
             priceLabel.backgroundColor = .white

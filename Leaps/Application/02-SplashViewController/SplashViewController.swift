@@ -16,16 +16,20 @@ class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        fetchTags()
+    }
+    
+    func fetchTags() {
         viewModel.fetchTags { [weak self] (error) in
+            AlertManager.shared.hideAll()
             guard error == nil else {
-                let alert = UIAlertController(title: "Loading error", message: error?.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self?.present(alert, animated: true, completion: nil)
-                //tags werent fetched so whaat shall we do
+                if let message = error?.localizedDescription, let stongSelf = self {
+                    AlertManager.shared.showTryAgainMessage(message: message, block: stongSelf.fetchTags)
+                }
                 return
             }
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.5, execute: { 
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2.5, execute: {
                 if UserManager.shared.hasSeenOnboarding() == false {
                     let storyboardName: String = .onboarding
                     let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
@@ -40,7 +44,7 @@ class SplashViewController: UIViewController {
                     self?.present(navigationController, animated: false, completion: nil)
                 } else {
                     self?.startMainTabBarController()
-                }                
+                }
             })
         }
     }

@@ -12,9 +12,18 @@ target 'Leaps' do
   pod 'HockeySDK', '~> 4.1.5'
   pod 'Cosmos', '~> 11.0'
   pod 'SwiftMessages'
-  pod 'FaceAware'
+#  pod 'FaceAware'
+  pod 'ReverseExtension'
+  pod 'KMPlaceholderTextView'
+  pod 'DatePickerCell', '~> 1.0'
   
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
+  
+  pod 'Firebase/Storage'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Messaging'
+  pod 'JSQMessagesViewController'
 end

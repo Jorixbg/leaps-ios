@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventDetailsViewController: UIViewController {
+class EventDetailsViewController: HiddingNavigationBarViewController {
     typealias T = EventViewModel
     
     @IBOutlet weak var tableView: UITableView!
@@ -38,6 +38,8 @@ class EventDetailsViewController: UIViewController {
         print("Open event details with id: \(viewModel?.event.value.id ?? -1)")
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        self.title = viewModel?.event.value.title
         UIApplication.shared.statusBarStyle = .default
         let selector = #selector(relaodData)
         NotificationCenter.default.addObserver(self, selector: selector, name: .refreshData, object: nil)
@@ -56,7 +58,7 @@ class EventDetailsViewController: UIViewController {
         return true
     }
     
-    func relaodData() {
+    @objc func relaodData() {
         viewModel?.fetchEvents()
     }
     
@@ -119,6 +121,7 @@ class EventDetailsViewController: UIViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //uncomment for stretchy headers
         updateHeader()
+        updateNavigationBar(offset: scrollView.contentOffset.y)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -136,6 +139,12 @@ class EventDetailsViewController: UIViewController {
         
         header.frame = headerRect
         header.sizeScrollView()
+    }
+    
+    func updateNavigationBar(offset: CGFloat) {
+        let height = headerView.frame.height
+        let alpha = (height + offset)/(height - 30)
+        showNavigationBar(for: alpha)
     }
     
     @IBAction func didPressBack(_ sender: Any) {

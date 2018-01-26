@@ -17,7 +17,7 @@ class LeapsRegistrationTextField: UITextField {
         guard  let placeholder = placeholder else {
             return
         }
-        attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName : color])
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor : color])
 
     }
 }

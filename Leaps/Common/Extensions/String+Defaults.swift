@@ -10,9 +10,12 @@ import Foundation
 
 extension String {
     static let tokenKey = "token"
+    static let fcmTokenKey = "fcmtoken"
     static let seenOnboardingKey = "seenOnboarding"
     static let onboardingSeenKey = "onboarding_seen"
     static let idKey = "idKey"
+    static let nameKey = "nameKey"
+    static let imageKey = "imageKey"
     static let isTrainerKey = "isTrainerKey"
     static let tagsKey = "tagsKey"
 }

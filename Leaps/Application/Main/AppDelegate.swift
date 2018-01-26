@@ -12,27 +12,42 @@ import GoogleSignIn
 import HockeySDK
 import GoogleMaps
 import GooglePlaces
+import Firebase
+import Messages
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    static var shared: AppDelegate!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        AppDelegate.shared = self
+        
         //MARK: Hockey
         BITHockeyManager.shared().configure(withIdentifier: "AIzaSyDscXTHheBQsBdupg0dGZrGzpkNB3OnGPk")
-        // Do some additional configuration if needed here
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
 
         //MARK: GoogleMaps
-        GMSServices.provideAPIKey("AIzaSyBf_yEUTy71CwVTy7AtIuE4MO8eQZR1qJk")
-        //GMSPlacesClient.provideAPIKey("AIzaSyBf_yEUTy71CwVTy7AtIuE4MO8eQZR1qJk")
+        GMSServices.provideAPIKey("AIzaSyA9uJLwGxJb9K_kehkefxvRv_022LxQRYs")
         
-        // Override point for customization after application launch.
+        //MARK: Firebase & Firebase Messaging
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        
+        //MARK: Push Notifications
+        application.registerForRemoteNotifications()
+        requestNotificationAuthorization(application: application)
+        
+        //MARK: Facebook
         StyleManager.applyDefaultStyle()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = "801378930759-m9jc5cgovq4hc76r6feaigqgmkq3qdhn.apps.googleusercontent.com"
+        
         return true
     }
     
@@ -68,7 +83,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
+extension AppDelegate {
+    func requestNotificationAuthorization(application: UIApplication) {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+    }
+}
+
+@available(iOS 10, *)
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    // iOS10+, called when presenting notification in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        NSLog("[UserNotificationCenter] willPresentNotification: \(userInfo)")
+        //TODO: Handle foreground notification
+        completionHandler([.alert])
+    }
+    
+    // iOS10+, called when received response (default open, dismiss or custom action) for a notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        NSLog("[UserNotificationCenter] didReceiveResponse: \(userInfo)")
+        //TODO: Handle background notification
+        completionHandler()
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        NSLog("[RemoteNotification] didReceiveRegistrationToken: \(fcmToken)")
+        registerFCMTokenToDatabase(token: fcmToken)
+    }
+    
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        NSLog("[RemoteNotification] didRefreshRegistrationToken: \(fcmToken)")
+        registerFCMTokenToDatabase(token: fcmToken)
+    }
+    
+    func registerFCMTokenToDatabase(token: String) {
+        if UserManager.shared.isLoggedIn, let id = UserManager.shared.userID, let name = UserManager.shared.userName {
+            let user = ["id": id,
+                        "name": name,
+                        "device_token": token]
+            Database.database().reference().child("users").child(id).setValue(user)
+        }
+        else {
+            UserManager.shared.setFcmToken(token: token)
+        }
+    }
+    
+    // iOS9, called when presenting notification in foreground
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        NSLog("[RemoteNotification] applicationState: didReceiveRemoteNotification for iOS9: \(userInfo)")
+        if UIApplication.shared.applicationState == .active {
+            //TODO: Handle foreground notification
+        } else {
+            //TODO: Handle background notification
+        }
+    }
+}

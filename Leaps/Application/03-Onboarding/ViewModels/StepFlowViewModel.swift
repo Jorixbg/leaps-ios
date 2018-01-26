@@ -157,13 +157,16 @@ class StepFlowViewModel: BaseViewModel {
                 print("missing userDetials")
                 return
             }
+            AlertManager.shared.hideAll()
             service.register(userDetails: userDetails, completion: { [weak self] (result) in
                 switch result {
                 case .success(let userID):
                     self?.userManager.setID(id: userID)
                     self?.userManager.set(isTrainer: false)
+                    AlertManager.shared.showSuccessMessage(type: .register)
                     completion?(nil)
                 case .error(let error):
+                    AlertManager.shared.showErrorMessage(message: "\(error)")
                     completion?(error)
                 }
             })
@@ -181,7 +184,7 @@ class StepFlowViewModel: BaseViewModel {
                     print("missing become trainer info")
                     return
             }
-            
+            AlertManager.shared.hideAll()
             service.fetchUser(forUserWith: userID, completion: { [weak self] (result) in
                 switch result {
                 case .success(let user):
@@ -194,12 +197,15 @@ class StepFlowViewModel: BaseViewModel {
                     self?.service.update(userUpdateData: userData) { result in
                         switch result {
                         case .success( _):
+                            AlertManager.shared.showSuccessMessage(type: .becomeTrainer)
                             completion?(nil)
                         case .error(let error):
+                            AlertManager.shared.showErrorMessage(message: "\(error)")
                             completion?(error)
                         }
                     }
                 case .error(let error):
+                    AlertManager.shared.showErrorMessage(message: "\(error)")
                     completion?(error)
                 }
             })
@@ -208,14 +214,15 @@ class StepFlowViewModel: BaseViewModel {
                 completion?(LeapsError.missingLoginData)
                 return
             }
-            
+            AlertManager.shared.hideAll()
             service.login(username: username, password: password, completion: { (result) in
                 switch result {
                 case .success(_):
+                    AlertManager.shared.showSuccessMessage(type: .login)
                     completion?(nil)
-                    print("successful login")
                 case .error(let error):
                     print("login error = \(error)")
+                    AlertManager.shared.showErrorMessage(message: "\(error)")
                     completion?(error)
                 }
             })
@@ -229,6 +236,7 @@ class StepFlowViewModel: BaseViewModel {
             }
             createEventData.dateCreated = Date()
             createEventData.ownerID = id
+            AlertManager.shared.hideAll()
             service.createEvent(eventCreateData: createEventData, completion: { [weak self] (result) in
                 switch result {
                 case .success(let eventID):
@@ -236,8 +244,10 @@ class StepFlowViewModel: BaseViewModel {
                         self?.service.upload(imageData: image, eventID: eventID)
                     }
                     NotificationCenter.default.post(name: .refreshData, object: nil)
+                    AlertManager.shared.showSuccessMessage(type: .createEvent)
                     completion?(nil)
                 case .error(let error):
+                    AlertManager.shared.showErrorMessage(message: "\(error)")
                     completion?(error)
                 }
             })
@@ -321,23 +331,24 @@ extension StepFlowViewModel: EventEntryDelegate {
         createEventData?.imagesToUpload.append(image)
     }
 
-    func enterTime(time: String) {
-        let formatter = DateManager.shared.createEventStandardCellTimeFormatter
-        guard let date = formatter.date(from: time) else {
-            return
-        }
-        
-        createEventData?.timeFrom = date
-        createEventData?.timeTo = date
+    func enterTimeFrom(time: Date) {
+        createEventData?.timeFrom = time
     }
-
-    func enterDate(date: String) {
-        let formatter = DateManager.shared.createEventStandardCellDateFormatter
-        guard let date = formatter.date(from: date) else {
-            return
-        }
-        
-        createEventData?.date = date
+    
+    func enterTimeTo(time: Date) {
+        createEventData?.timeTo = time
+    }
+    
+    func enterRepeating(repeating: Bool) {
+        createEventData?.repeating = repeating
+    }
+    
+    func enterFrequency(frequency: Frequency) {
+        createEventData?.frequency = frequency
+    }
+    
+    func enterDates(activities: [Activity]) {
+        createEventData?.activities = activities
     }
 
     func enterFreeSlots(slots: String) {

@@ -94,8 +94,8 @@ class StepsFlowViewController: UIViewController {
                 guard let font = UIFont.leapsSFFont(size: 12) else {
                     break
                 }
-                self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: font,
-                                                                                NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue]
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: font,
+                                                                                NSAttributedStringKey.foregroundColor: UIColor.leapsOnboardingBlue]
 
                 //remove bottom line
                 self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -233,6 +233,7 @@ class StepsFlowViewController: UIViewController {
         case  .createEvent:
             view.endEditing(true)
             viewModel.finishAllsteps { [weak self] error in
+                
                 self?.dismiss(animated: true, completion: nil)
                 NotificationCenter.default.post(name: .refreshData, object: nil)
             }

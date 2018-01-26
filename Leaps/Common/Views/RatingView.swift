@@ -40,7 +40,7 @@ class RatingView: UIView {
             cosmosView.settings.emptyColor = UIColor(red:0.17, green:0.42, blue:0.51, alpha:1)
             break
         case .darkBlue:
-            cosmosView.settings.filledColor = UIColor(red:0, green:0.2, blue:0.39, alpha:1)
+            cosmosView.settings.filledColor = .leapsOnboardingBlue
             cosmosView.settings.emptyColor = UIColor(red:0.88, green:0.88, blue:0.88, alpha:1)
             break
         }

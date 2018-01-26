@@ -103,7 +103,7 @@ class RegistrationStepOneViewController: UIViewController {
         datePicker.maximumDate = date
     }
     
-    func didChanteDate() {
+    @objc func didChanteDate() {
         topTextField.text = formatter.string(from: datePicker.date)
         viewModel?.didEnterBirthday(date: datePicker.date)
     }

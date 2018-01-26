@@ -25,6 +25,7 @@ class SearchViewController: UIViewController {
     @IBOutlet var timePeriodButtons: [UIButton]!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
     
     fileprivate var viewModel: SearchViewModel?
     
@@ -46,7 +47,7 @@ class SearchViewController: UIViewController {
         bindViewModel(viewModel: viewModel)
     }
     
-    func changeSearchTerm(sender: UITextField) {
+    @objc func changeSearchTerm(sender: UITextField) {
         guard let text = sender.text else {
             return
         }
@@ -82,6 +83,7 @@ class SearchViewController: UIViewController {
             }
             
             self?.collectionViewHeightConstraint.constant = height
+            self?.collectionViewTopConstraint.constant = 167
             self?.view.layoutIfNeeded()
         })
     }

@@ -60,7 +60,7 @@ class TextFieldWithImage: UITextField {
         }
         
         let placeHolderText = placeholder ?? ""
-        let attributes: [String : Any] = [NSForegroundColorAttributeName: placehodlerColor]
+        let attributes: [NSAttributedStringKey : Any] = [.foregroundColor: placehodlerColor]
         
         attributedPlaceholder = NSAttributedString(string: placeHolderText, attributes: attributes)
     }

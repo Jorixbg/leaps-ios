@@ -61,13 +61,14 @@ class SearchView: UIView, UITextFieldDelegate {
         textView.delegate = self
         let selector = #selector(didTapSearchView)
         let tap = UITapGestureRecognizer(target: self, action: selector)
-        self.textView.addGestureRecognizer(tap)
+        tap.numberOfTapsRequired = 1
+        //self.textView.addGestureRecognizer(tap)
         let resetSelector = #selector(resetSearchTextfield)
         NotificationCenter.default.addObserver(self, selector: resetSelector, name: .resetSearch, object: nil)
         self.textView.layer.cornerRadius = Constants.General.standradCornerRadius
     }
     
-    func resetSearchTextfield(notification: Notification) {
+    @objc func resetSearchTextfield(notification: Notification) {
         textView.text = ""
     }
     
@@ -76,8 +77,8 @@ class SearchView: UIView, UITextFieldDelegate {
         textView.set(leftImage: image, enabled: true)
     }
     
-    func didTapSearchView() {
-        didSelectSearch?()
+    @objc func didTapSearchView() {
+        //didSelectSearch?()
     }
     
     @IBAction func onBackPressed(_ sender: Any) {
@@ -92,6 +93,11 @@ class SearchView: UIView, UITextFieldDelegate {
         textView.resignFirstResponder()
         didSelectClear?()
         
+        return false
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        didSelectSearch?()
         return false
     }
     

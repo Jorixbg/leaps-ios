@@ -36,7 +36,7 @@ class CalendarActivitiesViewModel: BaseViewModel {
     
     private static func append(content: [Date: [Event]],to initialArray: Dynamic<[(key: Date, value: [Event])]>) -> Dynamic<[(key: Date, value: [Event])]> {
         //didn't work with > for some reaons so i did it < and reversed #notenoughtime
-        let freshContent = content.sorted(by: { $0.0.key < $0.1.key }).reversed()
+        let freshContent = content.sorted(by: { $0.key < $1.key }).reversed()
         var resultArray = initialArray.value
         for dateAndEvent in freshContent {
             if let index = resultArray.index(where: {

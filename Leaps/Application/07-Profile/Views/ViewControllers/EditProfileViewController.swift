@@ -50,12 +50,12 @@ class EditProfileViewController: UIViewController {
         //Done Button
         let doneButtonSelector = #selector(didPressDone)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: doneButtonSelector)
-        doneButton.setTitleTextAttributes([NSFontAttributeName: font,
-                                           NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue], for: .normal)
+        doneButton.setTitleTextAttributes([NSAttributedStringKey.font: font,
+                                           NSAttributedStringKey.foregroundColor: UIColor.leapsOnboardingBlue], for: .normal)
         self.navigationItem.rightBarButtonItem = doneButton
     }
     
-    func didPressDone() {
+    @objc func didPressDone() {
         viewModel?.updateProfile() { [weak self] error in
             guard error == nil else {
                 let alert = UIAlertController(title: "User update error", message: error?.localizedDescription, preferredStyle: .alert)
@@ -68,14 +68,14 @@ class EditProfileViewController: UIViewController {
         }
     }
     
-    func keyboardWillShow(_ notification:Notification) {
+    @objc func keyboardWillShow(_ notification:Notification) {
         guard let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
         
         tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height + heightAboveKeyboard, 0)
     }
-    func keyboardWillHide(_ notification:Notification) {
+    @objc func keyboardWillHide(_ notification:Notification) {
         tableView.contentInset = .zero
     }
 }

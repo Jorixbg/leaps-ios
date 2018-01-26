@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="220" id="KGk-i7-Jjw" customClass="PickerTableViewCell" customModule="Leaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="440" height="220"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="440" height="219.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZJv-U2-Wzb">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="219"/>
+                        <date key="date" timeIntervalSinceReferenceDate="532628767.41370398">
+                            <!--2017-11-17 16:26:07 +0000-->
+                        </date>
+                    </datePicker>
+                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dC-2O-aJf">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="219"/>
+                    </pickerView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ZJv-U2-Wzb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4Tc-c5-6hj"/>
+                    <constraint firstItem="ZJv-U2-Wzb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Kzk-nC-LGC"/>
+                    <constraint firstItem="5dC-2O-aJf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="TJq-O4-Lrb"/>
+                    <constraint firstAttribute="bottom" secondItem="5dC-2O-aJf" secondAttribute="bottom" id="X81-dz-rUQ"/>
+                    <constraint firstAttribute="bottom" secondItem="ZJv-U2-Wzb" secondAttribute="bottom" id="ctH-ty-vFr"/>
+                    <constraint firstAttribute="trailing" secondItem="ZJv-U2-Wzb" secondAttribute="trailing" id="gvJ-lf-9UZ"/>
+                    <constraint firstItem="5dC-2O-aJf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="nIO-mv-aIH"/>
+                    <constraint firstAttribute="trailing" secondItem="5dC-2O-aJf" secondAttribute="trailing" id="wGc-9B-zGu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="customPicker" destination="5dC-2O-aJf" id="YUp-yj-ayX"/>
+                <outlet property="datePicker" destination="ZJv-U2-Wzb" id="DbQ-6J-y5L"/>
+            </connections>
+            <point key="canvasLocation" x="145" y="136"/>
+        </tableViewCell>
+    </objects>
+</document>

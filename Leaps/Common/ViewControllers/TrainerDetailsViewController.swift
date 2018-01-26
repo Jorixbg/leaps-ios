@@ -36,6 +36,8 @@ class TrainerDetailsViewController: UIViewController {
             self?.tableView.reloadData()
             self?.headerView.viewModel = self?.viewModel
         })
+        
+        headerView.messageButton.addTarget(self, action: #selector(didSelectMessageButton), for: .touchUpInside)
     }
     
     override func viewDidLayoutSubviews() {
@@ -90,6 +92,17 @@ class TrainerDetailsViewController: UIViewController {
         header.sizeScrollView()
     }
     
+    @objc func didSelectMessageButton() {
+        let storyboard = UIStoryboard(name: .chat, bundle: nil)
+        let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+        guard let user = viewModel?.user.value,
+              let vc = factory.createMessangerViewController(user: user) else {
+            return
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func didPressBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -138,7 +151,7 @@ extension TrainerDetailsViewController: UITableViewDataSource {
                 cell.viewModel = viewModel
                 cell.onCellSelected = { [weak self] event in
              
-                    let storyboard = UIStoryboard(name: .common, bundle: nil)
+                    let storyboard = UIStoryboard(name: .eventDetails, bundle: nil)
                     let factory = StoryboardViewControllerFactory(storyboard: storyboard)
                     guard let vc = factory.createEventDetailsViewController(event: event) else {
                         return

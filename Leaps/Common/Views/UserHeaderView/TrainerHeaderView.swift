@@ -23,6 +23,7 @@ class TrainerHeaderView: UIView {
     @IBOutlet weak var maskImageView: UIImageView!
     @IBOutlet weak var ratingView: RatingView!
     @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var messageButton: UIButton!
     private let scrollViewHeightToSuperviewHeightCoef: CGFloat = 0.6
     
     var viewModel: TrainerViewModel? {
@@ -114,6 +115,7 @@ class TrainerHeaderView: UIView {
     func initialSetup() {
         scrollView.isPagingEnabled = true
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+        messageButton.layer.cornerRadius = 6
         pageControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
     }
 

@@ -16,4 +16,5 @@ extension UIColor {
     static let leapsBabyBlue = UIColor(red: 203/255, green: 244/255, blue: 255/255, alpha: 1)
     static let leapsPlaceholderGrey = UIColor(red: 0/255, green: 50/255, blue: 100/255, alpha: 0.4)
     static let leapsPageControlLightBlue = UIColor(red: 41/255, green: 178/255, blue: 233/255, alpha: 1)
+    static let leapsChatGrey = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1)
 }

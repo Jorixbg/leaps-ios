@@ -63,7 +63,7 @@ class StandardCreateEventTableViewCell: ErrorCreateEventTableViewCell {
         self.textField.leftViewMode = .always
         
         if let placeholder = type.placeholderForType() {
-            textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName : UIColor.leapsOnboardingBluePlaceholder])
+            textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor : UIColor.leapsOnboardingBluePlaceholder])
         }
     }
     
@@ -112,7 +112,7 @@ extension StandardCreateEventTableViewCell: UITextFieldDelegate {
         return true
     }
     
-    func datePickerValueChanged(sender: UIDatePicker) {
+    @objc func datePickerValueChanged(sender: UIDatePicker) {
         switch sender.datePickerMode {
         case .date:
             let dateFormatter = DateManager.shared.createEventStandardCellDateFormatter

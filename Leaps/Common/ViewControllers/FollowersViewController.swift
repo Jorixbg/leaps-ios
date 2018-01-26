@@ -66,6 +66,15 @@ extension FollowersViewController: UITableViewDataSource {
             }
         }
     }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return viewModel?.canEdit(indexPath: indexPath) ?? false
+    }
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { action, arg  in
+            //handle delete
+        }
+        return [removeAction]
+    }
 }
 
 extension FollowersViewController: UITableViewDelegate {

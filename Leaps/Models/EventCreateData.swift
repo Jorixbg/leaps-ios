@@ -15,6 +15,7 @@ enum EventCreateStep: Int {
     case timeAndDate = 3
 }
 
+
 enum EventCreateError: String {
     case title = "Please enter title"
 }
@@ -22,7 +23,6 @@ enum EventCreateError: String {
 final class EventCreateData {
     var title: String?
     var description: String?
-    var date: Date?
     var timeFrom: Date?
     var timeTo: Date?
     var ownerID: Int?
@@ -32,7 +32,10 @@ final class EventCreateData {
     var address: String?
     var freeSlots: Int?
     var dateCreated: Date?
+    var repeating: Bool = false
+    var frequency: Frequency? = .everyday
     var tags: [String] = []
+    var activities: [Activity] = []
     
     var imagesToUpload: [UplodableImage] = []
     
@@ -64,7 +67,7 @@ final class EventCreateData {
             if freeSlots == nil || freeSlots == 0 { return .error(.createEvent(.freeSlots)) }
             return Validation.success()
         case EventCreateStep.timeAndDate.rawValue:
-            if date == nil { return .error(.createEvent(.date)) }
+            //if date == nil { return .error(.createEvent(.date)) }
             if timeFrom == nil { return .error(.createEvent(.time)) }
             return Validation.success()
         default:
@@ -77,9 +80,8 @@ extension EventCreateData: Serializable {
     func toJSON() -> [String : Any] {
         guard let title = title,
                 let description = description,
-                let date = date,
-                let timeFrom = timeFrom,
-                let timeTo = timeTo,
+                let start = timeFrom,
+                let end = timeTo,
                 let ownerID = ownerID,
                 let coordLatitude = coordLatitude,
                 let coordLongitude = coordLongitude,
@@ -91,25 +93,28 @@ extension EventCreateData: Serializable {
                 return [:]
         }
         
-        //timeFrom is only hours so we need to take the rest of the data from date of the event
-        let gregorian = Calendar(identifier: .gregorian)
-        var components = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        let timeComponents = gregorian.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeFrom)
-        components.hour = timeComponents.hour
-        components.minute = timeComponents.minute
-        components.second = timeComponents.second
-        
-        guard let timeFromDate = gregorian.date(from: components) else {
-            print("failed genereting time from date")
-            return [:]
+        var frequency = ""
+        var dates:[[String : Any]] = []
+        if let fr = self.frequency {
+            frequency = fr.rawValue.lowercased()
+            
+            for activity in activities {
+                if fr.days().contains(activity.day) {
+                    let period = activity.day.rawValue.lowercased()
+                    let timeFrom = activity.jsonStartDate()
+                    let timeTo = activity.jsonEndDate()
+                    dates.append(["period": period, "start": timeFrom, "end": timeTo])
+                }
+            }
         }
-        print("time from date = \(timeFromDate)")
         
         return ["title": title,
                 "description": description,
-                "date": date.timeIntervalSince1970Miliseconds,
-                "time_from": timeFromDate.timeIntervalSince1970Miliseconds,
-                "time_to": timeTo.timeIntervalSince1970Miliseconds,
+                "start": start.timeIntervalSince1970Miliseconds,
+                "end": end.timeIntervalSince1970Miliseconds,
+                "repeat": repeating,
+                "frequency": frequency,
+                "dates": dates,
                 "owner_id": ownerID,
                 "coord_lat": coordLatitude,
                 "coord_lnt": coordLongitude,

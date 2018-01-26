@@ -39,7 +39,7 @@ class ActivitiesHeaderTableViewCell: UITableViewCell {
         self.addGestureRecognizer(tap)
     }
     
-    func didSelectHeader() {
+    @objc func didSelectHeader() {
         guard let type = result?.type else { return }
         selectedHedader?(type)
     }

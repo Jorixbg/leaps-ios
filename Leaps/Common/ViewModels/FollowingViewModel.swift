@@ -54,6 +54,14 @@ class FollowingViewModel: BaseViewModel {
         return []
     }
     
+    func canEdit(indexPath:IndexPath) -> Bool {
+        guard let event = event,
+              let userID = self.userManager.userID else {
+            return false
+        }
+        return event.value.ownerID == Int(userID)
+    }
+    
     func update(completion: ((Error?) -> Void)? = nil) {
         if let event = self.event {
             eventService.fetchEvent(id: event.value.id, completion: { [weak self] (result) in

@@ -45,7 +45,7 @@ class LocationsViewController: UIViewController {
         
         navigationController?.setNavigationBarHidden(true, animated: false)
         
-        if let allEvents = viewModel?.allEvents() {
+        if let allEvents = viewModel?.allEvents(filtered: true) {
             if allEvents.count == 0 {
                 viewModel?.fetchEvents()
                 viewModel?.eventSearchResults.bind({ [weak self] (eventsResult) in
@@ -81,14 +81,16 @@ class LocationsViewController: UIViewController {
         var newMarker = GMSMarker()
         var newIndexPath = IndexPath()
         
-        if let m:GMSMarker = marker, let index = marker?.userData as? Int {
-            newMarker = m
+        if let marker:GMSMarker = marker, let index = marker.userData as? Int {
+            newMarker = marker
             newIndexPath = IndexPath(row: 0, section: index)
         }
         if let index = indexPath {
             newMarker = markers[index.section]
             newIndexPath = index
         }
+//        selectedMarker?.zIndex = 1
+//        newMarker.zIndex = 2
         
         guard let iconView = newMarker.iconView as? LocationIconView else {
             return
@@ -110,7 +112,7 @@ class LocationsViewController: UIViewController {
     }
     
     func openEventViewController(event:Event) {
-        let storyboard = UIStoryboard(name: .common, bundle: nil)
+        let storyboard = UIStoryboard(name: .eventDetails, bundle: nil)
         let factory = StoryboardViewControllerFactory(storyboard: storyboard)
         guard let vc = factory.createEventDetailsViewController(event: event) else {
             return
@@ -132,11 +134,6 @@ extension LocationsViewController:GMSMapViewDelegate {
         markers = []
         var i = 0
         for event in events {
-//            let random = drand48()
-//            let lat = 42.6977+Double(random)
-//            let lon = 23.3219+Double(random)
-//            print("coord \(lat):\(lon)")
-//            let position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             let position = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
 
             let marker = GMSMarker(position: position)

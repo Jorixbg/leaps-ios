@@ -86,7 +86,7 @@ extension UserDetailsViewController: UITableViewDataSource {
                 cell.viewModel = viewModel
                 cell.onCellSelected = { [weak self] event in
                     
-                    let storyboard = UIStoryboard(name: .common, bundle: nil)
+                    let storyboard = UIStoryboard(name: .eventDetails, bundle: nil)
                     let factory = StoryboardViewControllerFactory(storyboard: storyboard)
                     guard let vc = factory.createEventDetailsViewController(event: event) else {
                         return

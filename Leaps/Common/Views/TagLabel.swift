@@ -54,7 +54,7 @@ class TagLabel: UILabel {
         addGestureRecognizer(tap)
     }
     
-    func didSelectLabel() {
+    @objc func didSelectLabel() {
         guard let text = text, shouldEnableTap else {
             return
         }

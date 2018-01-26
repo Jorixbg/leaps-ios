@@ -17,4 +17,5 @@ extension String {
     static let createEvent = "CreateEvent"
     static let eventDetails = "EventDetails"
     static let profile = "Profile"
+    static let chat = "Chat"
 }

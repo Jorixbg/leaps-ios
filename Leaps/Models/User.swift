@@ -39,6 +39,12 @@ struct User {
     let sessionPrice: Int?
     let yearsOfTraining: Int?
     let phone: String?
+    
+    var fullname: String {
+        get {
+            return firstName + " " + lastName
+        }
+    }
 }
 
 extension User {

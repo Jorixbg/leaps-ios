@@ -45,12 +45,12 @@ class MaxDistanseSettingViewController: UIViewController {
         //Done Button
         let doneButtonSelector = #selector(didPressDone)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: doneButtonSelector)
-        doneButton.setTitleTextAttributes([NSFontAttributeName: font,
-                                           NSForegroundColorAttributeName: UIColor.leapsOnboardingBlue], for: .normal)
+        doneButton.setTitleTextAttributes([NSAttributedStringKey.font: font,
+                                           NSAttributedStringKey.foregroundColor: UIColor.leapsOnboardingBlue], for: .normal)
         navigationItem.rightBarButtonItem = doneButton
     }
     
-    func didPressDone() {
+    @objc func didPressDone() {
         viewModel?.updateProfile() { [weak self] error in
             guard let error = error else {
                 self?.navigationController?.popViewController(animated: true)

@@ -217,10 +217,19 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
         return eventSearchResults.value[indexPath.section].events[indexPath.row]
     }
     
-    func allEvents() -> [Event] {
+    func allEvents(filtered: Bool = false) -> [Event] {
         var allEvents = [Event]()
         for eventResult in eventSearchResults.value {
-            allEvents = allEvents + eventResult.events
+            if filtered {
+                for event in eventResult.events {
+                    if !allEvents.contains(event) {
+                        allEvents.append(event)
+                    }
+                }
+            }
+            else {
+                allEvents = allEvents + eventResult.events
+            }
         }
         return allEvents
     }

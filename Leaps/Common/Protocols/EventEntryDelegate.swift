@@ -17,8 +17,11 @@ protocol EventEntryDelegate: class {
     func enterCoordinates(lat:Double, lon:Double)
     func enterPrice(price: String)
     func enterFreeSlots(slots: String)
-    func enterDate(date: String)
-    func enterTime(time: String)
+    func enterTimeFrom(time: Date)
+    func enterTimeTo(time: Date)
+    func enterRepeating(repeating: Bool)
+    func enterFrequency(frequency: Frequency)
+    func enterDates(activities: [Activity])
     func addImage(image: UplodableImage)
     func removeImage(image: UplodableImage)
 }

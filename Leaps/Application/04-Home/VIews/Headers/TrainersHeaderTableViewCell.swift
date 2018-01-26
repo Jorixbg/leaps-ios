@@ -44,7 +44,7 @@ class TrainersHeaderTableViewCell: UITableViewCell {
         self.addGestureRecognizer(tap)
     }
     
-    func didSelectHeader() {
+    @objc func didSelectHeader() {
         //only do something if is search
         guard let type = type, type == .search else {
             return

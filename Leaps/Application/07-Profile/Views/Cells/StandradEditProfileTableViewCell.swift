@@ -75,7 +75,7 @@ class StandradEditProfileTableViewCell: UITableViewCell, UITextFieldDelegate {
         }
     }
     
-    func didChangeDate(datePicker: UIDatePicker) {
+    @objc func didChangeDate(datePicker: UIDatePicker) {
         let dateFormatter = DateManager.shared.createEventStandardCellDateFormatter
         editProfilePropertyEntryTextField.text = dateFormatter.string(from: datePicker.date)
         guard let text = editProfilePropertyEntryTextField.text else {
@@ -85,7 +85,7 @@ class StandradEditProfileTableViewCell: UITableViewCell, UITextFieldDelegate {
         onTextEntered?(text)
     }
     
-    func textFieldDidChange(textField: UITextField) {
+    @objc func textFieldDidChange(textField: UITextField) {
         guard let text = textField.text else {
             return
         }
