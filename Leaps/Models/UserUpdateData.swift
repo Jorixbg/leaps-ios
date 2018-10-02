@@ -63,7 +63,7 @@ final class UserUpdateData {
         }
         
         for (index, attr) in mirror.children.enumerated() {
-            if let property_name = attr.label as String! {
+            if let property_name = attr.label as String? {
                 print("\(mirror.description) \(index): \(property_name) = \(attr.value)")
             }
         }

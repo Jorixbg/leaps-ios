@@ -247,7 +247,6 @@ class StepFlowViewModel: BaseViewModel {
                     AlertManager.shared.showSuccessMessage(type: .createEvent)
                     completion?(nil)
                 case .error(let error):
-                    AlertManager.shared.showErrorMessage(message: "\(error)")
                     completion?(error)
                 }
             })

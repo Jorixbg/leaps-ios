@@ -28,7 +28,7 @@ final class EventCreateData {
     var ownerID: Int?
     var coordLatitude: Double?
     var coordLongitude: Double?
-    var priceFrom: Int?
+    var priceFrom: Int = 0
     var address: String?
     var freeSlots: Int?
     var dateCreated: Date?
@@ -46,7 +46,7 @@ final class EventCreateData {
         }
         
         for (index, attr) in mirror.children.enumerated() {
-            if let property_name = attr.label as String! {
+            if let property_name = attr.label as String? {
                 print("\(mirror.description) \(index): \(property_name) = \(attr.value)")
             }
         }
@@ -68,7 +68,7 @@ final class EventCreateData {
             return Validation.success()
         case EventCreateStep.timeAndDate.rawValue:
             //if date == nil { return .error(.createEvent(.date)) }
-            if timeFrom == nil { return .error(.createEvent(.time)) }
+            //if timeFrom == nil { return .error(.createEvent(.time)) }
             return Validation.success()
         default:
             return Validation.success()
@@ -80,12 +80,9 @@ extension EventCreateData: Serializable {
     func toJSON() -> [String : Any] {
         guard let title = title,
                 let description = description,
-                let start = timeFrom,
-                let end = timeTo,
                 let ownerID = ownerID,
                 let coordLatitude = coordLatitude,
                 let coordLongitude = coordLongitude,
-                let priceFrom = priceFrom,
                 let address = address,
                 let freeSlots = freeSlots,
                 let dateCreated = dateCreated else {
@@ -93,6 +90,8 @@ extension EventCreateData: Serializable {
                 return [:]
         }
         
+        let start = timeFrom ?? Date.add(days: 0, hours: 1)
+        let end = timeTo ?? Date.add(days: 0, hours: 2)
         var frequency = ""
         var dates:[[String : Any]] = []
         if let fr = self.frequency {
@@ -108,20 +107,30 @@ extension EventCreateData: Serializable {
             }
         }
         
-        return ["title": title,
-                "description": description,
-                "start": start.timeIntervalSince1970Miliseconds,
-                "end": end.timeIntervalSince1970Miliseconds,
-                "repeat": repeating,
-                "frequency": frequency,
-                "dates": dates,
-                "owner_id": ownerID,
-                "coord_lat": coordLatitude,
-                "coord_lnt": coordLongitude,
-                "price_from": priceFrom,
-                "address": address,
-                "free_slots": freeSlots,
-                "date_created": dateCreated.timeIntervalSince1970Miliseconds,
-                "tags": tags]
+        var json = ["title": title,
+                    "description": description,
+                    "owner_id": ownerID,
+                    "coord_lat": coordLatitude,
+                    "coord_lnt": coordLongitude,
+                    "price_from": priceFrom,
+                    "address": address,
+                    "free_slots": freeSlots,
+                    "date_created": dateCreated.timeIntervalSince1970Miliseconds,
+                    "tags": tags] as [String : Any]
+        
+        if repeating {
+            json["repeat"] = repeating
+            json["frequency"] = frequency
+            json["dates"] = dates
+            json["start"] = start.timeIntervalSince1970Miliseconds
+            json["end"] = end.timeIntervalSince1970Miliseconds
+        }
+        else {
+            json["date"] = start.timeIntervalSince1970Miliseconds
+            json["time_from"] = start.timeIntervalSince1970Miliseconds
+            json["time_to"] = end.timeIntervalSince1970Miliseconds
+        }
+        
+        return json
     }
 }

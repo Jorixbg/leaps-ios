@@ -103,7 +103,13 @@ extension FavoritesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows(for: section, and: periodType)
+        let rows = viewModel.numberOfRows(for: section, and: periodType)
+        
+        self.emptyLabel(to: tableView,
+                        count: rows,
+                        message: viewModel.emptyMessage(period: periodType))
+        
+        return rows
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

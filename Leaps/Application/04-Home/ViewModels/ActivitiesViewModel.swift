@@ -51,15 +51,19 @@ class ActivitiesViewModel: NSObject, BaseViewModel {
         
         if CLLocationManager.locationServicesEnabled() {
             switch(CLLocationManager.authorizationStatus()) {
-            case .notDetermined, .restricted, .denied:
-                print("No access")
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+                break
+            case .restricted, .denied:
+                AlertManager.shared.showWarningMessage(message: "Location Services Disabled! Please enable Location Services in Settings")
+                break
             case .authorizedAlways, .authorizedWhenInUse:
                 //locationManager.requestLocation()
                 locationManager.startUpdatingLocation()
                 print("Access")
             }
         } else {
-            print("Location services are not enabled")
+            AlertManager.shared.showWarningMessage(message: "Location Services is turned off! Please turn on Location Services and try again")
         }
     }
     

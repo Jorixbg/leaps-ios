@@ -52,7 +52,6 @@ class ImageChooseView: UIView {
         let image = imageView.image
         onDeletePressed?(self, image)
         removeImage()
-        print("didPressDeleteButton")
     }
     
     private func setImageSetup() {

@@ -121,7 +121,13 @@ class EventDetailsViewController: HiddingNavigationBarViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //uncomment for stretchy headers
         updateHeader()
-        updateNavigationBar(offset: scrollView.contentOffset.y)
+        
+        if UIDevice.IS_IPHONE_X {
+            showNavigationBar(for: 0)
+        }
+        else {
+            updateNavigationBar(offset: scrollView.contentOffset.y)
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -135,6 +141,10 @@ class EventDetailsViewController: HiddingNavigationBarViewController {
         if tableView.contentOffset.y < -tableViewHeaderHeight {
             headerRect.origin.y = tableView.contentOffset.y
             headerRect.size.height = -tableView.contentOffset.y
+        }
+        
+        if header == nil {
+            return
         }
         
         header.frame = headerRect

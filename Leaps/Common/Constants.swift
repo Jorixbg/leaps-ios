@@ -19,7 +19,12 @@ struct Constants {
         static let uploadedPictureCompression: CGFloat = 1
     }
 
-    static let baseURL = "http://ec2-35-157-240-40.eu-central-1.compute.amazonaws.com:8888/"
+    #if DEBUG
+    //static let baseURL = "http://91.238.251.125:8888/"
+    static let baseURL = "http://91.238.251.154:8888/"
+    #else
+    static let baseURL = "http://91.238.251.154:8888/"
+    #endif
     struct Activities {
         static let activityCellHeight: CGFloat = 145
         static let headerHeight: CGFloat = 30

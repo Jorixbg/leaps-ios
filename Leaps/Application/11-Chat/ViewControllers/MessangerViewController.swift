@@ -28,6 +28,7 @@ class MessangerViewController: UIViewController {
         
         tableView.register(ChatMessageTableViewCell.self)
         tableView.register(ChatDateTableViewCell.self)
+        tableView.register(ChatSeenTableViewCell.self)
         tableView.estimatedRowHeight = 48
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.re.delegate = self
@@ -60,22 +61,22 @@ class MessangerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         UIApplication.shared.isStatusBarHidden = false
         UIApplication.shared.statusBarStyle = .default
-        //navigationController?.setNavigationBarHidden(false, animated: false)
+        AppDelegate.openedChatID = viewModel.chat.value?.key
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //setupDefaultNavigationController()
+        //viewModel.seenMessage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        //navigationController?.setNavigationBarHidden(true, animated: true)
+        AppDelegate.openedChatID = nil
     }
     
     @IBAction func sendMessage() {
         if outgoingTextField.text != "" {
             viewModel.send(message: outgoingTextField.text)
             outgoingTextField.text = ""
-            dismissKeyboard()
+            //dismissKeyboard()
         }
     }
     
@@ -125,18 +126,23 @@ extension MessangerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let message = self.viewModel.messages.value[indexPath.row] as? ChatMessage {
+            // ChatMessageTableViewCell - Bubble cell
             return tableView.dequeueReusableCell(of: ChatMessageTableViewCell.self, for: indexPath) {
-                
-                if let user = self.viewModel.chat.value?.user(for: message.senderID) {
+                if let user = self.viewModel.chat.value?.user(for: message.sender) {
                     $0.setup(message: message, user: user)
                 }
             }
         }
-        else {
+        else if let data = self.viewModel.messages.value[indexPath.row] as? MessangerDate {
+            // ChatDateTableViewCell - Date cell
             return tableView.dequeueReusableCell(of: ChatDateTableViewCell.self, for: indexPath) {
-                if let data = self.viewModel.messages.value[indexPath.row] as? MessangerDate {
-                    $0.setup(data: data)
-                }
+                $0.setup(data: data)
+            }
+        }
+        else {
+            // ChatSeenTableViewCell - Seen cell
+            return tableView.dequeueReusableCell(of: ChatSeenTableViewCell.self, for: indexPath) {_ in
+                
             }
         }
     }

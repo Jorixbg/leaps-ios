@@ -139,6 +139,19 @@ class CalendarActivitiesViewModel: BaseViewModel {
     func numberOfRows(for section: Int, and type: CalendarPeriodType) -> Int {
         return events.value[section].value.count
     }
+    
+    func emptyMessage(type: UserCalendarType, period: CalendarPeriodType) -> String {
+        switch (type, period) {
+        case (.attending, .past):
+            return "You don't have any past events"
+        case (.attending, .upcoming):
+            return "You don't have any upcoming events"
+        case (.hosting, .past):
+            return "You don't have any past events"
+        case (.hosting, .upcoming):
+            return "Create your first event"
+        }
+    }
 
     func titleForHeader(for section: Int, with type: CalendarPeriodType) -> String {
         let formatter = DateManager.shared.calendarEventHeaderFormatter

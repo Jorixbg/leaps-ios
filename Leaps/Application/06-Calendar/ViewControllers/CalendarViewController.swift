@@ -176,7 +176,13 @@ extension CalendarViewController: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.numberOfSections(for: periodType)
+        let sections = viewModel.numberOfSections(for: periodType)
+        
+        self.emptyLabel(to: tableView,
+                        count: sections,
+                        message: viewModel.emptyMessage(type: type, period: periodType))
+        
+        return sections
     }
 }
 

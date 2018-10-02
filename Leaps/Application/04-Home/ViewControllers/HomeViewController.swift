@@ -172,6 +172,14 @@ extension HomeViewController: SearchTransitionDelegate {
     }
 
     func willTransitionToViewControllerWithSearch() {
+        //Slav
+        return
+        
+        /*
+         //Old behauvier
+         // Showing search field on transition
+         //cause a bug
+         
         guard let searchSnapshot = searchView.snapshotView(afterScreenUpdates: false) else {
             return
         }
@@ -182,5 +190,6 @@ extension HomeViewController: SearchTransitionDelegate {
             return
         }
         navigationController?.view.addSubview(searchSnapshotView)
+         */
     }
 }

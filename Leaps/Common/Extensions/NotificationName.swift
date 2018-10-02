@@ -14,4 +14,5 @@ extension Notification.Name {
     static let refreshOnImageUpload = Notification.Name("regresh-on-image-upload")
     static let keepSearchTransition = Notification.Name("transition")
     static let loggedOut = Notification.Name("logged-out")
+    static let notifiacationDestinationSet = Notification.Name("destination-set")
 }

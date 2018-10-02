@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BasicViewController: UIViewController {
 
@@ -26,6 +27,29 @@ class BasicViewController: UIViewController {
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         refreshBlock?()
+    }
+    
+    func emptyLabel(to tableView:UITableView, count: Int, message: String) {
+        if count > 0 {
+            self.view.viewWithTag(111)?.removeFromSuperview()
+        }
+        else {
+            if let empView = self.view.viewWithTag(111) as? EmptyTableViewLabelView {
+                empView.messageLabel.text = message
+                return
+            }
+            
+            let emptyView = EmptyTableViewLabelView.instanceFromNib()
+            emptyView.messageLabel.text = message
+            emptyView.tag = 111
+            self.view.addSubview(emptyView)
+            emptyView.snp.makeConstraints { (make) in
+                make.center.equalTo(tableView.snp.center)
+                // Must be 250 or if have to be changed, first change it from EmptyTableViewLabelView Xib
+                // or icon size will be broke
+                make.width.equalTo(250)
+            }
+        }
     }
 }
 

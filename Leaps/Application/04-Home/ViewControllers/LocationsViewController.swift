@@ -39,6 +39,11 @@ class LocationsViewController: UIViewController {
         tableView.transform = transform
         tableView.frame.origin.x = 0
         tableView.frame.origin.y = UIScreen.main.bounds.height - 140 - 15
+        if  #available(iOS 11.0, tvOS 11.0, *),
+            let bottomInset = UIApplication.shared.delegate?.window??.safeAreaInsets
+        {
+            tableView.frame.origin.y = UIScreen.main.bounds.height - 140 - 15 - bottomInset.bottom
+        }
         tableView.frame.size.width = UIScreen.main.bounds.width
         tableView.frame.size.height = 140
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 11, height: 11))

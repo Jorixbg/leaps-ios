@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class InboxViewController: UIViewController {
+class InboxViewController: BasicViewController {
 
     fileprivate var viewModel: InboxViewModel = InboxViewModel()
     
@@ -17,19 +17,24 @@ class InboxViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        setupDefaultNavigationController()
-        
-        
-        
-//        let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addChat))
-//        self.navigationItem.rightBarButtonItem = item
         
         tableView.tableFooterView = UIView()
         
         viewModel.chats.bindAndFire { [weak self] (chats) in
+            if let destination = AppDelegate.notificationDestination
+            {
+                self?.open(destination: destination)
+            }
             self?.tableView.reloadData()
         }
+        
+        let selector = #selector(onDestinationSet)
+        NotificationCenter.default.addObserver(self, selector: selector, name: .notifiacationDestinationSet, object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,14 +43,42 @@ class InboxViewController: UIViewController {
         UIApplication.shared.statusBarStyle = .default
         navigationController?.setNavigationBarHidden(true, animated: true)
         
-//        self.title = "Inbox".uppercased()
-        
         viewModel.loadChats()
+    }
+    
+    @objc func onDestinationSet(_ notification: NSNotification) {
+        if let destination = notification.userInfo?["destination"] as? NotificationDestination
+        {
+            open(destination: destination)
+        }
+    }
+    
+    func open(destination: NotificationDestination) {
+        if let chat = viewModel.findChat(by: destination.id)
+        {
+            navigationController?.popToRootViewController(animated: false)
+            open(chat: chat)
+            AppDelegate.notificationDestination = nil
+        }
+    }
+    
+    func open(chat: Chat) {
+        let storyboard = UIStoryboard(name: .chat, bundle: nil)
+        let factory = StoryboardViewControllerFactory(storyboard: storyboard)
+        guard let vc = factory.createMessangerViewController(chat: chat) else {
+            return
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension InboxViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.emptyLabel(to: tableView,
+                        count: viewModel.chats.value.count,
+                        message: "You don't have any chats.")
+        
         return viewModel.chats.value.count
     }
     
@@ -60,13 +93,7 @@ extension InboxViewController: UITableViewDataSource {
 
 extension InboxViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: .chat, bundle: nil)
-        let factory = StoryboardViewControllerFactory(storyboard: storyboard)
         let chat = self.viewModel.chats.value[indexPath.row]
-        guard let vc = factory.createMessangerViewController(chat: chat) else {
-            return
-        }
-        
-        navigationController?.pushViewController(vc, animated: true)
+        open(chat: chat)
     }
 }

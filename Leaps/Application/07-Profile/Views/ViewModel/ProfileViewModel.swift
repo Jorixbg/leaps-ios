@@ -208,11 +208,11 @@ class ProfileViewModel: BaseViewModel {
         let settingsRows = ProfileRowType.settings
         rows.append(settingsRows)
         
-        let inviteFrieindsRow = ProfileRowType.inviteFriends
-        rows.append(inviteFrieindsRow)
+//        let inviteFrieindsRow = ProfileRowType.inviteFriends
+//        rows.append(inviteFrieindsRow)
         
-        let inbox = ProfileRowType.inbox
-        rows.append(inbox)
+//        let inbox = ProfileRowType.inbox
+//        rows.append(inbox)
         
         let giveFeedbackRow = ProfileRowType.giveFeedback
         rows.append(giveFeedbackRow)

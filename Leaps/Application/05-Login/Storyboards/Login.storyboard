@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -21,11 +21,11 @@
                         <viewControllerLayoutGuide type="bottom" id="xyj-he-F8z"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vVy-20-wHl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG-login" translatesAutoresizingMaskIntoConstraints="NO" id="wld-ce-Gr2">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="6"/>
@@ -33,7 +33,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQE-sp-JfQ">
-                                <rect key="frame" x="21" y="28" width="48" height="30"/>
+                                <rect key="frame" x="21" y="52" width="48" height="30"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -43,13 +43,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WELCOME TO LEAPS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNe-ib-8tR" customClass="TitleLabel" customModule="Leaps" customModuleProvider="target">
-                                <rect key="frame" x="32.5" y="127" width="256" height="200.5"/>
+                                <rect key="frame" x="38" y="244.33333333333337" width="300" height="133.66666666666663"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="56"/>
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" red="0.0" green="0.19607843137254902" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szo-iY-Ih0">
-                                <rect key="frame" x="16" y="511" width="288" height="32.5"/>
+                                <rect key="frame" x="16" y="720.66666666666663" width="343" height="32.333333333333371"/>
                                 <string key="text">By creating your Account, you agree to Leaps’s Terms of Service,
 Payments Terms of Service, Privacy Policy and
 Nondiscrimination Policy.</string>
@@ -58,7 +58,7 @@ Nondiscrimination Policy.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGh-QC-adG">
-                                <rect key="frame" x="18" y="451" width="284" height="35"/>
+                                <rect key="frame" x="18" y="660.66666666666663" width="339" height="35"/>
                                 <color key="backgroundColor" red="0.99905794859999997" green="0.23356029389999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Create account">
@@ -74,7 +74,7 @@ Nondiscrimination Policy.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJA-It-l6o">
-                                <rect key="frame" x="18" y="401" width="284" height="35"/>
+                                <rect key="frame" x="18" y="610.66666666666663" width="339" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Sign in with Google">
                                     <color key="titleColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -95,7 +95,7 @@ Nondiscrimination Policy.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vy-YI-V3C">
-                                <rect key="frame" x="18" y="351" width="284" height="35"/>
+                                <rect key="frame" x="18" y="560.66666666666663" width="339" height="35"/>
                                 <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="Nxi-zb-8zx"/>
@@ -114,7 +114,7 @@ Nondiscrimination Policy.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSs-qF-a1H">
-                                <rect key="frame" x="262" y="28" width="42" height="30"/>
+                                <rect key="frame" x="317" y="52" width="42" height="30"/>
                                 <state key="normal" title="Log in">
                                     <color key="titleColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -123,10 +123,10 @@ Nondiscrimination Policy.</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook-ico" translatesAutoresizingMaskIntoConstraints="NO" id="KvP-YC-xNG">
-                                <rect key="frame" x="21" y="358" width="35" height="21"/>
+                                <rect key="frame" x="21" y="567.66666666666663" width="35" height="21"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="google-ico" translatesAutoresizingMaskIntoConstraints="NO" id="PgL-yS-v3h">
-                                <rect key="frame" x="28" y="408" width="21" height="21"/>
+                                <rect key="frame" x="28" y="617.66666666666663" width="21" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PgL-yS-v3h" secondAttribute="height" multiplier="1:1" id="bAw-Ym-g3k"/>
                                 </constraints>
@@ -186,41 +186,41 @@ Nondiscrimination Policy.</string>
                         <viewControllerLayoutGuide type="bottom" id="ldK-eY-Nie"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WGG-Sj-H2X">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG-login" translatesAutoresizingMaskIntoConstraints="NO" id="rHc-6A-LJe">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BgT-an-ofd">
-                                <rect key="frame" x="0.0" y="144" width="320" height="280"/>
+                                <rect key="frame" x="0.0" y="249" width="375" height="280"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vl6-SO-4R4" customClass="TitleLabel" customModule="Leaps" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="20" width="280.5" height="35"/>
+                                        <rect key="frame" x="20" y="20" width="335.66666666666669" height="35"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                         <color key="textColor" red="0.0" green="0.19607843137254902" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username or Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XF6-NT-Efl" customClass="LeapsRegistrationTextField" customModule="Leaps" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="77" width="280" height="30"/>
+                                        <rect key="frame" x="20" y="77" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Utr-8f-Yud" customClass="LeapsRegistrationTextField" customModule="Leaps" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="122" width="280" height="30"/>
+                                        <rect key="frame" x="20" y="122" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3D-4D-zrC">
-                                        <rect key="frame" x="98.5" y="177" width="123" height="30"/>
+                                        <rect key="frame" x="126" y="177" width="123" height="30"/>
                                         <state key="normal" title="Forgot password?">
                                             <color key="titleColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDl-58-TEr">
-                                        <rect key="frame" x="114" y="230" width="92" height="30"/>
+                                        <rect key="frame" x="132.33333333333334" y="230" width="110.33333333333334" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
@@ -259,7 +259,7 @@ Nondiscrimination Policy.</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwj-bw-WvS">
-                                <rect key="frame" x="18" y="34" width="48" height="30"/>
+                                <rect key="frame" x="18" y="58" width="48" height="30"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -301,26 +301,26 @@ Nondiscrimination Policy.</string>
                         <viewControllerLayoutGuide type="bottom" id="8Zd-g1-v9Y"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="jSd-1V-PH1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG-login" translatesAutoresizingMaskIntoConstraints="NO" id="uxD-Ia-oDc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WK9-6b-uFW">
-                                <rect key="frame" x="0.0" y="120" width="320" height="205"/>
+                                <rect key="frame" x="0.0" y="144" width="375" height="205"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXp-1L-lZw" customClass="TitleLabel" customModule="Leaps" customModuleProvider="target">
-                                        <rect key="frame" x="17" y="20" width="286" height="36"/>
+                                        <rect key="frame" x="17" y="20" width="341" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <color key="textColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="Zd1-x4-MRl">
-                                        <rect key="frame" x="0.0" y="76" width="320" height="128.5"/>
+                                        <rect key="frame" x="0.0" y="76.000000000000014" width="375" height="128.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7m-Hn-Quw">
-                                                <rect key="frame" x="17" y="0.0" width="286" height="26.5"/>
+                                                <rect key="frame" x="17" y="0.0" width="341" height="26.333333333333332"/>
                                                 <string key="text">Your password should be 6 or more characters long
 and must include at least one special symbol. </string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -328,10 +328,10 @@ and must include at least one special symbol. </string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="tQo-kv-ISA">
-                                                <rect key="frame" x="17" y="53.5" width="286" height="75"/>
+                                                <rect key="frame" x="17" y="53.333333333333314" width="341" height="75"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username or Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kzb-LR-tfe" customClass="LeapsRegistrationTextField" customModule="Leaps" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="286" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="341" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -340,7 +340,7 @@ and must include at least one special symbol. </string>
                                                         </connections>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F6P-rx-4Cd" customClass="LeapsRegistrationTextField" customModule="Leaps" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="45" width="286" height="30"/>
+                                                        <rect key="frame" x="0.0" y="45" width="341" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -374,7 +374,7 @@ and must include at least one special symbol. </string>
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="umr-mD-gax">
-                                <rect key="frame" x="109" y="344.5" width="102" height="35"/>
+                                <rect key="frame" x="136.66666666666666" y="368.33333333333331" width="102" height="35"/>
                                 <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="EvF-P8-Kx0"/>

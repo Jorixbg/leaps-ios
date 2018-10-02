@@ -17,4 +17,10 @@ extension Date {
         let timeInSeconds = timeIntervalSince1970inMiliseconds / 1000
         self.init(timeIntervalSince1970: TimeInterval(timeInSeconds))
     }
+    
+    static func add(days: Int = 0, hours: Int = 0) -> Date {
+        var date = Calendar.current.date(byAdding: .day, value: days, to: Date()) ?? Date()
+        date = Calendar.current.date(byAdding: .hour, value: hours, to: date) ?? Date()
+        return date
+    }
 }

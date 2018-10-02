@@ -69,7 +69,12 @@ class StepsFlowViewController: UIViewController {
                 self.nextButton.setTitle(.next, for: .normal)
                 self.nextButton.setImage(#imageLiteral(resourceName: "next"), for: .normal)
                 self.didPressTopRightButtonAction = {
-                    self.dismiss(animated: true, completion: nil)
+                    if self.viewModel?.isInitialOnboardingPresentation ?? false {
+                       self.requestPermission(locationManager: self.locationManager)
+                    }
+                    else {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
             case .createEvent:
                 //show navbar
@@ -170,11 +175,24 @@ class StepsFlowViewController: UIViewController {
     @IBAction func didPressNextButton(_ sender: Any) {
         let nextPage = pageControl.currentPage + 1
         
-        if nextPage >= pageableViewControllers.count {
-            guard let viewModel = viewModel else {
-                return
-            }
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        self.view.endEditing(false)
+        switch viewModel.validate(step: pageControl.currentPage){
+        case .success():
             
+            break
+        case .error(let error):
+            switch error {
+            case .createEvent(let type):
+                validateCreateEventViewController(type: type)
+            }
+            return
+        }
+        
+        if nextPage >= pageableViewControllers.count {
             switch viewModel.type.value {
             case .onboarding:
                 if viewModel.isInitialOnboardingPresentation {
@@ -185,6 +203,10 @@ class StepsFlowViewController: UIViewController {
                 }
             case .becomeTrainer, .createEvent:
                 viewModel.finishAllsteps { [weak self] error in
+                    if let error = error {
+                        AlertManager.shared.showErrorMessage(message: error.localizedDescription)
+                        return
+                    }
                     self?.dismiss(animated: true, completion: nil)
                     NotificationCenter.default.post(name: .refreshData, object: nil)
                 }
@@ -206,43 +228,34 @@ class StepsFlowViewController: UIViewController {
                 break
             }
         } else {
-            guard let viewModel = viewModel else {
-                return
-            }
-            switch viewModel.validate(step: pageControl.currentPage){
-            case .success():
-                pageControl.currentPage = nextPage
-                didSelectPageControl(pageControl)
-                break
-            case .error(let error):
-                switch error {
-                case .createEvent(let type):
-                    validateCreateEventViewController(type: type)
-                }
-                break
-            }
+            pageControl.currentPage = nextPage
+            didSelectPageControl(pageControl)
         }
     }
     
     @IBAction func didPressBottomCentralButton(_ sender: Any) {
-        guard let viewModel = viewModel else {
-            return
-        }
+//        guard let viewModel = viewModel else {
+//            return
+//        }
         
-        switch viewModel.type.value {
-        case  .createEvent:
-            view.endEditing(true)
-            viewModel.finishAllsteps { [weak self] error in
-                
-                self?.dismiss(animated: true, completion: nil)
-                NotificationCenter.default.post(name: .refreshData, object: nil)
-            }
-        default:
-            break
-        }
+        self.didPressNextButton(sender)
+//        switch viewModel.type.value {
+//        case  .createEvent:
+//            view.endEditing(true)
+//            viewModel.finishAllsteps { [weak self] error in
+//
+//                self?.dismiss(animated: true, completion: nil)
+//                NotificationCenter.default.post(name: .refreshData, object: nil)
+//            }
+//        default:
+//            break
+//        }
     }
     
     func requestPermission(locationManager: CLLocationManager) {
+        if CLLocationManager.authorizationStatus() != .notDetermined {
+            return
+        }
         //add blur
         let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)

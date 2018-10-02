@@ -408,14 +408,20 @@ class UserService {
     
     //MARK: - CREATE EVENT
     func createEvent(eventCreateData: EventCreateData, completion: EventCreateResultHandler?) {
-        let endPoint = "event/create"
         guard let token = userManager.authToken else {
             completion?(Result.error(LeapsError.missingToken))
             return
         }
         
+        let endPoint: String
+        if eventCreateData.repeating {
+            endPoint = "event/create/repeat"
+        }
+        else {
+            endPoint = "event/create"
+        }
         let headers = ["Content-Type": "application/json",
-                        "Authorization": token]
+                       "Authorization": token]
         
         let params = eventCreateData.toJSON()
         
@@ -433,7 +439,7 @@ class UserService {
                                     print("new event id = \(eventID)")
                                 case .error(let error):
                                     completion?(Result.error(error))
-                                    print("create event erro = \(error)")
+                                    print("create event error = \(error)")
                                 }
         }
     }

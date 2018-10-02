@@ -82,10 +82,16 @@ class TrainerDetailsViewController: UIViewController {
     }
     
     func updateHeader() {
-        var headerRect = CGRect(x: 0, y: -tableViewHeaderHeight, width: tableView.frame.width, height: tableViewHeaderHeight)
+        var headerRect = CGRect(x: 0,
+                                y: -tableViewHeaderHeight,
+                                width: tableView.frame.width,
+                                height: tableViewHeaderHeight)
         if tableView.contentOffset.y < -tableViewHeaderHeight {
             headerRect.origin.y = tableView.contentOffset.y
             headerRect.size.height = -tableView.contentOffset.y
+        }
+        if header == nil {
+            return
         }
         
         header.frame = headerRect

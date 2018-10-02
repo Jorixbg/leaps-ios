@@ -8,6 +8,19 @@
 
 import UIKit
 
+extension UIDevice {
+    static let IS_IPAD             = UIDevice.current.userInterfaceIdiom == .pad
+    static let IS_IPHONE           = UIDevice.current.userInterfaceIdiom == .phone
+    static let IS_RETINA           = UIScreen.main.scale >= 2.0
+    
+    static let SCREEN_WIDTH        = Int(UIScreen.main.bounds.size.width)
+    static let SCREEN_HEIGHT       = Int(UIScreen.main.bounds.size.height)
+    static let SCREEN_MAX_LENGTH   = Int( max(SCREEN_WIDTH, SCREEN_HEIGHT) )
+    static let SCREEN_MIN_LENGTH = Int( min(SCREEN_WIDTH, SCREEN_HEIGHT) )
+    
+    static let IS_IPHONE_X = IS_IPHONE && SCREEN_MAX_LENGTH == 812
+}
+
 extension UIViewController {
     func setupDefaultNavigationController() {
         //the below code should be extracted to a parent view controller if there is enough time. It is used in edit profile, create event etc.
@@ -98,5 +111,20 @@ func delay(_ delay:Double, closure:@escaping ()->()) {
 extension String {
     func twoLengthString(lead:String="0") -> String {
         return self.count > 1 ? self : "\(lead)\(self)"
+    }
+}
+
+extension Array where Element: Equatable {
+    
+    // Remove first collection element that is equal to the given `object`:
+    mutating func remove(_ element: Element) {
+        if let index = index(of: element) {
+            remove(at: index)
+        }
+    }
+    
+    mutating func move(_ element: Element) {
+        self.remove(element)
+        self.append(element)
     }
 }

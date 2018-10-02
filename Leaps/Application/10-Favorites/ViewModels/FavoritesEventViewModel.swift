@@ -65,4 +65,13 @@ class FavoritesEventViewModel: BaseViewModel {
     func event(for indexPath: IndexPath, with type: CalendarPeriodType) -> Event {
         return eventManager.likedEvents(periodType: type)[indexPath.row]
     }
+    
+    func emptyMessage(period: CalendarPeriodType) -> String {
+        switch period {
+        case .past:
+            return "You don't have any favorite past events"
+        case .upcoming:
+            return "You don't have any favorite upcoming events"
+        }
+    }
 }

@@ -9,6 +9,14 @@
 import Foundation
 import UIKit
 
+enum MainTab: Int {
+    case home = 0
+    case favorite = 1
+    case calendar = 2
+    case chat = 3
+    case profile = 4
+}
+
 class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
@@ -17,7 +25,9 @@ class MainTabBarController: UITabBarController {
         delegate = self
         
         let selector = #selector(onLoggedOut)
+        let selector2 = #selector(onDestinationSet)
         NotificationCenter.default.addObserver(self, selector: selector, name: .loggedOut, object: nil)
+        NotificationCenter.default.addObserver(self, selector: selector2, name: .notifiacationDestinationSet, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +42,20 @@ class MainTabBarController: UITabBarController {
     }
     
     @objc func onLoggedOut() {
-        selectedIndex = 0
+        go(to: .home)
+    }
+    
+    @objc func onDestinationSet(_ notification: NSNotification) {
+        if let destination = notification.userInfo?["destination"] as? NotificationDestination {
+            go(to: destination.page)
+            if destination.id == "" {
+                AppDelegate.notificationDestination = nil
+            }
+        }
+    }
+    
+    func go(to tab: MainTab) {
+        selectedIndex = tab.rawValue
     }
     
     deinit {
@@ -43,13 +66,6 @@ class MainTabBarController: UITabBarController {
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         let index = viewControllers?.index(of: viewController)
-        
-        if index == 3 {
-            print(moreNavigationController)
-            print(navigationController?.isNavigationBarHidden)
-            navigationController?.setNavigationBarHidden(false, animated: false)
-            print(navigationController?.isNavigationBarHidden)
-        }
         
         guard let loginRequiredIndex = index, loginRequiredIndex > 0 else {
             return true

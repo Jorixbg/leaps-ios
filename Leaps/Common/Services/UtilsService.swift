@@ -26,7 +26,7 @@ class UtilsService {
     
     //MARK: - COORDINATES FETCH BY ADDRESS
     func fetchCoordinates(by address:String, completion: CoordinatesFetchingHandler?) {
-        let endPoint = "/utils/coordinates"
+        let endPoint = "utils/coordinates"
         let params = ["address": address]
         let headers = ["Content-Type": "application/json"]
         
@@ -48,7 +48,7 @@ class UtilsService {
     }
     
     func fetchAdress(with coordinates:CLLocationCoordinate2D, completion: AddressFetchingHandler?) {
-        let endPoint = "/utils/address"
+        let endPoint = "utils/address"
         let params = ["coord_lat": coordinates.latitude, "coord_lnt": coordinates.longitude]
         let headers = ["Content-Type": "application/json"]
         

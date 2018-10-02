@@ -239,64 +239,6 @@ of the activities you are seeking.</string>
             </objects>
             <point key="canvasLocation" x="3548" y="-251"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="zXQ-lM-rWJ">
-            <objects>
-                <navigationController id="pk3-WW-OpW" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vEm-Hc-vic">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="I1L-wg-rhz" kind="relationship" relationship="rootViewController" id="Hlu-G1-VRY"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Drh-0h-2da" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1006" y="533"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="JSm-zV-dnq">
-            <objects>
-                <viewController id="I1L-wg-rhz" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UaB-85-BtO"/>
-                        <viewControllerLayoutGuide type="bottom" id="wWo-Gj-Rdl"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vL2-5E-9RR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ovb-sP-Mbz">
-                                <rect key="frame" x="15" y="79" width="345" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="nwv-P8-DwM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Ovb-sP-Mbz" secondAttribute="trailing" constant="15" id="PUN-ic-wrM"/>
-                            <constraint firstItem="Ovb-sP-Mbz" firstAttribute="top" secondItem="UaB-85-BtO" secondAttribute="bottom" constant="15" id="Wtq-QU-RIR"/>
-                            <constraint firstItem="Ovb-sP-Mbz" firstAttribute="leading" secondItem="vL2-5E-9RR" secondAttribute="leading" constant="15" id="aZU-cp-VJz"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="h8v-Rw-Mbg">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="g8n-bM-tDX">
-                            <color key="tintColor" red="0.9882352941176471" green="0.13333333333333333" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Send" id="bSM-1d-LHN">
-                            <color key="tintColor" red="0.98823529409999999" green="0.1333333333" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fGZ-4m-ENp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1854" y="533"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="Cyg-va-xm4">
             <objects>

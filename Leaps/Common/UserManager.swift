@@ -115,6 +115,7 @@ class UserManager {
     
     func logout() {
         set(isTrainer: false)
+        AppDelegate.shared.unregisterFCMTokenToDatabase()
         removeToken()
         removeID()
     }

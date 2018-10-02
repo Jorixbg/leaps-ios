@@ -118,6 +118,7 @@ extension CreateEventStepViewController: UITableViewDataSource {
         case .start(let rowTitle, let mode), .end(let rowTitle, let mode):
             let datePickerCell = DatePickerCell(style: UITableViewCellStyle.default, reuseIdentifier: nil)
             datePickerCell.datePicker.datePickerMode = mode
+            datePickerCell.datePicker.minimumDate = Date.add(days: 0, hours: indexPath.row)
             datePickerCell.dateStyle = DateFormatter.Style.medium
             datePickerCell.timeStyle = (mode == .date) ? .none : .short
             datePickerCell.leftLabel.text = rowTitle
@@ -253,7 +254,7 @@ extension CreateEventStepViewController: UITableViewDelegate {
         switch type {
         case .activity(let activity):
             let removeAction = UITableViewRowAction(style: .destructive, title: "Remove") { (action, index) in
-//                viewModel.activities.value.remove
+                viewModel.activities.value.remove(activity)
             }
             return [removeAction]
         default:

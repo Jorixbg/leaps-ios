@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftMessages
 
 class RegistrationStepOneViewController: UIViewController {
     
@@ -112,6 +113,7 @@ class RegistrationStepOneViewController: UIViewController {
         viewModel?.onMidButtonPressed { error in
             if let error = error {
                 print("didPressMidButton error = \(error)")
+                AlertManager().showErrorMessage(message: error.localizedDescription)
             } else {
                 print("mid button action is successful")
             }

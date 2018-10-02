@@ -27,6 +27,7 @@ class EventsListWithNavViewController: UIViewController {
         super.viewWillAppear(animated)
         //the below code should be extracted to a parent view controller if there is enough time. It is used in edit profile, create event etc.
         //show navbar
+        UIApplication.shared.isStatusBarHidden = false
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.isTranslucent = false
     }

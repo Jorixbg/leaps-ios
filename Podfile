@@ -3,6 +3,7 @@ platform :ios, '9.0'
 target 'Leaps' do
 
   use_frameworks!
+  inhibit_all_warnings!
 
   pod 'Alamofire', '~> 4'
   pod 'FBSDKCoreKit'
@@ -16,11 +17,13 @@ target 'Leaps' do
   pod 'ReverseExtension'
   pod 'KMPlaceholderTextView'
   pod 'DatePickerCell', '~> 1.0'
+  pod 'SnapKit'
   
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
   
+  pod 'Firebase/Core'
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'

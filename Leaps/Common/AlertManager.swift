@@ -44,6 +44,18 @@ class AlertManager {
         SwiftMessages.show(view: view)
     }
     
+    func showWarningMessage(message: String) {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        
+        view.configureTheme(.warning)
+        view.configureDropShadow()
+        view.configureContent(title: "Warning", body: message)
+        view.button?.isHidden = true
+        
+        // Show the message.
+        SwiftMessages.show(view: view)
+    }
+    
     
     func showErrorMessage(type: MessageErrorType) {
         showErrorMessage(message: type.rawValue)
@@ -54,6 +66,7 @@ class AlertManager {
         
         var config = SwiftMessages.Config()
         config.duration = .forever
+        config.presentationContext = .window(windowLevel: 0)
         
         view.configureTheme(.error)
         view.configureDropShadow()

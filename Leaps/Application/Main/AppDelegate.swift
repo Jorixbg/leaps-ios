@@ -22,7 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     static var shared: AppDelegate!
-
+    static var notificationDestination: NotificationDestination?
+    static var openedChatID: String?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         AppDelegate.shared = self
@@ -104,14 +106,31 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         NSLog("[UserNotificationCenter] willPresentNotification: \(userInfo)")
-        //TODO: Handle foreground notification
+        
+        if let roomID = userInfo["room_id"] as? String,
+           let openedRoomID = AppDelegate.openedChatID,
+           roomID == openedRoomID {
+            return
+        }
+        
         completionHandler([.alert])
     }
     
     // iOS10+, called when received response (default open, dismiss or custom action) for a notification
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void)
+    {
         let userInfo = response.notification.request.content.userInfo
         NSLog("[UserNotificationCenter] didReceiveResponse: \(userInfo)")
+        for item in userInfo {
+            print("Item \(item.key): \(item.value)")
+        }
+        if let roomID = userInfo["room_id"] as? String {
+            let destination = NotificationDestination(page: .chat, id: roomID)
+            AppDelegate.notificationDestination = destination
+            NotificationCenter.default.post(name: .notifiacationDestinationSet, object: nil, userInfo: ["destination": destination])
+        }
         //TODO: Handle background notification
         completionHandler()
     }
@@ -129,14 +148,25 @@ extension AppDelegate: MessagingDelegate {
     }
     
     func registerFCMTokenToDatabase(token: String) {
-        if UserManager.shared.isLoggedIn, let id = UserManager.shared.userID, let name = UserManager.shared.userName {
+        if  UserManager.shared.isLoggedIn,
+            let id = UserManager.shared.userID,
+            let name = UserManager.shared.userName
+        {
             let user = ["id": id,
                         "name": name,
-                        "device_token": token]
+                        "device_token": token,
+                        "os": "ios",
+                        "image": UserManager.shared.userImage ?? ""]
             Database.database().reference().child("users").child(id).setValue(user)
         }
         else {
             UserManager.shared.setFcmToken(token: token)
+        }
+    }
+    
+    func unregisterFCMTokenToDatabase() {
+        if  let id = UserManager.shared.userID {
+            Database.database().reference().child("users/\(id)/device_token").setValue("")
         }
     }
     
@@ -149,4 +179,9 @@ extension AppDelegate: MessagingDelegate {
             //TODO: Handle background notification
         }
     }
+}
+
+struct NotificationDestination {
+    let page:MainTab
+    let id:String
 }

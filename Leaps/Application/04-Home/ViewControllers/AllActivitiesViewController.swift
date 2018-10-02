@@ -43,16 +43,23 @@ class AllActivitiesViewController: UIViewController {
                     return
                 }
                 
+                //Slav
+                self?.navigationController?.popViewController(animated: true)
+                return
+                
+                /*
+                // Cause a visual bug
                 let snapshot = self?.searchView.snapshotView(afterScreenUpdates: false)
                 guard let snapshotView = snapshot, let frame =  self?.searchView.frame else {
                     return
                 }
-                
+ 
                 snapshotView.frame = frame
                 self?.navigationController?.view.addSubview(snapshotView)
-                self?.navigationController?.popViewController(animated: true, completion: { 
+                self?.navigationController?.popViewController(animated: true, completion: {
                     snapshotView.removeFromSuperview()
                 })
+                 */
             }
         }
         

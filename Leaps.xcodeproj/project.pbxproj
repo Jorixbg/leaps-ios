@@ -204,6 +204,8 @@
 		F710A0DB1FD2141600C8A5FF /* ChatMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F710A0D91FD2141600C8A5FF /* ChatMessageTableViewCell.xib */; };
 		F710A0DE1FD2DDEE00C8A5FF /* ChatDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F710A0DC1FD2DDEE00C8A5FF /* ChatDateTableViewCell.swift */; };
 		F710A0DF1FD2DDEE00C8A5FF /* ChatDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F710A0DD1FD2DDEE00C8A5FF /* ChatDateTableViewCell.xib */; };
+		F7131590201DE1AB0087507F /* ChatSeenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713158E201DE1AA0087507F /* ChatSeenTableViewCell.swift */; };
+		F7131591201DE1AB0087507F /* ChatSeenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F713158F201DE1AA0087507F /* ChatSeenTableViewCell.xib */; };
 		F72987AF1FD02F2B00CDF5ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F72987AE1FD02F2B00CDF5ED /* GoogleService-Info.plist */; };
 		F72C82D81FBF471100231D8A /* EventDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72C82D61FBF471100231D8A /* EventDateTableViewCell.swift */; };
 		F72C82D91FBF471100231D8A /* EventDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F72C82D71FBF471100231D8A /* EventDateTableViewCell.xib */; };
@@ -248,6 +250,8 @@
 		F7E498871F76FB5800584C58 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E498851F76FB5800584C58 /* ReviewTableViewCell.xib */; };
 		F7E498891F7701B500584C58 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E498881F7701B500584C58 /* ReviewViewModel.swift */; };
 		F7E4988C1F77025C00584C58 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E4988B1F77025C00584C58 /* Review.swift */; };
+		F7E89A8D2106055100588B7B /* EmptyTableViewLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E89A8C2106055100588B7B /* EmptyTableViewLabelView.swift */; };
+		F7E89A8F2106056000588B7B /* EmptyTableViewLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7E89A8E2106056000588B7B /* EmptyTableViewLabelView.xib */; };
 		F7EFF4311FF01515005E637E /* RepeatingHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EFF42F1FF01515005E637E /* RepeatingHeaderTableViewCell.swift */; };
 		F7EFF4321FF01515005E637E /* RepeatingHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7EFF4301FF01515005E637E /* RepeatingHeaderTableViewCell.xib */; };
 		FD542CE1825C88E69E0A7CAB /* Pods_Leaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AD827459FF6F9BF6836CA8 /* Pods_Leaps.framework */; };
@@ -457,6 +461,8 @@
 		F710A0D91FD2141600C8A5FF /* ChatMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMessageTableViewCell.xib; sourceTree = "<group>"; };
 		F710A0DC1FD2DDEE00C8A5FF /* ChatDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDateTableViewCell.swift; sourceTree = "<group>"; };
 		F710A0DD1FD2DDEE00C8A5FF /* ChatDateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatDateTableViewCell.xib; sourceTree = "<group>"; };
+		F713158E201DE1AA0087507F /* ChatSeenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSeenTableViewCell.swift; sourceTree = "<group>"; };
+		F713158F201DE1AA0087507F /* ChatSeenTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatSeenTableViewCell.xib; sourceTree = "<group>"; };
 		F72987AE1FD02F2B00CDF5ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F72C82D61FBF471100231D8A /* EventDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDateTableViewCell.swift; sourceTree = "<group>"; };
 		F72C82D71FBF471100231D8A /* EventDateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDateTableViewCell.xib; sourceTree = "<group>"; };
@@ -502,6 +508,8 @@
 		F7E498851F76FB5800584C58 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		F7E498881F7701B500584C58 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		F7E4988B1F77025C00584C58 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		F7E89A8C2106055100588B7B /* EmptyTableViewLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewLabelView.swift; sourceTree = "<group>"; };
+		F7E89A8E2106056000588B7B /* EmptyTableViewLabelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTableViewLabelView.xib; sourceTree = "<group>"; };
 		F7EFF42F1FF01515005E637E /* RepeatingHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		F7EFF4301FF01515005E637E /* RepeatingHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepeatingHeaderTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -818,6 +826,8 @@
 				F780485F1F7913A0001D0D91 /* LocationIconView.swift */,
 				F70A5CE81F792E9900F21BD3 /* LocationIconView.xib */,
 				F759C6E81F96B95E00C288F1 /* FollowButton.swift */,
+				F7E89A8C2106055100588B7B /* EmptyTableViewLabelView.swift */,
+				F7E89A8E2106056000588B7B /* EmptyTableViewLabelView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1214,6 +1224,7 @@
 		F74F28CE1FCC850D00FEC161 /* 11-Chat */ = {
 			isa = PBXGroup;
 			children = (
+				F7B8D8CC20D7D3890079ED25 /* Storyboards */,
 				F74F28CF1FCC853900FEC161 /* ViewModel */,
 				F74F28D01FCC854200FEC161 /* ViewControllers */,
 				F74F28D11FCC854900FEC161 /* Cells */,
@@ -1233,7 +1244,6 @@
 		F74F28D01FCC854200FEC161 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F74F28D21FCC856A00FEC161 /* Chat.storyboard */,
 				F74F28D41FCC8C8400FEC161 /* InboxViewController.swift */,
 				F710A0D41FD20D0000C8A5FF /* MessangerViewController.swift */,
 			);
@@ -1248,6 +1258,8 @@
 				F710A0D91FD2141600C8A5FF /* ChatMessageTableViewCell.xib */,
 				F710A0DC1FD2DDEE00C8A5FF /* ChatDateTableViewCell.swift */,
 				F710A0DD1FD2DDEE00C8A5FF /* ChatDateTableViewCell.xib */,
+				F713158E201DE1AA0087507F /* ChatSeenTableViewCell.swift */,
+				F713158F201DE1AA0087507F /* ChatSeenTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1279,6 +1291,14 @@
 				BF1433F31EDF27DB002D9368 /* Typoforge Studio - Cervo-Medium.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F7B8D8CC20D7D3890079ED25 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				F74F28D21FCC856A00FEC161 /* Chat.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		F7C74FC91F911158006499AD /* ViewModels */ = {
@@ -1381,7 +1401,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Chavdar Nedialkov";
 				TargetAttributes = {
 					BF5359631EC6CA79001298D1 = {
@@ -1429,6 +1449,7 @@
 				BF2EA64F1EEDD8BB0023547E /* SanFranciscoText-Bold.otf in Resources */,
 				D604CAF51F163DCC00165DE8 /* TrainerHeaderView.xib in Resources */,
 				BF5359721EC6CA79001298D1 /* LaunchScreen.storyboard in Resources */,
+				F7E89A8F2106056000588B7B /* EmptyTableViewLabelView.xib in Resources */,
 				BF65CD2A1F1AD33400339D53 /* BecomeATrainerTableViewCell.xib in Resources */,
 				BF414FD81ECB95B00045EC5C /* Localizable.strings in Resources */,
 				BF19A5351EFC58E1006CEF46 /* TrainerTableViewCell.xib in Resources */,
@@ -1456,6 +1477,7 @@
 				BF481ED31EE37C00002BC39C /* Typoforge Studio - Cervo-Medium.otf in Resources */,
 				F780485E1F7804CA001D0D91 /* LocationsEventTableViewCell.xib in Resources */,
 				D68E6EC31F276CE1003CAC91 /* UserHeaderView.xib in Resources */,
+				F7131591201DE1AB0087507F /* ChatSeenTableViewCell.xib in Resources */,
 				F7A764801F6BDA28001D430D /* LocationAndMapTableViewCell.xib in Resources */,
 				BF65CD471F1E9FAB00339D53 /* ImageSelectionTableViewCell.xib in Resources */,
 				BF2EA65A1EEDD8BB0023547E /* SanFranciscoText-SemiboldItalic.otf in Resources */,
@@ -1525,6 +1547,7 @@
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReverseExtension/ReverseExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -1546,6 +1569,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReverseExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -1584,11 +1608,15 @@
 				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
+				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1700,6 +1728,7 @@
 				BF8607681F24E69100DEA6A9 /* StandradEditProfileTableViewCell.swift in Sources */,
 				BF65CD491F1FBF7B00339D53 /* EventEntryDelegate.swift in Sources */,
 				BF0945171F27E31200EB3800 /* EventsListWithNavViewController.swift in Sources */,
+				F7E89A8D2106055100588B7B /* EmptyTableViewLabelView.swift in Sources */,
 				BF36DDB01EF6818400CB558A /* EventSearch.swift in Sources */,
 				BF65CD131F1564FA00339D53 /* TrainersHeaderTableViewCell.swift in Sources */,
 				D68E6EC51F277293003CAC91 /* UserDetailsViewController.swift in Sources */,
@@ -1736,6 +1765,7 @@
 				BFFA6A241EE31B6F00830DAD /* RegistrationStepViewModel.swift in Sources */,
 				BF19A5261EF72253006CEF46 /* ActivitiesHeaderTableViewCell.swift in Sources */,
 				BFFA6A1C1EE2B4A100830DAD /* KeyboardAvoidableByFrame.swift in Sources */,
+				F7131590201DE1AB0087507F /* ChatSeenTableViewCell.swift in Sources */,
 				F74F28DD1FCD819B00FEC161 /* ChatTableViewCell.swift in Sources */,
 				BF65CD361F1D5B3E00339D53 /* Date+TimeFromMIliseconds.swift in Sources */,
 				BF1433F11EDF2607002D9368 /* String+Storyboard.swift in Sources */,
@@ -1830,6 +1860,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1837,6 +1868,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1887,6 +1919,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1894,6 +1927,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

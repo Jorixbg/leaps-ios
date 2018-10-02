@@ -32,7 +32,8 @@ class ChatMessageTableViewCell: UITableViewCell {
     }
 
     func setup(message: ChatMessage, user: ChatUser) {
-        if user.isCurrent {
+        if message.sender == UserManager.shared.userID
+        {
             bubbleView.backgroundColor = .leapsOnboardingBlue
             messageLabel.textColor = .white
             timeLabel.textColor = .white
@@ -42,7 +43,8 @@ class ChatMessageTableViewCell: UITableViewCell {
             bubbleRightConstraint.priority = .defaultHigh
             bubbleLeftConstraint.priority = .defaultLow
         }
-        else {
+        else
+        {
             bubbleView.backgroundColor = .leapsChatGrey
             messageLabel.textColor = .leapsOnboardingBlue
             timeLabel.textColor = .leapsOnboardingBlue

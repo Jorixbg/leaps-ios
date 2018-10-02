@@ -21,22 +21,26 @@ class InboxViewModel: BaseViewModel {
             return
         }
         
-        chatsRef.observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+        chatsRef.queryOrdered(byChild: "last_message/time").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             var local:[Chat] = []
             
-            for chat in snapshot.children {
+            for chat in snapshot.children.reversed() {
                 if let chat = chat as? DataSnapshot,
                    chat.key.contains("-\(userID)-")
                 {
                     local.append(Chat(snapshot: chat))
                 }
-                self?.chats.value = local
             }
+            self?.chats.value = local
         })
     }
     
     func addChat(with id:String) {
         
+    }
+    
+    func findChat(by key: String) -> Chat? {
+        return chats.value.first(where: { $0.key == key })
     }
 }
 
@@ -48,7 +52,7 @@ struct Chat {
     let key: String
     
     init(user1: ChatUser, user2: ChatUser, key: String) {
-        if user1.isCurrent {
+        if user1.id < user2.id {
             current = user1
             other = user2
         }
@@ -137,26 +141,28 @@ struct ChatUser {
     }
 }
 
-struct ChatMessage: MessangerElement {
+struct ChatMessage: MessangerElement, Equatable {
     let message: String
-    let senderID: String
+    let sender: String
     let time: Date
-    //let type
     
-//    func isSender(user: ChatUser) -> Bool {
-//        return senderID == user.id
-//    }
+    var snapshot: DataSnapshot?
+    
+    var key:String {
+        get {
+            return snapshot?.key ?? ""
+        }
+    }
     
     init(message: String, sender: String, time: Int) {
         self.message = message
-        self.senderID = sender
-//        self.time = Date(timeIntervalSince1970: TimeInterval(time))
+        self.sender = sender
         self.time = Date(timeIntervalSince1970inMiliseconds: Int64(time))
     }
     
     init(message: String, sender: String, date: Date) {
         self.message = message
-        self.senderID = sender
+        self.sender = sender
         self.time = date
     }
     
@@ -169,11 +175,32 @@ struct ChatMessage: MessangerElement {
                 return
         }
         self.init(message: message, sender: sender, time: time)
+        self.snapshot = snapshot
     }
     
-    func toDict() -> Dictionary<String, Any> {
+    func seen(other: String) -> Bool {
+        guard let data = self.snapshot?.value as? [String: Any],
+              let seen = data["seen\(other)"] as? Bool else
+        {
+                return false
+        }
+        return seen
+    }
+    
+    func toDict(with currentUserIsFirst: Bool? = nil) -> Dictionary<String, Any> {
+        if let current = currentUserIsFirst {
+            return ["message": message,
+                    "sender": sender,
+                    "time": Int(time.timeIntervalSince1970Miliseconds),
+                    "seenUser1": current == true,
+                    "seenUser2": current == false]
+        }
         return ["message": message,
-                "sender": senderID,
+                "sender": sender,
                 "time": Int(time.timeIntervalSince1970Miliseconds)]
+    }
+    
+    static func ==(lhs: ChatMessage, rhs: ChatMessage) -> Bool {
+        return lhs.key == rhs.key
     }
 }

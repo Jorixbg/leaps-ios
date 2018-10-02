@@ -67,6 +67,10 @@ class DateManager {
         return DateManager.createFormatter(format: "HH:mm")
     }()
     
+    let weekdayFormatter: DateFormatter = {
+        return DateManager.createFormatter(format: "EEEE")
+    }()
+    
     let previewFormatter: DateFormatter = {
         return DateManager.createFormatter(format: "dd MMM yyyy, HH:mm")
     }()
@@ -79,12 +83,13 @@ class DateManager {
         let components = Calendar.current.dateComponents([.day, .weekday], from: date, to: todayDate)
         let dateFormatter = DateManager.shared.createEventStandardCellDateFormatter
         let timeFormatter = DateManager.shared.timeFormatter
+        let weekdayFormatter = DateManager.shared.weekdayFormatter
         
         if components.day! > 7 {
             return dateFormatter.string(from:date)
         } else if (components.day! > 0) {
             if components.day! > 1 {
-                return "\(components.weekday!)"
+                return weekdayFormatter.string(from: date)
             } else {
                 return "Yesterday";
             }
